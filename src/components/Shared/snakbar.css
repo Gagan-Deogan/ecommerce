@@ -1,0 +1,7 @@
+.snk-bar-suc, .snk-bar, .snk-bar-err, .snk-bar-war {
+    position: fixed;
+    z-index: 9999;
+    top: 1.5rem;
+    right: 2rem;
+    display: flex;
+}

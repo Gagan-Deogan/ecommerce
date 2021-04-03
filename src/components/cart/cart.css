@@ -1,0 +1,7 @@
+.cart-card{ 
+    width: 500px;
+    height: 200px;
+}
+input[type='text'].cart-cart--quality{
+    max-width: 3.75rem;
+}

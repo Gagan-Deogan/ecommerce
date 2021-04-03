@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://bucketcss.netlify.app/css/bucket-minify.css");
+body{
+    --primary-dark: #059669;
+    --primary-default: #25A18A;
+    --primary-light:#34D399;
+
+    --grey-dark:#374151;
+    --grey-default:#6B7280;
+    --grey-light:#D1D5DB;
+    --grey-opac:#d1d5db7e;
+
+
+    --red-dark:#B91C1C;
+    --red-default:#DC2626;
+    --red-light:#EF4444;
+
+    --yellow-dark:#e4b601;
+    --yellow-default:#FACC15;
+    --yellow-light:#FDE047;
+
+    --green-dark:#166534;
+    --green-default:#16A34A;
+    --green-light:#22C55E;
+    
+    --sm-pd: 0.5rem 3vw;
+    
+    --black:#111827;
+    --inner-text:#f7fafc;
+    --background:#E8E9EE;
+    --inner-backgound: #F7FAFC ;
+    --foreground:#0e182a;
+    font-family: 'Lato', sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    /* font-size:16px; */
+    margin: auto;
+}
+section{
+    width: 100%;
+    padding: 4rem 2rem;
+}
+.pad-t-8{
+    padding-top: 0.5rem;
+}
+.pad-t-16{
+    padding-top: 1rem;
+}
+.pad-l-8{
+    padding-left: 0.5rem;
+}
+.pad-l-16{
+    padding-left: 1rem;
+}
+.mag-b-8{
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+.mag-b-16{
+    margin-bottom: 1rem;
+}
+label span{
+    font-size: 1rem;
+    cursor: pointer;
+}
+input[type=radio],input[type=checkbox]{
+    visibility: hidden;
+}
+.check{
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+input[type=radio] ~ .check{
+    border-radius: 16px;
+}
+input[type=checkbox] ~ .check{
+    border-radius: 0.25rem;
+}
+input[type=radio]:checked ~ .check::after{
+    content: '';
+    background: var(--primary-dark);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    border-radius: none;
+}
+input[type=checkbox]:checked ~ .check::after{
+    content: '';
+    background: var(--primary-dark);
+    width: 80%;
+    height: 80%;
+    border-radius: 0.1rem;
+    border-radius: none;
+}
+.crd-title>h4{
+    font-size: 1rem;
+}

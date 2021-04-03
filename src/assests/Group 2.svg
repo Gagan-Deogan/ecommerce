@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="135.479" height="30.508" viewBox="0 0 135.479 30.508">
+  <g id="Group_2" data-name="Group 2" transform="translate(-147.067 -105.776)">
+    <g id="Group_1" data-name="Group 1" transform="translate(86.8 -67)">
+      <text id="Bucket.css" transform="translate(91.841 197.106)" fill="#1f7ae0" font-size="22" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="0" y="0">Bucket.css</tspan></text>
+      <g id="BiBucketFill" transform="translate(60 172.717)">
+        <path id="Path_2" data-name="Path 2" d="M3.452,9.562h-1a.955.955,0,0,0-.944,1.1L4.133,28.141a2.866,2.866,0,0,0,2.832,2.44H20.872a2.866,2.866,0,0,0,2.834-2.44l2.624-17.483a.955.955,0,0,0-.944-1.1h-1a10.51,10.51,0,0,0-20.935,0Zm1.92,0a8.6,8.6,0,0,1,17.092,0Z" transform="translate(-1.5 0.009)" fill="#1f7ae0"/>
+      </g>
+    </g>
+  </g>
+</svg>
