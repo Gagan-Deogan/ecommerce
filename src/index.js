@@ -8,9 +8,6 @@ import { CartContextProvider } from "./components/Context/CartContext"
 import { SnakbarContextProvider } from "./components/Context/SnakbarContext"
 import { BrowserRouter as Router } from "react-router-dom"
 setupMockServer();
-
-
-
 ReactDOM.render(
   <React.StrictMode>
     <LoaderContextProvider>

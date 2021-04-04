@@ -28,7 +28,7 @@ body{
     --black:#111827;
     --inner-text:#f7fafc;
     --background:#E8E9EE;
-    --inner-backgound: #F7FAFC ;
+    --inner-background: #F7FAFC ;
     --foreground:#0e182a;
     font-family: 'Lato', sans-serif;
     background-color: var(--background);
@@ -38,13 +38,15 @@ body{
 }
 section{
     width: 100%;
-    padding: 4rem 2rem;
 }
 .pad-t-8{
     padding-top: 0.5rem;
 }
 .pad-t-16{
     padding-top: 1rem;
+}
+.pad-t-32{
+    padding-top: 2rem;
 }
 .pad-l-8{
     padding-left: 0.5rem;
@@ -97,6 +99,9 @@ input[type=checkbox]:checked ~ .check::after{
     border-radius: 0.1rem;
     border-radius: none;
 }
+.crd-cont{
+    background: var(--inner-background);
+}
 .crd-title>h4{
     font-size: 1rem;
 }
@@ -109,4 +114,14 @@ input[type=checkbox]:checked ~ .check::after{
 }
 .pry-clr{
     color: var(--primary-dark);
+}
+.dis-grid{
+    display: grid;
+}
+.responsive-img{
+    /* object-fit: contain; */
+    width: 100%;
+    /* width: auto; */
+    /* max-height: auto; */
+    /* width: auto; */
 }

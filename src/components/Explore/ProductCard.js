@@ -1,8 +1,25 @@
 import star from "../../assests/star.svg";
 import fav from "../../assests/fav.svg";
 import favFil from "../../assests/fav-fil.svg";
-import { discountCalculator } from "../Utils/DiscountCalculator"
-export const ProductCard = ({ product, handleAddToCart, betterHandleWishList }) => {
+import { discountCalculator } from "../Utils/DiscountCalculator";
+import { useDebouncing } from "../Utils/Debouncing";
+import { useCartContext } from "../Context/CartContext";
+import { useSnakbarContext } from "../Context/SnakbarContext";
+export const ProductCard = ({ product }) => {
+    const { cartDispatch } = useCartContext();
+    const { snakbarDispatch } = useSnakbarContext();
+    const handleAddToCart = (product) =>{
+        cartDispatch({type:"ADD_TO_CART", payload:product})
+        snakbarDispatch({ type:"SUCCESS", payload:"Added To Cart" })
+    }
+    const handleWishList = ( product ) =>{
+        const wishType = product.inWish ? "REMOVE_FROM_WISHLIST" : "ADD_TO_WISHLIST" ;
+        const wishPayload = product.inWish ? product.id  : product ;
+        const sankbarMsg = product.inWish ? "Succesfull Removed from Wishlist" : "Succesfull Added to Wishlist" 
+        cartDispatch({ type: wishType, payload: wishPayload });
+        snakbarDispatch({ type:"DEFAULT" , payload: sankbarMsg });
+    }
+    const betterHandleWishList = useDebouncing( handleWishList, 500 )
     return (
         <div
             key={product.id}

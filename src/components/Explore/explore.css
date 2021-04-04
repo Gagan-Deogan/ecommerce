@@ -1,18 +1,15 @@
 .ftr-cont{
     position: sticky;
-    top: 3rem;
+    top: 2rem;
     min-width: 15rem;
     max-width: 15rem;
-    margin-right: 1.5rem;
-    background: var(--inner-backgound);
+    background: var(--inner-background);
 }
 fieldset{
     border: none;
     border-top : 1px solid var(--grey-light);
 }
-.crd-cont{
-    margin: 1rem 1.2rem 2.3rem 1.2rem;
-}
+
 /* loader */
 #dots1 {
     display: block;
@@ -82,19 +79,58 @@ left: 45px;
 }
 }
 @-webkit-keyframes dots1 {
-0% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-    background: var(--primary-dark);
+    0% {
+        -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+        background: var(--primary-dark);
+    }
+    50% {
+        -webkit-transform: translateY(10px);
+                transform: translateY(10px);
+        background: var(--primary-default);
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+        background: var(--primary-light);
+    }
 }
-50% {
-    -webkit-transform: translateY(10px);
-            transform: translateY(10px);
-    background: var(--primary-default);
+.crd-cont{
+    width: '';
+    min-width: '';
+    max-width: '';
 }
-100% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-    background: var(--primary-light);
+
+.product-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 3rem;
+    row-gap: 3rem;
 }
+.product-container.wishlist-item{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+@media (max-width:1300px){
+    .product-container{
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 1rem;
+        row-gap: 2rem;
+    }
+    .product-container.wishlist-item{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media (max-width:900px){
+    .product-container{
+        grid-template-columns: 1fr 1fr;
+        column-gap: 3rem;
+        row-gap: 3rem;
+    }
+    .product-container.wishlist-item{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media (max-width:900px){
+    .product-container.wishlist-item{
+        grid-template-columns: 1fr 1fr;
+    }
 }

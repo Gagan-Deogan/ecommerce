@@ -1,6 +1,8 @@
 .cart-card{ 
-    width: 500px;
     height: 200px;
+}
+.items-list{
+    background: var(--inner-background);
 }
 input[type='text'].cart-cart--quality{
     max-width: 3.75rem;

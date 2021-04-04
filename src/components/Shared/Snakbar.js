@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import closeIcon from "../../assests/close-white.svg"
 import checkIcon from "../../assests/check.svg"
-import { useSnakbar } from "../Context/SnakbarContext"
+import { useSnakbarContext } from "../Context/SnakbarContext"
 import "./snakbar.css"
 export const Snakbar = () =>{
-    const { snakbarStatus , snakbarDispatch } = useSnakbar()
+    const { snakbarStatus , snakbarDispatch } = useSnakbarContext()
     useEffect(()=>{
         const timeoutId = setTimeout(()=>{
             snakbarDispatch({type:"INITAIL"})

@@ -1,26 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "./cart.css"
 import starIcon from '../../assests/star.svg'
-import fav from "../../assests/fav.svg";
-import favFil from "../../assests/fav-fil.svg";
 import addIcon from "../../assests/add.svg"
 import removeIcon from "../../assests/remove.svg"
 import { discountCalculator } from "../Utils/DiscountCalculator"
 export const CartCard = ({product, handleRemoveFromCart, handleQuantityChange, handleSaveForLater })=> {
     return (
-        <div className="row crd-cont row typ-vrt hov-box-shd bor-rad-8 bor-sol cart-card">
+        <li className="row crd-cont row typ-vrt bor-sol cart-card w12">
             { product.label && (
                 <div className="crd-badge">
                     <span>{product.label}</span>
                 </div>
             )}
-            <img src={product.image} className="w5 bor-rad-8" alt=""/>
+            <img src={product.image} className="w3 bor-rad-8" alt=""/>
             <div className="col crd-title eight">
-                <h3>{product.name}</h3>
+                <h4>{product.name}</h4>
                 <div className="row alg-ctr ">
                     {product.discount ? (
                         <>
-                            <h4 className="bold mag-r-4 ">{"Rs. "+ discountCalculator(product.discount, product.price) }</h4>
+                            <h5 className="bold mag-r-4 ">{"Rs. "+ discountCalculator(product.discount, product.price) }</h5>
                             <h6 className="bold gry txt-line-thro"> {"Rs. " + product.price}</h6>
                         </>
                     ):(
@@ -51,7 +49,7 @@ export const CartCard = ({product, handleRemoveFromCart, handleQuantityChange, h
                 <h6 className="bold mag-r-4">{product.rating}</h6>
                 <img src={starIcon} alt="Star icon"/>
             </div>
-        </div>
+        </li>
     )
 }
 

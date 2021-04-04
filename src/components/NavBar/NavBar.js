@@ -9,9 +9,10 @@ import "./navbar.css"
 export const NavBar = () => {
     const { cartList, wishList } = useCartContext();
     return (
-        <nav className='col alg-ctr' >
-            <NavLink 
-                to={{pathname:'/home'}}
+        <nav className='col alg-ctr box-shd' >
+            <NavLink
+                end
+                to={{pathname:'/'}}
                 className="link-btn mag-t-64"
                 activeStyle={{background:'var(--background)'}}
             >

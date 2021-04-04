@@ -1,10 +1,10 @@
 import React from "react";
 import { useCartContext } from "../Context/CartContext"
 import { CartCard } from "./CartCard";
-import { useSnakbar } from "../Context/SnakbarContext"
+import { useSnakbarContext } from "../Context/SnakbarContext"
 export const Cart = () => {
     const { cartList, cartDispatch } = useCartContext();
-    const { snakbarDispatch } = useSnakbar()
+    const { snakbarDispatch } = useSnakbarContext()
     const handleRemoveFromCart = (id) =>{
         cartDispatch({type:"REMOVE_FROM_CART", payload:id })
         snakbarDispatch({type:"ERROR", payload:"Product Remove Succesfully" })
@@ -24,13 +24,15 @@ export const Cart = () => {
 
     return (
         <>
-            <h1 className='bold'>Cart</h1>
-            <section className="row flx-wrp w12">
-                { cartList.map( (product) => (
-                    <CartCard product={ product } handleRemoveFromCart={ handleRemoveFromCart } handleQuantityChange={handleQuantityChange} handleSaveForLater={handleSaveForLater} ></CartCard>
-                ))}
+            <section className="col route-container w12 alg-ctr jst-str" >
+                <h1 className='bold w12'>Cart</h1>
+                <ul className="box-shd md-w12 w8 drop-down-menu col items-list bor-rad-8 mag-t-16">
+                    { cartList.map( (product) => (
+                        <CartCard product={ product } handleRemoveFromCart={ handleRemoveFromCart } handleQuantityChange={handleQuantityChange} handleSaveForLater={handleSaveForLater} ></CartCard>
+                    ))}
+                </ul>
+                <h2 className="mag-t-16" >Total: {totalPrice}</h2>
             </section>
-            <h1>Total: {totalPrice}</h1>
         </>
     )
 };

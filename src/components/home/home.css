@@ -1,0 +1,43 @@
+.item-a {
+    position: relative;
+    grid-area: header;
+}
+.item-b {
+    grid-area: section;
+}
+.item-c {
+    grid-area: sidebar;
+}
+.item-d {
+    grid-area: footer;
+}
+.home-container{
+    padding: 3vw 2vw;
+    grid-template-rows: auto auto;
+    row-gap: 2rem;
+    grid-template-areas: 
+        "header header header"
+        "section section section "
+        ;
+}
+.wall-txt{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 15ch;
+    font-size: 3rem;
+    color: var(--primary-dark);
+}
+.catagory-card{
+    position: relative;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+.catagory-card > h3{
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+}

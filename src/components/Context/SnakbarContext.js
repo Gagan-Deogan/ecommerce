@@ -34,6 +34,6 @@ export const SnakbarContextProvider = ( { children } ) =>{
         </SnakbarContext.Provider>
     )
 }
-export const useSnakbar = () =>{
+export const useSnakbarContext = () =>{
     return useContext(SnakbarContext);
 }
