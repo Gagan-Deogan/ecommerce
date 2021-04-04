@@ -14,9 +14,12 @@ export const Cart = () => {
         cartDispatch({type:type, payload:id })
     }
     const priceReducer = (acc,value) =>{
-        return acc + Number(value.price) * value.quantity;
+        const discountedPrice = value.price - value.discount*value.price;
+        return acc + Math.floor(discountedPrice) * value.quantity;
     }
-
+    const handleSaveForLater = ( product )=>{
+        cartDispatch({type:"SAVE_FOR_LATER", payload:product})
+    }
     const totalPrice = cartList.reduce( priceReducer, 0 )
 
     return (
@@ -24,7 +27,7 @@ export const Cart = () => {
             <h1 className='bold'>Cart</h1>
             <section className="row flx-wrp w12">
                 { cartList.map( (product) => (
-                    <CartCard product={ product } handleRemoveFromCart={ handleRemoveFromCart } handleQuantityChange={handleQuantityChange} ></CartCard>
+                    <CartCard product={ product } handleRemoveFromCart={ handleRemoveFromCart } handleQuantityChange={handleQuantityChange} handleSaveForLater={handleSaveForLater} ></CartCard>
                 ))}
             </section>
             <h1>Total: {totalPrice}</h1>

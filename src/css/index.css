@@ -100,3 +100,13 @@ input[type=checkbox]:checked ~ .check::after{
 .crd-title>h4{
     font-size: 1rem;
 }
+.txt-line-thro{
+    text-decoration-line: line-through
+}
+.bdge{
+    height: 1rem;
+    font-size: .65rem;
+}
+.pry-clr{
+    color: var(--primary-dark);
+}

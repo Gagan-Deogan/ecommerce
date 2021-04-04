@@ -16,6 +16,10 @@ export const cartReducer = (state, action)=>{
             return { ...state, wishList:[ ...state.wishList, { ...action.payload, inWish:true } ] };
         case "REMOVE_FROM_WISHLIST":
             return {...state, wishList: state.wishList.filter(product => product.id !== action.payload ) };
+        case "SAVE_FOR_LATER":
+            const saveProduct = action.payload
+            const productSaveForLater = {cartList: state.cartList.filter((product)=> product.id !== saveProduct.id ), wishList: state.wishList.concat([{...saveProduct, inWish:true, quantity : 0, inCart:false }]) }
+            return {...productSaveForLater};
         default :
         return state;
     }

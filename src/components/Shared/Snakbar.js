@@ -8,7 +8,7 @@ export const Snakbar = () =>{
     useEffect(()=>{
         const timeoutId = setTimeout(()=>{
             snakbarDispatch({type:"INITAIL"})
-        },2000)
+        },1000)
 
         return () =>{
             clearTimeout(timeoutId);
