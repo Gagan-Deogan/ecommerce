@@ -13,8 +13,10 @@ import "./explore.css";
 
 
 export const Explore = () => {
-    const { query, queryParser } = useQuery()
     const [products, setProducts] = useState([]);
+
+    // for decoding seacrh query
+    const { query, queryParser } = useQuery()
     const { cartList, wishList, cartDispatch } = useCartContext();
     const { status, setStatus } = useStatus();
     const { snakbarDispatch } = useSnakbarContext()

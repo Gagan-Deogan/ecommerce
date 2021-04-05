@@ -40,9 +40,9 @@ export const CartCard = ({product, handleRemoveFromCart, handleQuantityChange, h
                     <button className="sm-btn-pry" onClick={ ()=> handleRemoveFromCart(product.id) } >
                         Remove from Cart
                     </button>
-                    <button className="sm-btn-pry mag-l-8" onClick={ ()=>handleSaveForLater(product) }  >
-                        Save for later
-                    </button>
+                    { !product.inWish && <button className="sm-btn-pry mag-l-8" onClick={ ()=>handleSaveForLater(product) }  >
+                            Save for later
+                        </button>}
                 </div>
             </div>
             <div className="crd-ratg row">

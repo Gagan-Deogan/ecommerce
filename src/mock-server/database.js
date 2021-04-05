@@ -15,7 +15,7 @@ export const database = [...Array(25)].map((id) => ({
     name: faker.commerce.productName(),
     image: faker.random.arrayElement([plant]),
     price: faker.commerce.price(),
-    category: faker.random.arrayElement(["Plants", "Cactus", "Folwers","Seeds"]),
+    category: faker.random.arrayElement(["Plants", "Cactus", "Flowers","Seeds"]),
     inStock: faker.datatype.boolean(),
     fastDelivery: faker.datatype.boolean(),
     label: faker.random.arrayElement(["", "New", "Trending"]),

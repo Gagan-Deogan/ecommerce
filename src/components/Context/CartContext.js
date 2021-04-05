@@ -5,7 +5,7 @@ const CartContext = createContext();
 export const cartReducer = (state, action)=>{
     switch(action.type){
         case "ADD_TO_CART":
-            return {...state, cartList:[ ...state.cartList , { ...action.payload, quantity:1, inCart:true } ] };
+            return { ...state, cartList: state.cartList.concat( [ { ...action.payload, quantity:1, inCart:true } ] ) };
         case "REMOVE_FROM_CART":
             return {...state, cartList: state.cartList.filter((product)=> product.id !== action.payload ) };
         case "INCREMENT_QUANTITY":

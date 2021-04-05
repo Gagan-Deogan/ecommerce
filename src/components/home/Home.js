@@ -18,28 +18,30 @@ export const Home = () => {
                 <section className="item-b">
                     <h2 className="bold" >Categories</h2>
                     <div className="row jst-spa-btw">
-                        <Link to={{ pathname:"/explore", search:`?catagories=["Seeds","Plants"]` }} >
+                        <Link to={{ pathname:"/explore", search:`?catagories=["Plants"]` }} >
                             <div class="catagory-card bor-rad-8 box-shd">
                                 <img src={plant} class="responsive-img bor-rad-8" alt="Plant catagory"/>
                                 <h3>Plants</h3>
                             </div>
                         </Link>
-                        <div class="catagory-card bor-rad-8 box-shd">
-                            <img src={plant} class="responsive-img bor-rad-8" alt="Seeds Catagory"/>
-                            <h3>Seeds</h3>
-                        </div>
-                        <div class="catagory-card bor-rad-8 box-shd">
-                            <img src={plant} class="responsive-img bor-rad-8" alt="Cactus Catagory"/>
-                            <h3>Cactus</h3>
-                        </div>
-                        <div class="catagory-card bor-rad-8 box-shd">
-                            <img src={plant} class="responsive-img bor-rad-8" alt="Flowers catagory"/>
-                            <h3>Flowers</h3>
-                        </div>
-                        <div class="catagory-card bor-rad-8 box-shd">
-                            <img src={plant} class="responsive-img bor-rad-8" alt="Flowers catagory"/>
-                            <h3>Flowers</h3>
-                        </div>
+                        <Link to={{pathname:"/explore", search:`?catagories=["Seeds"]` }} >
+                            <div class="catagory-card bor-rad-8 box-shd">
+                                <img src={plant} class="responsive-img bor-rad-8" alt="Seeds Catagory"/>
+                                <h3>Seeds</h3>
+                            </div>
+                        </Link>
+                        <Link to={{pathname:"/explore", search:`?catagories=["Cactus"]` }}>
+                            <div class="catagory-card bor-rad-8 box-shd">
+                                <img src={plant} class="responsive-img bor-rad-8" alt="Cactus Catagory"/>
+                                <h3>Cactus</h3>
+                            </div>
+                        </Link>
+                        <Link to={{pathname:"/explore", search:`?catagories=["Flowers"]` }} >
+                            <div class="catagory-card bor-rad-8 box-shd">
+                                <img src={plant} class="responsive-img bor-rad-8" alt="Flowers catagory"/>
+                                <h3>Flowers</h3>
+                            </div>
+                        </Link>
                     </div>
                 </section>
             </div>
