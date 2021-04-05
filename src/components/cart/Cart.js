@@ -10,7 +10,6 @@ export const Cart = () => {
         snakbarDispatch({type:"ERROR", payload:"Product Remove Succesfully" })
     }
     const handleQuantityChange = ( type, id ) =>{
-        console.log(type, id)
         cartDispatch({type:type, payload:id })
     }
     const priceReducer = (acc,value) =>{

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ProductCard } from "./ProductCard";
 import { useCartContext } from "../Context/CartContext";
@@ -6,45 +6,23 @@ import { useStatus } from "../Context/LoaderContext";
 import { useSnakbarContext } from "../Context/SnakbarContext";
 import { useDebouncing } from "../Utils/Debouncing";
 import { FiltersMenu } from "./FiltersMenu";
-import { useLocation } from "react-router-dom"
+import { useQuery } from "../Utils/Query";
 import { getSortedData, getFilterByCatagories, getProductByRating, getFilterbyAvalibility } from "./filters";
 import "./explore.css";
 
-const reducer = (state, action)=>{
-    switch(action.type){
-        case "SORT":
-            return {...state, sortBy:action.payload };
-        case "TOGGLE_INVENTORY":
-            return { ...state, showInvertory: !state.showInvertory }
-        case "SHOW_THESE_CATAGORIES":
-            const newShowCatagories = state.showCatagoeries.includes(action.payload) ? state.showCatagoeries.filter((catagory)=> catagory !== action.payload ) : state.showCatagoeries.concat([action.payload])
-            return { ...state, showCatagoeries: newShowCatagories }
-        case "FIILTER_BY_RATINGS":
-            return { ...state, showRating: action.payload  }
-        default:
-            return state;
-    }
-}
-const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-}
+
+
 export const Explore = () => {
-    const query = useQuery()
+    const { query, queryParser } = useQuery()
     const [products, setProducts] = useState([]);
     const { cartList, wishList, cartDispatch } = useCartContext();
     const { status, setStatus } = useStatus();
     const { snakbarDispatch } = useSnakbarContext()
-    const sortBy = query.get("sort")
-    const parseCatagories = (catagories)=>{
-        try{
-            return JSON.parse(catagories) || [] ;
-        }catch(err){
-            return [];
-        }
-    }
-    const showCatagoeries = parseCatagories(query.get("catagories"))
-    const [{ showInvertory, showRating}, filtersDispatch ] = useReducer( reducer ,{ showInvertory:true, showRating:null } )
-    
+
+    const sortBy = queryParser(query.get("sort"))
+    const showCatagoeries = queryParser(query.get("catagories")) || []
+    const shownRating = queryParser(query.get("shownrating"))
+    const showInvertory = queryParser(query.get("showInvertory")) !== null ? queryParser(query.get("showInvertory")) : true;
     const productWithFlags = (() =>{
         const productsIdInCart = cartList.map( (item) => item.id )
         const productsIdInWishList = wishList.map( (item)=> item.id );
@@ -61,7 +39,7 @@ export const Explore = () => {
 
     const selectedCatagoriesData = getFilterByCatagories(sortedData, showCatagoeries)
     
-    const filterByRating = getProductByRating(selectedCatagoriesData,showRating);
+    const filterByRating = getProductByRating(selectedCatagoriesData,shownRating);
     const filterData = getFilterbyAvalibility( filterByRating, showInvertory)
 
     const handleAddToCart = (product) =>{
@@ -114,9 +92,9 @@ export const Explore = () => {
             ) : (
                 <>
                     <section className="route-container row alg-str jst-ctr w12 pad-8 pad-t-32">
-                        <FiltersMenu filtersDispatch={filtersDispatch} catagoryInList={catagoryInList} showInvertory={showInvertory}    sortBy={sortBy} showCatagoeries={showCatagoeries} />
+                        <FiltersMenu catagoryInList={catagoryInList} sortBy={sortBy} showCatagoeries={showCatagoeries} shownRating={shownRating} showInvertory={showInvertory} />
                         <div className="dis-grid product-container" >
-                            {filterData && filterData.map((product) => <ProductCard product={product} handleAddToCart={handleAddToCart} betterHandleWishList={betterHandleWishList} />)}
+                            {filterData && filterData.map((product) => <ProductCard product={product} key={product.id}  handleAddToCart={handleAddToCart} betterHandleWishList={betterHandleWishList} />)}
                         </div>
                     </section>
                 </>

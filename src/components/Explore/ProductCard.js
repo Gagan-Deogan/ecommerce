@@ -5,7 +5,7 @@ import { discountCalculator } from "../Utils/DiscountCalculator";
 import { useDebouncing } from "../Utils/Debouncing";
 import { useCartContext } from "../Context/CartContext";
 import { useSnakbarContext } from "../Context/SnakbarContext";
-export const ProductCard = ({ product }) => {
+export const ProductCard = ({ product, inWislist=false }) => {
     const { cartDispatch } = useCartContext();
     const { snakbarDispatch } = useSnakbarContext();
     const handleAddToCart = (product) =>{
@@ -22,7 +22,6 @@ export const ProductCard = ({ product }) => {
     const betterHandleWishList = useDebouncing( handleWishList, 500 )
     return (
         <div
-            key={product.id}
             className="col crd-cont pos-r hov-box-shd bor-rad-8 bor-sol box-shd"
         >   
             { !!product.label &&

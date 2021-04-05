@@ -54,6 +54,9 @@ section{
 .pad-l-16{
     padding-left: 1rem;
 }
+.pad-b-8{
+    padding-bottom: 0.5rem;
+}
 .mag-b-8{
     margin: 0;
     margin-bottom: 0.5rem;
