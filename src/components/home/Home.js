@@ -8,7 +8,7 @@ export const Home = () => {
         <>
             <div className="dis-grid route-cont home-container" >
                 <header className="item-a bor-rad-8">
-                    <h1 className="wall-txt txt-ctr" >Plants Goona Make People Happy</h1>
+                    <h1 className="wall-txt txt-center" >Plants Goona Make People Happy</h1>
                     <picture>
                         {/* <source media="(min-width:650px)" srcset="img_pink_flowers.jpg" />
                         <source media="(min-width:465px)" srcset="img_white_flower.jpg" /> */}
@@ -17,7 +17,7 @@ export const Home = () => {
                 </header>
                 <section className="item-b">
                     <h2 className="bold" >Categories</h2>
-                    <div className="row jst-spa-btw">
+                    <div className="row justify-between">
                         <Link to={{ pathname:"/explore", search:`?catagories=["Plants"]` }} >
                             <div class="catagory-card bor-rad-8 box-shd">
                                 <img src={plant} class="responsive-img bor-rad-8" alt="Plant catagory"/>

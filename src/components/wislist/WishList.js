@@ -11,9 +11,9 @@ export const WishList = () =>{
     })()
     return(
         <>  
-        <section className="route-container col w12 alg-str jst-str" >
+        <section className="route-container column w12 align-start justify-start" >
             <h1 className="title-txt w12" >WishList</h1>
-            <ul className="dis-grid product-container wishlist-item mag-t-16 " >
+            <ul className="dis-grid product-container wishlist-item margin-t-16 " >
                 {wishListWithFlag.map((product) => (
                     <ProductCard product={product} inWishList={true} ></ProductCard>
                 )) }

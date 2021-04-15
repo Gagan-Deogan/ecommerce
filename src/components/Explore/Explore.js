@@ -93,7 +93,7 @@ export const Explore = () => {
                 </div>
             ) : (
                 <>
-                    <section className="route-container row alg-str jst-ctr w12 pad-8 pad-t-32">
+                    <section className="route-container row align-start justify-center w12 padding-8 padding-t-32">
                         <FiltersMenu catagoryInList={catagoryInList} sortBy={sortBy} showCatagoeries={showCatagoeries} shownRating={shownRating} showInvertory={showInvertory} />
                         <div className="dis-grid product-container" >
                             {filterData && filterData.map((product) => <ProductCard product={product} key={product.id}  handleAddToCart={handleAddToCart} betterHandleWishList={betterHandleWishList} />)}

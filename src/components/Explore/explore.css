@@ -95,7 +95,7 @@ left: 45px;
         background: var(--primary-light);
     }
 }
-.crd-cont{
+.card{
     width: '';
     min-width: '';
     max-width: '';

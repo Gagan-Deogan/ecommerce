@@ -35,29 +35,29 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
         navigate(`/explore`)
     }
     return (
-        <div className="col ftr-cont bor-rad-8 mag-r-32  box-shd ">
-            <div className="row jst-spa-btw pad-16 pad-b-8">
+        <div className="column ftr-cont bor-rad-8 margin-r-32  box-shd ">
+            <div className="row justify-between padding-16 padding-b-8">
                 <h2 className="bold" >Filters</h2>
-                <button className="link-btn bold" onClick={handleClearAll} >Clear All</button>
+                <button className="btn-link bold" onClick={handleClearAll} >Clear All</button>
             </div>
-            <fieldset className="col pad-16 pad-t-8" >
+            <fieldset className="column padding-16 padding-t-8" >
                 <h5 className="bold gry" >SORT BY:</h5>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                <label className="row justify-between margin-t-8 align-center">
                     <span>Price Low-high</span>
                     <input type="radio" name="sort" checked={ sortBy==="LH" ? true : false }  onChange={()=> updateFilters({type:"SORT", payload:"LH"}) } />
                     <div className="check"></div>
                 </label>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr" >
+                <label className="row justify-between margin-t-8 align-center" >
                     <span >Price High-Low</span>
                     <input type="radio" name="sort" checked={ sortBy === "HL" ? true : false }  onChange={()=> updateFilters({ type:"SORT", payload:"HL" }) } />
                     <div className="check"></div>
                 </label>
             </fieldset>
             { catagoryInList && (
-                <fieldset className="col pad-16 pad-t-8" >
+                <fieldset className="column padding-16 padding-t-8" >
                     <h5 className="bold gry" >CATAGORY</h5>
                     { catagoryInList.map((catagory)=> (
-                        <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                        <label className="row justify-between margin-t-8 align-center">
                             <span>{catagory}</span>
                             <input type="checkbox" 
                                 name={catagory} 
@@ -69,9 +69,9 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
                     )) }
                 </fieldset>
             ) }
-            <fieldset className="col pad-16 pad-t-8" >
+            <fieldset className="column padding-16 padding-t-8" >
                 <h5 className="bold gry" >CUSTOMER RATINGS</h5>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                <label className="row justify-between margin-t-8 align-center">
                     <span>4★ & above</span>
                     <input type="radio" 
                         name="rating" 
@@ -80,7 +80,7 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
                     />
                     <div className="check"></div>
                 </label>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                <label className="row justify-between margin-t-8 align-center">
                     <span>3★ & above</span>
                     <input type="radio" 
                         name="rating" 
@@ -89,7 +89,7 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
                         />
                     <div className="check"></div>
                 </label>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                <label className="row justify-between margin-t-8 align-center">
                     <span>2★ & above</span>
                     <input type="radio" 
                         name="rating" 
@@ -98,7 +98,7 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
                         />
                     <div className="check"></div>
                 </label>
-                <label className="row jst-spa-btw mag-t-8 alg-ctr">
+                <label className="row justify-between margin-t-8 align-center">
                     <span>1★ & above</span>
                     <input type="radio" 
                         name="rating" 
@@ -108,9 +108,9 @@ export const FiltersMenu = ( { catagoryInList, showInvertory, sortBy, showCatago
                     <div className="check"></div>
                 </label>
             </fieldset>
-            <fieldset className="col pad-16 pad-t-8">
-                <h5 className="bold mag-b-8 gry" >AVAILABILITY</h5>
-                <label className="row jst-spa-btw alg-ctr mag-t-8" >
+            <fieldset className="column padding-16 padding-t-8">
+                <h5 className="bold margin-b-8 gry" >AVAILABILITY</h5>
+                <label className="row justify-between align-center margin-t-8" >
                     <span>Include out of Stock</span> 
                     <input type="checkbox" 
                         onChange={()=> updateFilters({ type:"TOGGLE_INVENTORY" })} 

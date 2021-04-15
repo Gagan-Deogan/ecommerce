@@ -18,13 +18,13 @@ export const Snakbar = () =>{
     const checkTypeOfSnakbar = (type) =>{
         switch(type){
             case "ERROR":
-                return "snk-bar-err";
+                return "snakbar-err";
             case "SUCCESS":
-                return "snk-bar-suc";
+                return "snakbar-suc";
             case "WARNING":
-                return "snk-bar-war";
+                return "snakbar-war";
             default:
-                return "snk-bar";
+                return "snakbar";
         }
     }
 
@@ -33,7 +33,7 @@ export const Snakbar = () =>{
         <div className={ snakbarType }>
             <img src={ checkIcon } alt=""/>
             <h5>{ snakbarStatus["msg"] }</h5>
-            <button className="link-btn">
+            <button className="btn-link">
                 <img src={ closeIcon } alt=""/>
             </button>
         </div>

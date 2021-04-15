@@ -23,14 +23,14 @@ export const Cart = () => {
 
     return (
         <>
-            <section className="col route-container w12 alg-ctr jst-str" >
+            <section className="column route-container w12 align-center justify-start" >
                 <h1 className='bold w12'>Cart</h1>
-                <ul className="box-shd md-w12 w8 drop-down-menu col items-list bor-rad-8 mag-t-16">
+                <ul className="box-shd md-w12 w8 drop-down-menu column items-list bor-rad-8 margin-t-16">
                     { cartList.map( (product) => (
                         <CartCard product={ product } handleRemoveFromCart={ handleRemoveFromCart } handleQuantityChange={handleQuantityChange} handleSaveForLater={handleSaveForLater} ></CartCard>
                     ))}
                 </ul>
-                <h2 className="mag-t-16" >Total: {totalPrice}</h2>
+                <h2 className="margin-t-16" >Total: {totalPrice}</h2>
             </section>
         </>
     )

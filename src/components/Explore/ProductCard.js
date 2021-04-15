@@ -22,10 +22,10 @@ export const ProductCard = ({ product, inWislist=false }) => {
     const betterHandleWishList = useDebouncing( handleWishList, 500 )
     return (
         <div
-            className="col crd-cont pos-r hov-box-shd bor-rad-8 bor-sol box-shd"
+            className="column card pos-r hov-box-shd bor-rad-8 bor-sol box-shd"
         >   
             { !!product.label &&
-                <div className="crd-badge">
+                <div className="card-badge">
                     <span>{product.label}</span>
                 </div>
             }
@@ -34,16 +34,16 @@ export const ProductCard = ({ product, inWislist=false }) => {
                 className="w12 bor-rad-8 "
                 alt={product.name}
             />
-            <div className="col crd-title">
-                <h4>{product.name}  </h4>
-                <div className="row alg-ctr ">
+            <div className="column card-title">
+                <h5>{product.name}  </h5>
+                <div className="row align-center ">
                     {product.discount ? (
                         <>
-                            <h5 className="bold mag-r-4 ">{"Rs. "+ discountCalculator(product.discount, product.price) }</h5>
+                            <h5 className="bold margin-r-4 ">{"Rs. "+ discountCalculator(product.discount, product.price) }</h5>
                             <h6 className="bold gry txt-line-thro"> {"Rs. " + product.price}</h6>
                         </>
                     ):(
-                        <h5 className="bold mag-r-4 ">{"Rs. "+ product.price }</h5>
+                        <h5 className="bold margin-r-4 ">{"Rs. "+ product.price }</h5>
                     ) }
                 </div>
                 <button
@@ -56,11 +56,11 @@ export const ProductCard = ({ product, inWislist=false }) => {
                 { product.inCart ? 'IN CART' : !product.inStock ? "SOLD OUT" : "ADD TO CART" }
                 </button>
             </div>
-            <button className="icn-btn crd-wish" onClick={()=> betterHandleWishList(product)} >
+            <button className="btn-icon card-wish" onClick={()=> betterHandleWishList(product)} >
                 <img src={product.inWish ? favFil : fav } alt="" />
             </button>
-            <div className="crd-ratg row">
-                <h6 className="bold mag-r-4">{product.rating}</h6>
+            <div className="card-ratg row">
+                <h6 className="bold margin-r-4">{product.rating}</h6>
                 <img src={star} alt="Star icon" />
             </div>
         </div>

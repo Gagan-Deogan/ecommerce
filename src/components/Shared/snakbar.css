@@ -1,4 +1,4 @@
-.snk-bar-suc, .snk-bar, .snk-bar-err, .snk-bar-war {
+.snakbar-suc, .snakbar, .snakbar-err, .snakbar-war {
     position: fixed;
     z-index: 9999;
     top: 1.5rem;
