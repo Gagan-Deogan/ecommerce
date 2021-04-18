@@ -1,4 +1,4 @@
-export const AddIcon = () => {
+export const AddIcon = ({ color = "#6b7280" }) => {
   return (
     <svg
       id="add"
@@ -11,7 +11,7 @@ export const AddIcon = () => {
         id="Path_11"
         data-name="Path 11"
         d="M19,13H13v6H11V13H5V11h6V5h2v6h6Z"
-        fill="#111827"
+        fill={color}
       />
     </svg>
   );
@@ -84,24 +84,7 @@ export const CheckIcon = () => {
     </svg>
   );
 };
-export const HomeIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#111827"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-home">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      <polyline points="9 22 9 12 15 12 15 22"></polyline>
-    </svg>
-  );
-};
+
 export const MoonIcon = () => {
   return (
     <svg
@@ -182,7 +165,7 @@ export const CloseIcon = () => {
     </svg>
   );
 };
-export const SubtractIcon = () => {
+export const SubtractIcon = ({ color = "#6b7280" }) => {
   return (
     <svg
       id="remove"
@@ -191,12 +174,7 @@ export const SubtractIcon = () => {
       height="24"
       viewBox="0 0 24 24">
       <path id="Path_12" data-name="Path 12" d="M0,0H24V24H0Z" fill="none" />
-      <path
-        id="Path_13"
-        data-name="Path 13"
-        d="M19,13H5V11H19Z"
-        fill="#111827"
-      />
+      <path id="Path_13" data-name="Path 13" d="M19,13H5V11H19Z" fill={color} />
     </svg>
   );
 };
@@ -204,18 +182,19 @@ export const StarIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
-      height="24px"
-      viewBox="0 0 24 24"
-      width="24px"
-      fill="#FFFFFF">
-      <g>
-        <path d="M0,0h24v24H0V0z" fill="none" />
-        <path d="M0,0h24v24H0V0z" fill="none" />
-      </g>
-      <g>
-        <path d="M12,17.27L18.18,21l-1.64-7.03L22,9.24l-7.19-0.61L12,2L9.19,8.63L2,9.24l5.46,4.73L5.82,21L12,17.27z" />
-      </g>
+      width="18"
+      height="17.216"
+      viewBox="0 0 18 17.216">
+      <path
+        id="star"
+        d="M10,2l2.472,5.008L18,7.816l-4,3.9.944,5.5L10,14.616l-4.944,2.6L6,11.712l-4-3.9,5.528-.808Z"
+        transform="translate(-1 -1)"
+        fill="#fff"
+        stroke="#fff"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      />
     </svg>
   );
 };
@@ -237,44 +216,34 @@ export const SunIcon = () => {
     </svg>
   );
 };
-export const CartIcon = () => {
+export const HomeIcon = ({ color = "#6b7280" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      height="24px"
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="#111827"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-shopping-cart">
-      <circle cx="9" cy="21" r="1"></circle>
-      <circle cx="20" cy="21" r="1"></circle>
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      width="24px"
+      fill={color}>
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
     </svg>
   );
 };
-export const ExploreIcon = () => {
+export const CartIcon = ({ color = "#6b7280" }) => {
   return (
     <svg
-      id="explore_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24">
-      <path id="Path_6" data-name="Path 6" d="M0,0H24V24H0Z" fill="none" />
-      <path
-        id="Path_7"
-        data-name="Path 7"
-        d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8.011,8.011,0,0,1,12,20ZM6.5,17.5l7.51-3.49L17.5,6.5,9.99,9.99ZM12,10.9A1.1,1.1,0,1,1,10.9,12,1.1,1.1,0,0,1,12,10.9Z"
-        fill="#111827"
-      />
+      height="24px"
+      viewBox="0 0 24 24"
+      width="24px"
+      fill={color}>
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
     </svg>
   );
 };
-export const WishlistIcon = () => {
+
+export const WishlistIcon = ({ color = "#6b7280" }) => {
   return (
     <svg
       id="favorite_black_24dp"
@@ -287,7 +256,50 @@ export const WishlistIcon = () => {
         id="Path_9"
         data-name="Path 9"
         d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5A5.447,5.447,0,0,1,7.5,3,5.988,5.988,0,0,1,12,5.09,5.988,5.988,0,0,1,16.5,3,5.447,5.447,0,0,1,22,8.5c0,3.78-3.4,6.86-8.55,11.54Z"
-        fill="#111827"
+        fill={color}
+      />
+    </svg>
+  );
+};
+export const BagIcon = ({ color = "#6b7280" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 0 24 24"
+      width="24px"
+      fill={color}>
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z" />
+    </svg>
+  );
+};
+export const UserIcon = ({ color = "#6b7280" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 0 24 24"
+      width="24px"
+      fill={color}>
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
+  );
+};
+export const Logo = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="44.217"
+      viewBox="0 0 64px 44.217">
+      <path
+        id="Path_2"
+        data-name="Path 2"
+        d="M4.329,13.862H2.884a1.385,1.385,0,0,0-1.368,1.59l3.8,25.337a4.154,4.154,0,0,0,4.1,3.537H29.576a4.154,4.154,0,0,0,4.107-3.536l3.8-25.338a1.385,1.385,0,0,0-1.368-1.59H34.671a15.232,15.232,0,0,0-30.342,0Zm2.783,0a12.462,12.462,0,0,1,24.772,0Z"
+        transform="translate(-1.5 0.009)"
+        fill="#1f7ae0"
       />
     </svg>
   );

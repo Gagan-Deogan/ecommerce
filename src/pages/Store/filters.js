@@ -20,7 +20,7 @@ export const getSortedData = (products, sortBy) => {
   }
   return products;
 };
-export const getFilterByCatagories = (products, showCatagoeries) => {
+export const getFilterByCategories = (products, showCatagoeries) => {
   if (showCatagoeries.length > 0)
     return products.filter((product) =>
       showCatagoeries.includes(product.category)

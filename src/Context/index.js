@@ -3,4 +3,4 @@ export { LoaderContextProvider, useStatus } from "./LoaderContext.jsx";
 export {
   SnakbarContextProvider,
   useSnakbarContext,
-} from "./SnakBarContext.jsx";
+} from "./SnakbarContext.jsx";

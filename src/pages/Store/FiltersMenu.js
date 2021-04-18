@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "../../Utils/Query";
 
 export const FiltersMenu = ({
-  catagoryInList,
+  categoryInList,
   showInvertory,
   sortBy,
   showCatagoeries,
@@ -13,13 +13,13 @@ export const FiltersMenu = ({
   const navigate = useNavigate();
   const updateSearchQuery = (
     updateSortBy,
-    updateCatagory,
+    updateCategory,
     updateRating,
     updateInvetory
   ) => {
     navigate(
       `/explore?sort=${queryEncoder(updateSortBy)}&catagories=${queryEncoder(
-        updateCatagory
+        updateCategory
       )}&shownrating=${queryEncoder(updateRating)}&showInvertory=${queryEncoder(
         updateInvetory
       )}`
@@ -27,7 +27,7 @@ export const FiltersMenu = ({
   };
   const updateFilters = ({ type, payload }) => {
     let updateSortBy = sortBy,
-      updateCatagory = showCatagoeries,
+      updateCategory = showCatagoeries,
       updateRating = shownRating,
       updateInvetory = showInvertory;
     switch (type) {
@@ -35,9 +35,9 @@ export const FiltersMenu = ({
         updateSortBy = payload;
         break;
       case "SHOW_THESE_CATAGORIES":
-        updateCatagory = updateCatagory.includes(payload)
-          ? updateCatagory.filter((catagory) => catagory !== payload)
-          : updateCatagory.concat([payload]);
+        updateCategory = updateCategory.includes(payload)
+          ? updateCategory.filter((category) => category !== payload)
+          : updateCategory.concat([payload]);
         break;
       case "FIILTER_BY_RATINGS":
         updateRating = payload;
@@ -50,7 +50,7 @@ export const FiltersMenu = ({
     }
     updateSearchQuery(
       updateSortBy,
-      updateCatagory,
+      updateCategory,
       updateRating,
       updateInvetory
     );
@@ -59,7 +59,7 @@ export const FiltersMenu = ({
     navigate(`/explore`);
   };
   return (
-    <div className="column ftr-cont bor-rad-8 margin-r-32  box-shd ">
+    <div className="column ftr-cont bor-rad-8 margin-r-32 bor-sol">
       <div className="row justify-between padding-16 padding-b-8">
         <h2 className="bold">Filters</h2>
         <button className="btn-link bold" onClick={handleClearAll}>
@@ -89,20 +89,20 @@ export const FiltersMenu = ({
           <div className="check"></div>
         </label>
       </fieldset>
-      {catagoryInList && (
+      {categoryInList && (
         <fieldset className="column padding-16 padding-t-8">
           <h5 className="bold gry">CATAGORY</h5>
-          {catagoryInList.map((catagory) => (
+          {categoryInList.map((category) => (
             <label className="row justify-between margin-t-8 align-center">
-              <span>{catagory}</span>
+              <span>{category}</span>
               <input
                 type="checkbox"
-                name={catagory}
-                checked={showCatagoeries.includes(catagory)}
+                name={category}
+                checked={showCatagoeries.includes(category)}
                 onChange={() =>
                   updateFilters({
                     type: "SHOW_THESE_CATAGORIES",
-                    payload: catagory,
+                    payload: category,
                   })
                 }
               />

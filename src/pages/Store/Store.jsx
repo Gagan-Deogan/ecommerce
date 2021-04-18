@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../../components/ProductCard";
 import { useCartContext } from "../../Context";
 import { useStatus } from "../../Context";
 import { useSnakbarContext } from "../../Context";
@@ -9,15 +9,15 @@ import { FiltersMenu } from "./FiltersMenu";
 import { useQuery } from "../../Utils/Query";
 import {
   getSortedData,
-  getFilterByCatagories,
+  getFilterByCategories,
   getProductByRating,
   getFilterbyAvalibility,
 } from "./filters";
-import "./explore.css";
+import "./store.css";
+import { Loader } from "../../components/Loader";
 
-export const Explore = () => {
+export const Store = () => {
   const [products, setProducts] = useState([]);
-
   // for decoding seacrh query
   const { query, queryParser } = useQuery();
   const { cartList, wishList, cartDispatch } = useCartContext();
@@ -44,21 +44,24 @@ export const Explore = () => {
     });
   })();
 
-  const catagoryReducer = (acc, value) =>
+  // this will find add the possible category in list
+  const categoryReducer = (acc, value) =>
     !acc.includes(value) ? acc.concat([value]) : acc;
-  const catagoryInList = products
+  const categoryInList = products
     .map((product) => product["category"])
-    .reduce(catagoryReducer, []);
+    .reduce(categoryReducer, []);
 
+  // sorts the data
   const sortedData = getSortedData(productWithFlags, sortBy);
 
-  const selectedCatagoriesData = getFilterByCatagories(
+  // shows the selected cate
+  const selectedCategoriesData = getFilterByCategories(
     sortedData,
     showCatagoeries
   );
 
   const filterByRating = getProductByRating(
-    selectedCatagoriesData,
+    selectedCategoriesData,
     shownRating
   );
   const filterData = getFilterbyAvalibility(filterByRating, showInvertory);
@@ -104,21 +107,17 @@ export const Explore = () => {
       cancelTokenSource.cancel();
     };
   }, []);
-
   return (
     <>
-      {status === "PENDING" ? (
-        <div id="dots1">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      {!filterData.length ? (
+        <>
+          <Loader></Loader>
+        </>
       ) : (
         <>
           <section className="route-container row align-start justify-center w12 padding-8 padding-t-32">
             <FiltersMenu
-              catagoryInList={catagoryInList}
+              categoryInList={categoryInList}
               sortBy={sortBy}
               showCatagoeries={showCatagoeries}
               shownRating={shownRating}
