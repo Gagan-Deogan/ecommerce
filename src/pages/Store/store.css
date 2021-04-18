@@ -1,10 +1,11 @@
-.ftr-cont {
+.filter-container {
   position: sticky;
-  top: 2rem;
+  top: 6rem;
   min-width: 15rem;
   max-width: 15rem;
   background: var(--inner-background);
 }
+
 fieldset {
   border: none;
   border-top: 1px solid var(--grey-light);
@@ -12,23 +13,28 @@ fieldset {
 
 .card {
   width: auto;
-  min-width: "";
-  max-width: "";
 }
 
 .product-container {
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 3rem;
-  row-gap: 3rem;
+  column-gap: 1rem;
+  row-gap: 1.5rem;
 }
 .product-container.wishlist-item {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+.bottom-sheet {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  width: 100vw;
+  background-color: var(--inner-background);
+  border-top: 1px solid var(--grey-light);
+}
+
 @media (max-width: 1300px) {
   .product-container {
     grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 1rem;
-    row-gap: 2rem;
   }
   .product-container.wishlist-item {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -37,8 +43,6 @@ fieldset {
 @media (max-width: 900px) {
   .product-container {
     grid-template-columns: 1fr 1fr;
-    column-gap: 3rem;
-    row-gap: 3rem;
   }
   .product-container.wishlist-item {
     grid-template-columns: 1fr 1fr 1fr;

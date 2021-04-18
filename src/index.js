@@ -9,7 +9,7 @@ import {
   SnakbarContextProvider,
 } from "./Context";
 import { BrowserRouter as Router } from "react-router-dom";
-setupMockServer();
+// setupMockServer();
 ReactDOM.render(
   <React.StrictMode>
     <LoaderContextProvider>

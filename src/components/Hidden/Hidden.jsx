@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const Hidden = ({ children, hideAt = "sm" }) => {
+export const Hidden = ({ children, hideAt }) => {
   const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
     updateDimensions();
@@ -12,10 +12,14 @@ export const Hidden = ({ children, hideAt = "sm" }) => {
     setWindowWidth(width);
   };
   switch (hideAt) {
-    case "sm":
+    case "sm-down":
       return <>{windowWidth < 600 ? "" : children}</>;
-    case "md":
+    case "md-down":
       return <>{windowWidth < 900 ? "" : children}</>;
+    case "sm-up":
+      return <>{windowWidth > 600 ? "" : children}</>;
+    case "md-up":
+      return <>{windowWidth > 900 ? "" : children}</>;
     default:
       return <>{children}</>;
   }

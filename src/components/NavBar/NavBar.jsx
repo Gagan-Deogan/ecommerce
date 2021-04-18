@@ -42,7 +42,7 @@ export const NavBar = () => {
       <div className="row sm-w2 w12 justify-start align-center">
         <Logo />
       </div>
-      <Hidden hideAt="md">
+      <Hidden hideAt="md-down">
         <ul className="row sm-w8 w12 justify-evenly align-center ">
           <NavOption
             navTo="/"

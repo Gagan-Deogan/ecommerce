@@ -26,7 +26,7 @@ export const CartCard = ({
               <h5 className="bold margin-r-4 ">
                 {"Rs. " + discountCalculator(product.discount, product.price)}
               </h5>
-              <h6 className="bold gry text-line-thro">
+              <h6 className="bold grey-color text-line-thro">
                 {" "}
                 {"Rs. " + product.price}
               </h6>

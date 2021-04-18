@@ -73,6 +73,14 @@ a:focus-visible,
 .text-end {
   text-align: end;
 }
+.model-container {
+  display: block;
+}
+@media (max-width: 600px) {
+  .sm-column {
+    flex-direction: column;
+  }
+}
 /* end */
 section {
   width: 100%;
