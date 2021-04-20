@@ -1,6 +1,9 @@
-export { CartContextProvider, useCartContext } from "./CartContext.jsx";
-export { LoaderContextProvider, useStatus } from "./LoaderContext.jsx";
+export { CartContextProvider, useCartContext } from "./CartContext/CartContext";
+export {
+  LoaderContextProvider,
+  useStatus,
+} from "./LoaderContext/LoaderContext";
 export {
   SnakbarContextProvider,
   useSnakbarContext,
-} from "./SnakbarContext.jsx";
+} from "./SnakbarContext/SnakbarContext";

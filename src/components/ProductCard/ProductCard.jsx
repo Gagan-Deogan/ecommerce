@@ -1,7 +1,5 @@
 import { StarIcon } from "../../assests";
 import { FavFillIcon, FavIcon } from "../../assests";
-import { discountCalculator } from "../../Utils/discountCalculator";
-import { useDebouncing } from "../../Utils/Debouncing";
 import { useCartContext } from "../../Context";
 import { useSnakbarContext } from "../../Context";
 
@@ -10,6 +8,7 @@ export const ProductCard = ({
   inWislist = false,
   showAddToCart = true,
   showAddTOWishlist = true,
+  betterHandleWishList,
 }) => {
   const { cartDispatch } = useCartContext();
   const { snakbarDispatch } = useSnakbarContext();
@@ -18,18 +17,6 @@ export const ProductCard = ({
     cartDispatch({ type: "ADD_TO_CART", payload: product });
     snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
   };
-  const handleWishList = (product) => {
-    const wishType = product.inWish
-      ? "REMOVE_FROM_WISHLIST"
-      : "ADD_TO_WISHLIST";
-    const wishPayload = product.inWish ? product.id : product;
-    const sankbarMsg = product.inWish
-      ? "Succesfull Removed from Wishlist"
-      : "Succesfull Added to Wishlist";
-    cartDispatch({ type: wishType, payload: wishPayload });
-    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
-  };
-  const betterHandleWishList = useDebouncing(handleWishList, 500);
   return (
     <div className="column card pos-r hov-box-shd bor-rad-8 bor-sol">
       {!!product.label && (

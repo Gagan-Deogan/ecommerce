@@ -4,9 +4,10 @@ export const useQuery = () => {
   const query = new URLSearchParams(useLocation().search);
 
   const queryParser = (key) => {
-    const queryString = query.get(key);
     try {
-      return JSON.parse(queryString);
+      const queryString = query.get(key);
+      if (!queryString) return JSON.parse(queryString);
+      return null;
     } catch (err) {
       return null;
     }

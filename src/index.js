@@ -13,13 +13,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <LoaderContextProvider>
-      <CartContextProvider>
-        <SnakbarContextProvider>
+      <SnakbarContextProvider>
+        <CartContextProvider>
           <Router>
             <App />
           </Router>
-        </SnakbarContextProvider>
-      </CartContextProvider>
+        </CartContextProvider>
+      </SnakbarContextProvider>
     </LoaderContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

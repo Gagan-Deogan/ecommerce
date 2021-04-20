@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { ProductCard } from "../../components/ProductCard";
+import { useState, useEffect, useReducer } from "react";
 import { useCartContext } from "../../Context";
 import { useStatus } from "../../Context";
 import { useSnakbarContext } from "../../Context";
-import { useDebouncing } from "../../Utils/Debouncing";
-import { FiltersMenu } from "./FiltersMenu.jsx";
-import { useQuery } from "../../Utils/Query";
+import { ProductCard } from "../../components/ProductCard";
 import { Hidden } from "../../components/Hidden";
+import { Model } from "../../components/Model";
+import { useQuery } from "../../Utils";
+import { useDebouncing } from "../../Utils";
+import { FiltersMenu } from "./FiltersMenu.jsx";
+import { initialFilters, reducer, getProductWithFlags } from "./filters";
 import {
   getSortedData,
-  getFilterByCategories,
   getProductByRating,
   getFilterbyAvalibility,
 } from "./filters";
@@ -19,101 +19,46 @@ import { FiltersIcons } from "../../assests";
 import { Loader } from "../../components/Loader";
 import { useRequest } from "../../Utils/request";
 
-const Model = ({ children, openModel, setCloseMOdel }) => {
-  const handleClose = (e) => {
-    if (e.target.id === "model-container") {
-      setCloseMOdel(!openModel);
-    }
-  };
-  return (
-    <>
-      {openModel && (
-        <div
-          id="model-container"
-          className="model-container pos-f justify-center align-center"
-          onClick={handleClose}>
-          {children}
-        </div>
-      )}
-    </>
-  );
-};
-
 export const Store = () => {
   const [products, setProducts] = useState([]);
-  const { cartList, wishList, cartDispatch } = useCartContext();
+  const {
+    cartList,
+    wishList,
+    betterHandleWishList,
+    handleAddToCart,
+  } = useCartContext();
   const { status, setStatus } = useStatus();
-  const [openModel, setCloseMOdel] = useState(false);
+  const [isOpenModel, setIsOpenModel] = useState(false);
   const { snakbarDispatch } = useSnakbarContext();
   const { request, getCancelToken } = useRequest();
+
   // for decoding seacrh query
   const { queryParser } = useQuery();
-  const category = queryParser("category");
-  const sortBy = queryParser("sort");
-  const showCatagoeries = queryParser("catagories") || [];
-  const shownRating = queryParser("shownrating");
-  const showInvertory =
-    queryParser("showInvertory") !== null ? queryParser("showInvertory") : true;
+  initialFilters.category = queryParser("category") || initialFilters.category;
+  initialFilters.sortBy = queryParser("sort") || initialFilters.sortBy;
+  initialFilters.shownRating =
+    queryParser("showrating") || initialFilters.showRating;
+  initialFilters.showInvertory =
+    queryParser("showInvertory") || initialFilters.showInvertory;
 
-  const productWithFlags = (() => {
-    const productsIdInCart = cartList.map((item) => item.id);
-    const productsIdInWishList = wishList.map((item) => item.id);
-    return products.map((product) => {
-      const productWithInCartFlag = productsIdInCart.includes(product.id)
-        ? { ...product, inCart: true }
-        : product;
-      return productsIdInWishList.includes(productWithInCartFlag.id)
-        ? { ...productWithInCartFlag, inWish: true }
-        : productWithInCartFlag;
-    });
-  })();
+  const [
+    { category, sortBy, showRating, showInvertory },
+    dispatch,
+  ] = useReducer(reducer, initialFilters);
 
-  // this will find add the possible category in list
-  const categoryReducer = (acc, value) =>
-    !acc.includes(value) ? acc.concat([value]) : acc;
-  const categoryInList = products
-    .map((product) => product["category"])
-    .reduce(categoryReducer, []);
+  const productWithFlags = getProductWithFlags(cartList, wishList, products);
 
   // sorts the data
   const sortedData = getSortedData(productWithFlags, sortBy);
 
-  // shows the selected cate
-  const selectedCategoriesData = getFilterByCategories(
-    sortedData,
-    showCatagoeries
-  );
-
-  const filterByRating = getProductByRating(
-    selectedCategoriesData,
-    shownRating
-  );
+  const filterByRating = getProductByRating(sortedData, showRating);
   const filterData = getFilterbyAvalibility(filterByRating, showInvertory);
-
-  const handleAddToCart = (product) => {
-    cartDispatch({ type: "ADD_TO_CART", payload: product });
-    snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
-  };
-
-  const handleWishList = (product) => {
-    const wishType = product.inWish
-      ? "REMOVE_FROM_WISHLIST"
-      : "ADD_TO_WISHLIST";
-    const wishPayload = product.inWish ? product.id : product;
-    const sankbarMsg = product.inWish
-      ? "Succesfull Removed from Wishlist"
-      : "Succesfull Added to Wishlist";
-    cartDispatch({ type: wishType, payload: wishPayload });
-    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
-  };
-  const betterHandleWishList = useDebouncing(handleWishList, 500);
 
   // For calling end points....
   useEffect(() => {
     const cancelToken = getCancelToken();
     (async () => {
       setStatus("PENDING");
-      console.log({ category });
       try {
         const { data } = await request({
           method: "GET",
@@ -143,7 +88,7 @@ export const Store = () => {
             <Hidden hideAt="sm-up">
               <button
                 className="sm-btn-pry bold primary-color margin-b-32"
-                onClick={() => setCloseMOdel(true)}>
+                onClick={() => setIsOpenModel(true)}>
                 <h3 className="margin-r-8">Filters</h3>
                 <FiltersIcons />
               </button>
@@ -151,23 +96,21 @@ export const Store = () => {
             <Hidden hideAt="sm-down">
               <div className="column filter-container bor-rad-8 margin-r-16 bor-sol">
                 <FiltersMenu
-                  categoryInList={categoryInList}
                   sortBy={sortBy}
-                  showCatagoeries={showCatagoeries}
-                  shownRating={shownRating}
+                  showRating={showRating}
                   showInvertory={showInvertory}
+                  dispatch={dispatch}
                 />
               </div>
             </Hidden>
             <Hidden hideAt="sm-up">
-              <Model openModel={openModel} setCloseMOdel={setCloseMOdel}>
+              <Model isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel}>
                 <div className="bottom-sheet">
                   <FiltersMenu
-                    categoryInList={categoryInList}
                     sortBy={sortBy}
-                    showCatagoeries={showCatagoeries}
-                    shownRating={shownRating}
+                    showRating={showRating}
                     showInvertory={showInvertory}
+                    dispatch={dispatch}
                   />
                 </div>
               </Model>

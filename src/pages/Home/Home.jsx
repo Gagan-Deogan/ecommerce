@@ -6,6 +6,7 @@ import { useRequest } from "../../Utils/request";
 import { useStatus } from "../../Context";
 import { Link } from "react-router-dom";
 import { Loader } from "../../components/Loader";
+
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
 
