@@ -9,8 +9,6 @@ export const useRequest = () => {
   const getCancelToken = () => axios.CancelToken.source();
 
   const request = async ({ method, endpoint, data = {}, cancelToken }) => {
-    console.log(method, endpoint, cancelToken);
-
     switch (method) {
       case "GET": {
         const res = await instance.get(endpoint, {

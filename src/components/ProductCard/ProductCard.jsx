@@ -14,6 +14,7 @@ export const ProductCard = ({
   const { cartDispatch } = useCartContext();
   const { snakbarDispatch } = useSnakbarContext();
   const handleAddToCart = (product) => {
+    console.log(product);
     cartDispatch({ type: "ADD_TO_CART", payload: product });
     snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
   };
@@ -36,39 +37,45 @@ export const ProductCard = ({
           <span>{product.label}</span>
         </div>
       )}
-      <img src={product.image} className="w12 bor-rad-8 " alt={product.name} />
+      <img
+        src={"https://api-ecommerce-image.netlify.app/" + product.image}
+        className="w12 bor-rad-8 "
+        alt={product.name}
+      />
       <div className="column card-title">
         <h6 className="">{product.name} </h6>
         <div className="row align-center ">
           {product.discount ? (
             <>
               <h6 className="bold margin-r-4 ">
-                {"Rs. " + discountCalculator(product.discount, product.price)}
+                {"Rs. " + product.effectivePrice}
               </h6>
               <h6 className="grey-color text-line-thro margin-l-4 font-xs">
                 {"Rs. " + product.price}
               </h6>
               <h6 className="primary-clr margin-l-4 font-xs">
                 {" "}
-                {product.discount * 100 + " %Off"}
+                {product.discount + " %Off"}
               </h6>
             </>
           ) : (
-            <h5 className="bold margin-r-4 ">{"Rs. " + product.price}</h5>
+            <h5 className="bold margin-r-4 ">
+              {"Rs. " + product.effectivePrice}
+            </h5>
           )}
         </div>
         {showAddToCart && (
           <button
             className={
-              !product.inStock || product.inCart
+              !product.avalibility || product.inCart
                 ? "sm-btn-pry-fil btn-dis"
                 : "sm-btn-pry-fil"
             }
             onClick={() => handleAddToCart(product)}
-            disabled={!product.inStock || product.inCart ? true : false}>
+            disabled={!product.avalibility || product.inCart ? true : false}>
             {product.inCart
               ? "IN CART"
-              : !product.inStock
+              : !product.avalibility
               ? "SOLD OUT"
               : "ADD TO CART"}
           </button>
@@ -81,10 +88,12 @@ export const ProductCard = ({
           {product.inWish ? <FavFillIcon /> : <FavIcon />}
         </button>
       )}
-      <div className="card-ratg row">
-        <h6 className="bold margin-r-4">{product.rating}</h6>
-        <StarIcon />
-      </div>
+      {product.rating && (
+        <div className="card-ratg row">
+          <h6 className="bold margin-r-4">{product.rating}</h6>
+          <StarIcon />
+        </div>
+      )}
     </div>
   );
 };

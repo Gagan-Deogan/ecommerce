@@ -48,6 +48,7 @@ export const Store = () => {
   const { request, getCancelToken } = useRequest();
   // for decoding seacrh query
   const { queryParser } = useQuery();
+  const category = queryParser("category");
   const sortBy = queryParser("sort");
   const showCatagoeries = queryParser("catagories") || [];
   const shownRating = queryParser("shownrating");
@@ -112,10 +113,11 @@ export const Store = () => {
     const cancelToken = getCancelToken();
     (async () => {
       setStatus("PENDING");
+      console.log({ category });
       try {
         const { data } = await request({
           method: "GET",
-          endpoint: "/products",
+          endpoint: category ? `categories/${category}` : "/products",
           cancelToken: cancelToken.token,
         });
         setStatus("IDLE");
@@ -134,11 +136,8 @@ export const Store = () => {
   }, []);
   return (
     <>
-      {!filterData.length ? (
-        <>
-          <Loader></Loader>
-        </>
-      ) : (
+      {status !== "IDLE" && <Loader />}
+      {status === "IDLE" && (
         <>
           <section className="route-container row sm-column align-start justify-center w12 padding-16 padding-t-32">
             <Hidden hideAt="sm-up">

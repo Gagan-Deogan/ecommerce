@@ -90,8 +90,7 @@ export const NavBar = () => {
               />
             }
             name="Login"
-            isVerticla
-            badge={cartList.length}></NavOption>
+            isVerticla></NavOption>
         </ul>
       </Hidden>
     </nav>
