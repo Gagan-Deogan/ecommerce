@@ -19,7 +19,6 @@ export const FiltersMenu = ({
   showRating,
   dispatch,
 }) => {
-  console.log(showInvertory);
   const { queryEncoder } = useQuery();
   const navigate = useNavigate();
   const updateSearchQuery = (

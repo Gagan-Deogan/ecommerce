@@ -7,3 +7,4 @@ export {
   SnakbarContextProvider,
   useSnakbarContext,
 } from "./SnakbarContext/SnakbarContext";
+export { AuthProvider, useAuthContext } from "./AuthContext";

@@ -1,10 +1,8 @@
-export let initialFilters = {
+const initialFilters = {
   sortBy: "",
-  showRating: 0,
+  showRating: null,
   showInvertory: true,
-  category: null,
 };
-
 export const reducer = (state, action) => {
   switch (action.type) {
     case "SORT":

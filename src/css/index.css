@@ -81,7 +81,13 @@ a:focus-visible,
     flex-direction: column;
   }
 }
+.btn-pry-fil {
+  width: auto;
+  max-width: none;
+  min-width: none;
+}
 /* end */
+
 section {
   width: 100%;
 }

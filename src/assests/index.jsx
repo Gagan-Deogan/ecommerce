@@ -3,8 +3,7 @@ export const AddIcon = ({ color = "#6b7280" }) => {
     <svg
       id="add"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24">
       <path id="Path_10" data-name="Path 10" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -20,8 +19,7 @@ export const AlertCircleIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#ffffff"
@@ -39,8 +37,7 @@ export const AlertTriangleIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#fff"
@@ -58,9 +55,8 @@ export const BubbleChartIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height="auto"
       viewBox="0 0 24 24"
-      width="24px"
+      style={{ height: "auto", width: "24px" }}
       fill="#FFFFFF">
       <path d="M0 0h24v24H0V0z" fill="none" />
       <path d="M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z" />
@@ -71,8 +67,7 @@ export const CheckIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#fff"
@@ -90,8 +85,7 @@ export const MoonIcon = () => {
     <svg
       id="moon"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24">
       <rect
         id="Rectangle_1"
@@ -113,8 +107,7 @@ export const FavIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="auto"
+      style={{ height: "auto", width: "14px" }}
       viewBox="0 0 17 15.855">
       <path
         id="Path_5"
@@ -132,8 +125,7 @@ export const FavFillIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="auto"
+      style={{ height: "auto", width: "14px" }}
       viewBox="0 0 17 15.855">
       <path
         id="Path_4"
@@ -151,8 +143,7 @@ export const CloseIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#272727"
@@ -170,8 +161,7 @@ export const SubtractIcon = ({ color = "#6b7280" }) => {
     <svg
       id="remove"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24">
       <path id="Path_12" data-name="Path 12" d="M0,0H24V24H0Z" fill="none" />
       <path id="Path_13" data-name="Path 13" d="M19,13H5V11H19Z" fill={color} />
@@ -182,8 +172,7 @@ export const StarIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="auto"
+      style={{ height: "auto", width: "16px" }}
       viewBox="0 0 18 17.216">
       <path
         id="star"
@@ -203,8 +192,7 @@ export const SunIcon = () => {
     <svg
       id="wb_sunny_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24">
       <path id="Path_2" data-name="Path 2" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -305,8 +293,7 @@ export const FiltersIcons = () => {
       aria-hidden="true"
       role="img"
       class="iconify iconify--ph"
-      width="24"
-      height="auto"
+      style={{ height: "auto", width: "24px" }}
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 256 256">
       <path

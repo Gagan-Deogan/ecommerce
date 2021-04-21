@@ -11,13 +11,13 @@ export const useRequest = () => {
   const request = async ({ method, endpoint, data = {}, cancelToken }) => {
     switch (method) {
       case "GET": {
-        const res = await instance.get(endpoint, {
+        const res = await instance.get(endpoint, data, {
           cancelToken: cancelToken,
         });
         return res;
       }
       case "POST": {
-        const res = await axios.post(endpoint, data, {
+        const res = await instance.post(endpoint, data, {
           cancelToken: cancelToken,
         });
         return res.data;

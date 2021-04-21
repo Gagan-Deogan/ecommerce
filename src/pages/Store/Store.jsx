@@ -1,14 +1,13 @@
 import { useState, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../Context";
 import { useStatus } from "../../Context";
-import { useSnakbarContext } from "../../Context";
 import { ProductCard } from "../../components/ProductCard";
 import { Hidden } from "../../components/Hidden";
 import { Model } from "../../components/Model";
 import { useQuery } from "../../Utils";
-import { useDebouncing } from "../../Utils";
 import { FiltersMenu } from "./FiltersMenu.jsx";
-import { initialFilters, reducer, getProductWithFlags } from "./filters";
+import { reducer, getProductWithFlags } from "./filters";
 import {
   getSortedData,
   getProductByRating,
@@ -20,6 +19,7 @@ import { Loader } from "../../components/Loader";
 import { useRequest } from "../../Utils/request";
 
 export const Store = () => {
+  const { queryParser, queryEncoder } = useQuery();
   const [products, setProducts] = useState([]);
   const {
     cartList,
@@ -29,28 +29,27 @@ export const Store = () => {
   } = useCartContext();
   const { status, setStatus } = useStatus();
   const [isOpenModel, setIsOpenModel] = useState(false);
-  const { snakbarDispatch } = useSnakbarContext();
   const { request, getCancelToken } = useRequest();
+  const navigate = useNavigate();
 
-  // for decoding seacrh query
-  const { queryParser } = useQuery();
-  initialFilters.category = queryParser("category") || initialFilters.category;
-  initialFilters.sortBy = queryParser("sort") || initialFilters.sortBy;
-  initialFilters.shownRating =
-    queryParser("showrating") || initialFilters.showRating;
-  initialFilters.showInvertory =
-    queryParser("showInvertory") || initialFilters.showInvertory;
+  // url decoding
+  const initial = {
+    sortBy: queryParser("sortBy") || "",
+    showRating: queryParser("showRating"),
+    showInvertory: queryParser("showInvertory") || true,
+  };
+  const categoryId = queryParser("category");
 
-  const [
-    { category, sortBy, showRating, showInvertory },
-    dispatch,
-  ] = useReducer(reducer, initialFilters);
+  console.log(initial);
+  const [{ sortBy, showRating, showInvertory }, dispatch] = useReducer(
+    reducer,
+    initial
+  );
 
   const productWithFlags = getProductWithFlags(cartList, wishList, products);
 
   // sorts the data
   const sortedData = getSortedData(productWithFlags, sortBy);
-
   const filterByRating = getProductByRating(sortedData, showRating);
   const filterData = getFilterbyAvalibility(filterByRating, showInvertory);
 
@@ -62,15 +61,11 @@ export const Store = () => {
       try {
         const { data } = await request({
           method: "GET",
-          endpoint: category ? `categories/${category}` : "/products",
+          endpoint: categoryId ? `categories/${categoryId}` : "/products",
           cancelToken: cancelToken.token,
         });
         setStatus("IDLE");
-        if (data.products) {
-          setProducts(data["products"]);
-        } else {
-          console.log("some thing went worng.");
-        }
+        setProducts(data["products"]);
       } catch (err) {
         setStatus("IDLE");
       }
@@ -79,6 +74,27 @@ export const Store = () => {
       cancelToken.cancel();
     };
   }, []);
+
+  //
+  useEffect(() => {
+    if (products) {
+      const categoryQuery = categoryId
+        ? `category=${queryEncoder(categoryId)}&`
+        : "";
+      const sortQuery =
+        sortBy === "LH" || sortBy === "HL"
+          ? `sortBy=${queryEncoder(sortBy)}`
+          : "";
+      const ratingQuery = showRating
+        ? `&showRating=${queryEncoder(showRating)}`
+        : "";
+      const inventoryQuery = `&showInvertory=${queryEncoder(showInvertory)}`;
+      navigate(
+        `/store?${categoryQuery + sortQuery + ratingQuery + inventoryQuery}`
+      );
+    }
+  }, [sortBy, showRating, showInvertory]);
+
   return (
     <>
       {status !== "IDLE" && <Loader />}

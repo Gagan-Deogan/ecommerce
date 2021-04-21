@@ -6,7 +6,7 @@ export const useQuery = () => {
   const queryParser = (key) => {
     try {
       const queryString = query.get(key);
-      if (!queryString) return JSON.parse(queryString);
+      if (queryString) return JSON.parse(queryString);
       return null;
     } catch (err) {
       return null;
