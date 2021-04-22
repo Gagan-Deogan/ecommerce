@@ -146,7 +146,7 @@ export const CloseIcon = () => {
       style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#272727"
+      stroke="#fff"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"

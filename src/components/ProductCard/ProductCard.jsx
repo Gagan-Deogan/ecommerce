@@ -2,21 +2,15 @@ import { StarIcon } from "../../assests";
 import { FavFillIcon, FavIcon } from "../../assests";
 import { useCartContext } from "../../Context";
 import { useSnakbarContext } from "../../Context";
-
+const { REACT_APP_IMAGE_URL } = process.env;
 export const ProductCard = ({
   product,
   inWislist = false,
   showAddToCart = true,
   showAddTOWishlist = true,
   betterHandleWishList,
+  handleAddToCart,
 }) => {
-  const { cartDispatch } = useCartContext();
-  const { snakbarDispatch } = useSnakbarContext();
-  const handleAddToCart = (product) => {
-    console.log(product);
-    cartDispatch({ type: "ADD_TO_CART", payload: product });
-    snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
-  };
   return (
     <div className="column card pos-r hov-box-shd bor-rad-8 bor-sol">
       {!!product.label && (
@@ -25,7 +19,7 @@ export const ProductCard = ({
         </div>
       )}
       <img
-        src={"https://api-ecommerce-image.netlify.app/" + product.image}
+        src={REACT_APP_IMAGE_URL + product.image}
         className="w12 bor-rad-8 "
         alt={product.name}
       />

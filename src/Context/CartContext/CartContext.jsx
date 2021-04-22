@@ -32,14 +32,49 @@ export const CartContextProvider = ({ children }) => {
     snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
   };
 
+  const handleRemoveFromCart = (id) => {
+    cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
+    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
+  };
+
+  const handleQuantityChange = (type, id) => {
+    cartDispatch({ type: type, payload: id });
+  };
+
+  const handleSaveForLater = (product) => {
+    cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+  };
+
+  const priceReducer = (acc, value) => {
+    // const discountedPrice = value.price - value.discount * value.price;
+    return {
+      totalEffectivePrice: acc.totalEffectivePrice + value.effectivePrice,
+      totalDiscount: acc.totalDiscount + value.price - value.effectivePrice,
+      totalPrice: acc.totalPrice + value.price,
+    };
+  };
+  const { totalEffectivePrice, totalDiscount, totalPrice } = cartList.reduce(
+    priceReducer,
+    {
+      totalEffectivePrice: 0,
+      totalDiscount: 0,
+      totalPrice: 0,
+    }
+  );
+
   return (
     <CartContext.Provider
       value={{
         cartList: cartList,
         wishList: wishList,
-        cartDispatch: cartDispatch,
         betterHandleWishList: betterHandleWishList,
         handleAddToCart: handleAddToCart,
+        handleRemoveFromCart,
+        handleQuantityChange,
+        handleSaveForLater,
+        totalPrice,
+        totalEffectivePrice,
+        totalDiscount,
       }}>
       {children}
     </CartContext.Provider>

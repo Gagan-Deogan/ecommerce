@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useAuthContext } from "../../Context";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+  if (user) {
+    navigate("/");
+  }
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { handleLogin } = useAuthContext();

@@ -20,8 +20,7 @@ export const Wishlist = () => {
   })();
   return (
     <>
-      <section className="route-container column w12 align-start justify-start">
-        <h1 className="title-text w12">WishList</h1>
+      <section className="column w12 align-start justify-start padding-32 padding-t-16">
         <ul className="dis-grid product-container wishlist-item margin-t-16 ">
           {wishListWithFlag.map((product) => (
             <ProductCard

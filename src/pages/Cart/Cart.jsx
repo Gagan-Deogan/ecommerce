@@ -1,40 +1,61 @@
 import React from "react";
 import { useCartContext } from "../../Context";
 import { CartCard } from "./CartCard.jsx";
-import { useSnakbarContext } from "../../Context";
 export const Cart = () => {
-  const { cartList, cartDispatch } = useCartContext();
-  const { snakbarDispatch } = useSnakbarContext();
-  const handleRemoveFromCart = (id) => {
-    cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
-    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
-  };
-  const handleQuantityChange = (type, id) => {
-    cartDispatch({ type: type, payload: id });
-  };
-  const priceReducer = (acc, value) => {
-    const discountedPrice = value.price - value.discount * value.price;
-    return acc + Math.floor(discountedPrice) * value.quantity;
-  };
-  const handleSaveForLater = (product) => {
-    cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
-  };
-  const totalPrice = cartList.reduce(priceReducer, 0);
+  const {
+    cartList,
+    handleRemoveFromCart,
+    handleQuantityChange,
+    handleSaveForLater,
+    totalPrice,
+    totalEffectivePrice,
+    totalDiscount,
+  } = useCartContext();
 
   return (
     <>
-      <section className="column route-container w12 align-center justify-start">
-        <h1 className="bold w12">Cart</h1>
-        <ul className="box-shd md-w12 w8 drop-down-menu column items-list bor-rad-8 margin-t-16">
-          {cartList.map((product) => (
-            <CartCard
-              product={product}
-              handleRemoveFromCart={handleRemoveFromCart}
-              handleQuantityChange={handleQuantityChange}
-              handleSaveForLater={handleSaveForLater}></CartCard>
-          ))}
-        </ul>
-        <h2 className="margin-t-16">Total: {totalPrice}</h2>
+      <section className="row justify-center align-start warp padding-t-16">
+        <div className="column sm-w12 md-w8 w7 align-start justify-start bor-sol bor-rad-8 margin-r-16 margin-l-16">
+          <div className="border-bottom w12 padding-16">
+            <h4 className="bold">MY CART</h4>
+          </div>
+          <ul className="column w12 padding-16 padding-t-8">
+            {cartList.map((product) => (
+              <CartCard
+                product={product}
+                handleRemoveFromCart={handleRemoveFromCart}
+                handleQuantityChange={handleQuantityChange}
+                handleSaveForLater={handleSaveForLater}
+                key={product._id}></CartCard>
+            ))}
+          </ul>
+        </div>
+        <div className="column sm-w12 md-w3 w3 align-center justify-start margin-r-16 margin-l-16 bor-sol bor-rad-8">
+          <div className="border-bottom w12 padding-16">
+            <h4 className="grey-color">PRICE DETAILS</h4>
+          </div>
+          <div className="w12 padding-16 border-bottom">
+            <div className="w12 row justify-between ">
+              <h5>Price({cartList.length} items )</h5>
+              <h5>{totalPrice}</h5>
+            </div>
+            {!!totalDiscount && (
+              <div className="w12 row justify-between margin-t-8">
+                <h5>Discount</h5>
+                <h5>{totalDiscount}</h5>
+              </div>
+            )}
+          </div>
+          <div className="w12 row padding-16 padding-b-8 justify-between ">
+            <h4 className="bold">Total Amount</h4>
+            <h4 className="bold">{totalEffectivePrice}</h4>
+          </div>
+          {!!totalDiscount && (
+            <h6 className="primary-color bold margin-b-8">
+              You will save ₹{totalDiscount} on this order
+            </h6>
+          )}
+        </div>
       </section>
     </>
   );

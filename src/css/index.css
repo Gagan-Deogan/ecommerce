@@ -86,9 +86,13 @@ a:focus-visible,
   max-width: none;
   min-width: none;
 }
+.border-bottom {
+  border-bottom: 1px solid var(--grey-light);
+}
 /* end */
-
 section {
+  max-width: 100rem;
+  margin: auto;
   width: 100%;
 }
 label span {

@@ -7,8 +7,8 @@ import {
   UserIcon,
   Logo,
 } from "../../assests";
-
-import { useCartContext } from "../../Context";
+import { Avatar } from "../Avatar";
+import { useCartContext, useAuthContext } from "../../Context";
 import { NavLink, useLocation } from "react-router-dom";
 import "./navbar.css";
 import { Hidden } from "../Hidden";
@@ -36,7 +36,10 @@ const NavOption = ({ name, navTo, icon, badge, isVerticla }) => {
 
 export const NavBar = () => {
   const { cartList, wishList } = useCartContext();
+  const { user } = useAuthContext();
   const loaction = useLocation();
+  const { REACT_APP_IMAGE_URL } = process.env;
+  console.log({ user });
   return (
     <nav className="row padding-l-16 padding-r-16">
       <div className="row sm-w2 w12 justify-start align-center">
@@ -82,15 +85,19 @@ export const NavBar = () => {
             badge={cartList.length}></NavOption>
         </ul>
         <ul className="row sm-w2 w12 justify-end align-center">
-          <NavOption
-            navTo="/login"
-            icon={
-              <UserIcon
-                color={loaction.pathname === "/login" ? "#25a18a" : "#6b7280"}
-              />
-            }
-            name="Login"
-            isVerticla></NavOption>
+          {user ? (
+            <Avatar image={REACT_APP_IMAGE_URL + user.image} name={user.name} />
+          ) : (
+            <NavOption
+              navTo="/login"
+              icon={
+                <UserIcon
+                  color={loaction.pathname === "/login" ? "#25a18a" : "#6b7280"}
+                />
+              }
+              name="Login"
+              isVerticla></NavOption>
+          )}
         </ul>
       </Hidden>
     </nav>
