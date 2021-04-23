@@ -1,6 +1,6 @@
-import { useReducer, createContext, useContext } from "react";
+import { useReducer, createContext, useContext, useEffect } from "react";
 import { useDebouncing } from "../../Utils";
-import { useSnakbarContext } from "../";
+import { useSnakbarContext, useAuthContext } from "../";
 import { reducer } from "./Utils";
 const CartContext = createContext();
 
@@ -12,7 +12,7 @@ export const CartContextProvider = ({ children }) => {
     intialState
   );
   const { snakbarDispatch } = useSnakbarContext();
-
+  const { user } = useAuthContext;
   const handleWishList = (product) => {
     const wishType = product.inWish
       ? "REMOVE_FROM_WISHLIST"
@@ -45,6 +45,10 @@ export const CartContextProvider = ({ children }) => {
     cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
   };
 
+  const setCart = (products) => {
+    cartDispatch({ type: "SET_CART", payload: products });
+  };
+
   const priceReducer = (acc, value) => {
     // const discountedPrice = value.price - value.discount * value.price;
     return {
@@ -61,6 +65,22 @@ export const CartContextProvider = ({ children }) => {
       totalPrice: 0,
     }
   );
+
+  useEffect(() => {
+    if (user) {
+    } else {
+      const loaclCart = JSON.parse(localStorage.getItem("cartlist"));
+      if (loaclCart) {
+        setCart(loaclCart);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!!!user) {
+      localStorage.setItem("cartlist", JSON.stringify(cartList));
+    }
+  }, [cartList]);
 
   return (
     <CartContext.Provider

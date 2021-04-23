@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 @import url("https://bucketcss.netlify.app/css/bucket-minify.css");
 body {
-  --primary-dark: #059669;
-  --primary-default: #25a18a;
-  --primary-light: #34d399;
+  --primary-dark: #166534;
+  --primary-default: #61973f;
+  --primary-light: #76af53;
 
   --grey-dark: #6b7280;
   --grey-default: #909090;
@@ -75,6 +75,9 @@ a:focus-visible,
 }
 .model-container {
   display: block;
+}
+.btn-link:hover {
+  color: var(--primary-dark);
 }
 @media (max-width: 600px) {
   .sm-column {

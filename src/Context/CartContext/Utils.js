@@ -1,5 +1,10 @@
 export const reducer = (state, action) => {
   switch (action.type) {
+    case "SET_CART":
+      return {
+        ...state,
+        cartList: action.payload,
+      };
     case "ADD_TO_CART":
       return {
         ...state,

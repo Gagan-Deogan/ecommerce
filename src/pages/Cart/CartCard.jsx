@@ -57,13 +57,13 @@ export const CartCard = ({
         </div>
         <div className="row margin-t-16">
           <button
-            className="sm-btn-pry"
+            className="btn-link"
             onClick={() => handleRemoveFromCart(product._id)}>
             Remove from Cart
           </button>
           {!product.inWish && (
             <button
-              className="sm-btn-pry margin-l-8"
+              className="btn-link margin-l-8"
               onClick={() => handleSaveForLater(product)}>
               Save for later
             </button>

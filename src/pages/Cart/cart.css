@@ -1,6 +1,22 @@
 .cart-card {
   height: 12rem;
+  /* height: auto; */
+  /* max-height: 12rem; */
+}
+.price-container {
+  position: sticky;
+  top: 6rem;
+  margin-left: 0.75rem;
+  min-width: 15rem;
 }
 .items-list {
   background: var(--inner-background);
+}
+@media (max-width: 600px) {
+  .price-container {
+    position: relative;
+    top: auto;
+    margin: 0.75rem 0;
+    min-width: 15rem;
+  }
 }

@@ -51,7 +51,7 @@ export const NavBar = () => {
             navTo="/"
             icon={
               <HomeIcon
-                color={loaction.pathname === "/" ? "#25a18a" : "#6b7280"}
+                color={loaction.pathname === "/" ? "#61973f" : "#6b7280"}
               />
             }
             name="Home"></NavOption>
@@ -59,7 +59,7 @@ export const NavBar = () => {
             navTo="/store"
             icon={
               <BagIcon
-                color={loaction.pathname === "/store" ? "#25a18a" : "#6b7280"}
+                color={loaction.pathname === "/store" ? "#61973f" : "#6b7280"}
               />
             }
             name="Store"></NavOption>
@@ -68,7 +68,7 @@ export const NavBar = () => {
             icon={
               <WishlistIcon
                 color={
-                  loaction.pathname === "/wishlist" ? "#25a18a" : "#6b7280"
+                  loaction.pathname === "/wishlist" ? "#61973f" : "#6b7280"
                 }
               />
             }
@@ -78,7 +78,7 @@ export const NavBar = () => {
             navTo="/cart"
             icon={
               <CartIcon
-                color={loaction.pathname === "/cart" ? "#25a18a" : "#6b7280"}
+                color={loaction.pathname === "/cart" ? "#61973f" : "#6b7280"}
               />
             }
             name="Cart"
@@ -92,7 +92,7 @@ export const NavBar = () => {
               navTo="/login"
               icon={
                 <UserIcon
-                  color={loaction.pathname === "/login" ? "#25a18a" : "#6b7280"}
+                  color={loaction.pathname === "/login" ? "#61973f" : "#6b7280"}
                 />
               }
               name="Login"

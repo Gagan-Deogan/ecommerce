@@ -38,7 +38,7 @@ export const FiltersMenu = ({
       <div className="row justify-between padding-16 padding-b-8">
         <h3 className="bold">Filters</h3>
         <button
-          className="btn-link bold primary-color"
+          className="btn-link bold"
           onClick={() => dispatch({ type: "INITIAL" })}>
           Clear All
         </button>
