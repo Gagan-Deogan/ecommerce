@@ -8,18 +8,16 @@ const instance = axios.create({
 export const useRequest = () => {
   const getCancelToken = () => axios.CancelToken.source();
 
-  const request = async ({ method, endpoint, data = {}, cancelToken }) => {
+  const request = async ({ method, endpoint, body = {}, cancelToken }) => {
     switch (method) {
       case "GET": {
-        const res = await instance.get(endpoint, data, {
+        const res = await instance.get(endpoint, body, {
           cancelToken: cancelToken,
         });
-        return res;
+        return res.data;
       }
       case "POST": {
-        const res = await instance.post(endpoint, data, {
-          cancelToken: cancelToken,
-        });
+        const res = await instance.post(endpoint, body, cancelToken);
         return res.data;
       }
       default:

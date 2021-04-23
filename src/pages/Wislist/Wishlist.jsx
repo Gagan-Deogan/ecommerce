@@ -6,27 +6,21 @@ import { useCartContext } from "../../Context";
 export const Wishlist = () => {
   const {
     wishList,
-    cartList,
     betterHandleWishList,
+    handleWishList,
     handleAddToCart,
   } = useCartContext();
-  const wishListWithFlag = (() => {
-    const productsIdInCart = cartList.map((item) => item.id);
-    return wishList.map((product) =>
-      productsIdInCart.includes(product.id)
-        ? { ...product, inCart: true }
-        : product
-    );
-  })();
   return (
     <>
       <section className="column w12 align-start justify-start padding-32 padding-t-16">
         <ul className="dis-grid product-container wishlist-item margin-t-16 ">
-          {wishListWithFlag.map((product) => (
+          {wishList.map((product) => (
             <ProductCard
-              product={product}
-              inWishList={true}
+              details={product.details}
+              inWishlist={true}
+              showAddToCart={false}
               betterHandleWishList={betterHandleWishList}
+              handleWishList={handleWishList}
               handleAddToCart={handleAddToCart}></ProductCard>
           ))}
         </ul>

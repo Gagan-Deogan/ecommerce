@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "../../Utils";
 const AuthContext = createContext();
@@ -7,8 +6,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
-  const { request, getCancelToken } = useRequest();
-  const cancelToken = getCancelToken();
+  const { request } = useRequest();
   useEffect(() => {
     const isAlreadyLoggedIn = JSON.parse(localStorage.getItem("user"));
     if (!!isAlreadyLoggedIn) {
@@ -21,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       const { success, user } = await request({
         method: "POST",
         endpoint: "/users/login",
-        data: {
+        body: {
           email,
           password,
         },

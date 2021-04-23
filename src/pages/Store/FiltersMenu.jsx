@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "../../Utils/query";
 
 const RadioButton = ({ value, checked, onChange }) => {
   return (
@@ -19,20 +17,6 @@ export const FiltersMenu = ({
   showRating,
   dispatch,
 }) => {
-  const { queryEncoder } = useQuery();
-  const navigate = useNavigate();
-  const updateSearchQuery = (
-    updateSortBy,
-    updateCategory,
-    updateRating,
-    updateInvetory
-  ) => {
-    navigate(
-      `/store?sort=${queryEncoder(updateSortBy)}&showRating=${queryEncoder(
-        updateRating
-      )}&showInvertory=${queryEncoder(updateInvetory)}`
-    );
-  };
   return (
     <>
       <div className="row justify-between padding-16 padding-b-8">

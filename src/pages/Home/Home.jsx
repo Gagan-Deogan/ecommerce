@@ -18,14 +18,14 @@ export const Home = () => {
     (async () => {
       setStatus("PENDING");
       try {
-        const { data } = await request({
+        const { data, success } = await request({
           method: "GET",
           endpoint: "/home",
           cancelToken: cancelToken.token,
         });
-        if (data.success) {
+        if (success) {
           setStatus("IDLE");
-          setHomeProducts({ ...data.data });
+          setHomeProducts(data);
         } else {
           console.log("some thing went worng.");
         }
@@ -66,7 +66,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestDeals.map((product) => (
                   <ProductCard
-                    product={product}
+                    details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
                     key={product._id}></ProductCard>
@@ -86,7 +86,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.plants.map((product) => (
                   <ProductCard
-                    product={product}
+                    details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
                     key={product._id}></ProductCard>
@@ -106,7 +106,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.tools.map((product) => (
                   <ProductCard
-                    product={product}
+                    details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
                     key={product._id}></ProductCard>
@@ -116,15 +116,15 @@ export const Home = () => {
             <section className="catagories-container w12 padding-16 ">
               <div className="row justify-between align-center">
                 <h2 className="bold">Best Sellers</h2>
-                <a className="bold text-end btn-link" href="#">
+                {/* <a className="bold text-end btn-link" href="#">
                   SEE MORE
-                </a>
+                </a> */}
               </div>
               <p>FlyDryPRO technology with Cool Pass to keep you dry</p>
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestSellers.map((product) => (
                   <ProductCard
-                    product={product}
+                    details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
                     key={product._id}></ProductCard>

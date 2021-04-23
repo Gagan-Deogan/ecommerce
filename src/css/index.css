@@ -92,6 +92,10 @@ a:focus-visible,
 .border-bottom {
   border-bottom: 1px solid var(--grey-light);
 }
+.card > .card-title > button {
+  height: 2rem;
+  margin-top: 1.25rem;
+}
 /* end */
 section {
   max-width: 100rem;

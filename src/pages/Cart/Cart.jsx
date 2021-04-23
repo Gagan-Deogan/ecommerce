@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const Cart = () => {
   const {
     cartList,
+    wishList,
     handleRemoveFromCart,
     handleQuantityChange,
     handleSaveForLater,
@@ -13,6 +14,15 @@ export const Cart = () => {
     totalEffectivePrice,
     totalDiscount,
   } = useCartContext();
+  const getProductWithWishlistFlag = () => {
+    const wishlistProductId = wishList.map((product) => product.details._id);
+    return cartList.map((product) =>
+      wishlistProductId.includes(product.details._id)
+        ? { ...product, inWishlist: true }
+        : product
+    );
+  };
+  const productWithWishListFlag = getProductWithWishlistFlag();
   const navigate = useNavigate();
   return (
     <>
@@ -21,19 +31,20 @@ export const Cart = () => {
           <div className="border-bottom w12 padding-16">
             <h4 className="bold">My Cart</h4>
           </div>
-          {!!cartList.length && (
+          {!!productWithWishListFlag.length && (
             <ul className="column w12 padding-16 padding-t-8">
-              {cartList.map((product) => (
+              {productWithWishListFlag.map((product) => (
                 <CartCard
                   product={product}
                   handleRemoveFromCart={handleRemoveFromCart}
                   handleQuantityChange={handleQuantityChange}
                   handleSaveForLater={handleSaveForLater}
+                  inWishlist={product.inWishlist}
                   key={product._id}></CartCard>
               ))}
             </ul>
           )}
-          {!!!cartList.length && (
+          {!!!productWithWishListFlag.length && (
             <div className="column w12 align-center justify-center  padding-64">
               <h4>Your cart is empty!</h4>
               <h6>Add items to it now.</h6>
@@ -45,7 +56,7 @@ export const Cart = () => {
             </div>
           )}
         </div>
-        {!!cartList.length && (
+        {!!productWithWishListFlag.length && (
           <div className="column sm-w12 w3 align-center justify-start bor-sol bor-rad-8 price-container">
             <div className="border-bottom w12 padding-16">
               <h4 className="grey-color">Price Details</h4>

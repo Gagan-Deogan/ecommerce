@@ -1,5 +1,3 @@
-import "./css/index.css";
-import "./css/App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";

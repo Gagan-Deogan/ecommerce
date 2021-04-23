@@ -2,28 +2,28 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "SET_CART":
       return {
-        ...state,
-        cartList: action.payload,
+        cartList: action.payload.cartList,
+        wishList: action.payload.wishList,
       };
     case "ADD_TO_CART":
       return {
         ...state,
         cartList: state.cartList.concat([
-          { ...action.payload, quantity: 1, inCart: true },
+          { details: { ...action.payload }, quantity: 1, inCartlist: true },
         ]),
       };
     case "REMOVE_FROM_CART":
       return {
         ...state,
         cartList: state.cartList.filter(
-          (product) => product._id !== action.payload
+          (product) => product.details._id !== action.payload
         ),
       };
     case "INCREMENT_QUANTITY":
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product._id === action.payload
+          product.details._id === action.payload
             ? { ...product, quantity: product.quantity + 1 }
             : product
         ),
@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product._id === action.payload && product.quantity > 1
+          product.details._id === action.payload && product.quantity > 1
             ? { ...product, quantity: product.quantity - 1 }
             : product
         ),
@@ -40,26 +40,34 @@ export const reducer = (state, action) => {
     case "ADD_TO_WISHLIST":
       return {
         ...state,
-        wishList: [...state.wishList, { ...action.payload, inWish: true }],
+        wishList: [
+          ...state.wishList,
+          { details: { ...action.payload }, inWishlist: true },
+        ],
       };
     case "REMOVE_FROM_WISHLIST":
       return {
         ...state,
         wishList: state.wishList.filter(
-          (product) => product._id !== action.payload
+          (product) => product.details._id !== action.payload
         ),
       };
     case "SAVE_FOR_LATER":
-      const saveProduct = action.payload;
+      const details = action.payload;
       const productSaveForLater = {
         cartList: state.cartList.filter(
-          (product) => product._id !== saveProduct._id
+          (product) => product.details._id !== details._id
         ),
         wishList: state.wishList.concat([
-          { ...saveProduct, inWish: true, quantity: 0, inCart: false },
+          {
+            details: details,
+            inWishlist: true,
+            quantity: 0,
+            inCartlist: false,
+          },
         ]),
       };
-      return { ...productSaveForLater };
+      return productSaveForLater;
     default:
       return state;
   }

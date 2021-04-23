@@ -27,7 +27,7 @@ const NavOption = ({ name, navTo, icon, badge, isVerticla }) => {
           color: "var(--primary-default)",
         }}>
         {icon}
-        {!!badge && <span class="badge">{badge}</span>}
+        {!!badge && <span className="badge">{badge}</span>}
         <h6 className={`"margin-t-4 font-xs text-center"`}>{name}</h6>
       </NavLink>
     </li>
@@ -39,7 +39,6 @@ export const NavBar = () => {
   const { user } = useAuthContext();
   const loaction = useLocation();
   const { REACT_APP_IMAGE_URL } = process.env;
-  console.log({ user });
   return (
     <nav className="row padding-l-16 padding-r-16">
       <div className="row sm-w2 w12 justify-start align-center">

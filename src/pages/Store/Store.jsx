@@ -26,6 +26,7 @@ export const Store = () => {
     wishList,
     betterHandleWishList,
     handleAddToCart,
+    handleWishList,
   } = useCartContext();
   const { status, setStatus } = useStatus();
   const [isOpenModel, setIsOpenModel] = useState(false);
@@ -40,7 +41,6 @@ export const Store = () => {
   };
   const categoryId = queryParser("category");
 
-  console.log(initial);
   const [{ sortBy, showRating, showInvertory }, dispatch] = useReducer(
     reducer,
     initial
@@ -59,13 +59,15 @@ export const Store = () => {
     (async () => {
       setStatus("PENDING");
       try {
-        const { data } = await request({
+        const { products, success } = await request({
           method: "GET",
           endpoint: categoryId ? `categories/${categoryId}` : "/products",
           cancelToken: cancelToken.token,
         });
         setStatus("IDLE");
-        setProducts(data["products"]);
+        if (success) {
+          setProducts(products);
+        }
       } catch (err) {
         setStatus("IDLE");
       }
@@ -94,7 +96,6 @@ export const Store = () => {
       );
     }
   }, [sortBy, showRating, showInvertory]);
-
   return (
     <>
       {status !== "IDLE" && <Loader />}
@@ -132,13 +133,16 @@ export const Store = () => {
               </Model>
             </Hidden>
             <div className="dis-grid product-container">
-              {filterData &&
+              {!!filterData.length &&
                 filterData.map((product) => (
                   <ProductCard
-                    product={product}
-                    key={product.id}
+                    details={product.details}
+                    inWishlist={product.inWishlist}
+                    inCartlist={product.inCartlist}
+                    key={product.details._id}
                     handleAddToCart={handleAddToCart}
                     betterHandleWishList={betterHandleWishList}
+                    handleWishList={handleWishList}
                   />
                 ))}
             </div>
