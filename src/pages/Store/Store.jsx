@@ -7,7 +7,7 @@ import { Hidden } from "../../components/Hidden";
 import { Model } from "../../components/Model";
 import { useQuery } from "../../Utils";
 import { FiltersMenu } from "./FiltersMenu.jsx";
-import { reducer, getProductWithFlags } from "./filters";
+import { reducer } from "./filters";
 import {
   getSortedData,
   getProductByRating,
@@ -46,10 +46,8 @@ export const Store = () => {
     initial
   );
 
-  const productWithFlags = getProductWithFlags(cartList, wishList, products);
-
   // sorts the data
-  const sortedData = getSortedData(productWithFlags, sortBy);
+  const sortedData = getSortedData(products, sortBy);
   const filterByRating = getProductByRating(sortedData, showRating);
   const filterData = getFilterbyAvalibility(filterByRating, showInvertory);
 
@@ -97,6 +95,7 @@ export const Store = () => {
       );
     }
   }, [sortBy, showRating, showInvertory]);
+  console.log(products);
   return (
     <>
       {status !== "IDLE" && <Loader />}
@@ -137,10 +136,8 @@ export const Store = () => {
               {!!filterData.length &&
                 filterData.map((product) => (
                   <ProductCard
-                    details={product.details}
-                    inWishlist={product.inWishlist}
-                    inCartlist={product.inCartlist}
-                    key={product.details._id}
+                    details={product}
+                    key={product._id}
                     handleAddToCart={handleAddToCart}
                     betterHandleWishList={betterHandleWishList}
                     handleWishList={handleWishList}

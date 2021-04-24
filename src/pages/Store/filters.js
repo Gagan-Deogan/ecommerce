@@ -18,29 +18,12 @@ export const reducer = (state, action) => {
   }
 };
 
-export const getProductWithFlags = (cartList, wishList, products) => {
-  const productsIdInCart = cartList.map((item) => item.details._id);
-  const productsIdInWishList = wishList.map((item) => item.details._id);
-  return products.map((product) => {
-    const productWithInCartFlag = productsIdInCart.includes(product._id)
-      ? { details: { ...product }, inCartlist: true }
-      : { details: product };
-    return productsIdInWishList.includes(productWithInCartFlag.details._id)
-      ? { ...productWithInCartFlag, inWishlist: true }
-      : productWithInCartFlag;
-  });
-};
-
 export const getSortedData = (products, sortBy) => {
   switch (sortBy) {
     case "LH":
-      return products.sort(
-        (a, b) => a.details.effectivePrice - b.details.effectivePrice
-      );
+      return products.sort((a, b) => a.effectivePrice - b.effectivePrice);
     case "HL":
-      return products.sort(
-        (a, b) => b.details.effectivePrice - a.details.effectivePrice
-      );
+      return products.sort((a, b) => b.effectivePrice - a.effectivePrice);
     default:
       return products;
   }
@@ -56,12 +39,12 @@ export const getFilterByCategories = (products, showCatagoeries) => {
 
 export const getProductByRating = (products, showRating) => {
   if (showRating !== null)
-    return products.filter((product) => product.details.rating >= showRating);
+    return products.filter((product) => product.rating >= showRating);
   return products;
 };
 
 export const getFilterbyAvalibility = (products, showInvertory) => {
   if (!showInvertory)
-    return products.filter((product) => product.details.avalibility === true);
+    return products.filter((product) => product.avalibility === true);
   return products;
 };

@@ -1,0 +1,13 @@
+.product-detail-left {
+  position: sticky;
+  top: 7rem;
+}
+@media (max-width: 600px) {
+  .product-detail-left {
+    position: relative;
+    top: 0rem;
+  }
+  .product-detail-rigth {
+    margin: 3rem 0;
+  }
+}

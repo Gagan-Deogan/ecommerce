@@ -325,10 +325,7 @@ export const Logo = () => {
 };
 export const LogoIcon = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "3rem" }}
-      viewBox="0 0 66.92 96.805">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.92 96.805">
       <g
         id="Group_6"
         data-name="Group 6"
@@ -386,6 +383,24 @@ export const FiltersIcons = () => {
       <path
         d="M67.998 106.343V40a12 12 0 1 0-24 0v66.343a31.988 31.988 0 0 0 0 59.313V216a12 12 0 1 0 24 0v-50.343a31.988 31.988 0 0 0 0-59.314z"
         fill="#059669"></path>
+    </svg>
+  );
+};
+export const DotIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: "auto", width: "0.5rem" }}
+      viewBox="0 0 5 5">
+      <g
+        id="Ellipse_2"
+        data-name="Ellipse 2"
+        fill="#6b7280"
+        stroke="#707070"
+        stroke-width="1">
+        <circle cx="2.5" cy="2.5" r="2.5" stroke="none" />
+        <circle cx="2.5" cy="2.5" r="2" fill="none" />
+      </g>
     </svg>
   );
 };

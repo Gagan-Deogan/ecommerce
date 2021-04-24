@@ -89,6 +89,11 @@ a:focus-visible,
   max-width: none;
   min-width: none;
 }
+.btn-pry {
+  width: auto;
+  max-width: none;
+  min-width: none;
+}
 .border-bottom {
   border-bottom: 1px solid var(--grey-light);
 }
@@ -114,6 +119,19 @@ input[type="email"] {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.card-ratg {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  background: var(--yellow-default);
+}
+.card-badge {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1em;
+  color: var(--inner-text);
+  border-radius: 1.25rem;
+  background: var(--red-default);
 }
 /* end */
 section {
