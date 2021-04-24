@@ -67,10 +67,11 @@ export const CartContextProvider = ({ children }) => {
   const priceReducer = (acc, value) => {
     return {
       totalEffectivePrice:
-        acc.totalEffectivePrice + value.details.effectivePrice,
+        acc.totalEffectivePrice + value.details.effectivePrice * value.quantity,
       totalDiscount:
-        acc.totalDiscount + value.details.price - value.details.effectivePrice,
-      totalPrice: acc.totalPrice + value.details.price,
+        acc.totalDiscount +
+        (value.details.price - value.details.effectivePrice) * value.quantity,
+      totalPrice: acc.totalPrice + value.details.price * value.quantity,
     };
   };
 

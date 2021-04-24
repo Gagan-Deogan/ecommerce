@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const handleLogin = async (email, password, from = "/") => {
+  const handleLogin = async (email, password, setLoginError) => {
     try {
       const { success, user } = await request({
         method: "POST",
@@ -28,15 +28,10 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/store");
+      } else {
+        setLoginError(true);
       }
-      // if (data.success) {
-      //   setStatus("IDLE");
-      //   setHomeProducts({ ...data.data });
-      // } else {
-      //   console.log("some thing went worng.");
-      // }
     } catch (err) {
-      // setStatus("IDLE");
       console.log(err);
     }
   };

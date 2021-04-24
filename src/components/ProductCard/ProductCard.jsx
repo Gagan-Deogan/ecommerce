@@ -10,9 +10,13 @@ export const ProductCard = ({
   betterHandleWishList,
   handleWishList,
   handleAddToCart,
+  handleProductDetail,
 }) => {
   return (
-    <div className="column card pos-r hov-box-shd bor-rad-8 bor-sol">
+    <div
+      key="route"
+      className="column card pos-r hov-box-shd bor-rad-8 bor-sol cursor-pointer"
+      onClick={() => handleProductDetail(details._id)}>
       {!!details.label && (
         <div className="card-badge">
           <span>{details.label}</span>
@@ -45,12 +49,12 @@ export const ProductCard = ({
             </h5>
           )}
         </div>
-        {showAddToCart && (
+        {/* {showAddToCart && (
           <button
             className={`margin-t-16 sm-btn-pry-fil  ${
               !details.avalibility || inCartlist ? "btn-dis" : ""
             }`}
-            onClick={() => handleAddToCart(details)}
+            onClick={(e) => handleAddToCart(e, details)}
             disabled={!details.avalibility || inCartlist ? true : false}>
             {inCartlist
               ? "IN CART"
@@ -58,15 +62,17 @@ export const ProductCard = ({
               ? "SOLD OUT"
               : "ADD TO CART"}
           </button>
-        )}
+        )} */}
       </div>
-      {showAddTOWishlist && (
+      {/* {showAddTOWishlist && (
         <button
           className="btn-icon card-wish"
-          onClick={() => betterHandleWishList(details, inWishlist)}>
+          onClick={(e) => handleStopPropagation(e, betterHandleWishList(details, inWishlist))}
+          onClick={(e) => handleStopPropagation(e)}
+          >
           {inWishlist ? <FavFillIcon /> : <FavIcon />}
         </button>
-      )}
+      )} */}
       {details.rating && (
         <div className="card-ratg row">
           <h6 className="bold margin-r-4">{details.rating}</h6>

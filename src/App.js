@@ -4,6 +4,7 @@ import { Store } from "./pages/Store";
 import { Wishlist } from "./pages/Wislist";
 import { Cart } from "./pages/Cart";
 import { Login } from "./pages/Login";
+import { ProductDetail } from "./pages/ProductDetail";
 import { NavBar } from "./components/NavBar";
 import { Snakbar } from "./components/Snakbar";
 import { useSnakbarContext } from "./Context";
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/productdetail/:id" element={<ProductDetail />} />
         <UserNotReachableRoute path="/login" element={<Login />} />
       </Routes>
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}

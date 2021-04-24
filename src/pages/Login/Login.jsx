@@ -1,7 +1,8 @@
+import "./login.css";
 import { useState } from "react";
 import { useAuthContext } from "../../Context";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { LogoIcon } from "../../assests";
 export const Login = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -11,16 +12,19 @@ export const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [loginError, setLoginError] = useState();
   const { handleLogin } = useAuthContext();
-  const { state } = useLocation();
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(email, password, state ? state.from : "/");
+    handleLogin(email, password, setLoginError);
   };
   return (
     <section className="column justify-center align-center">
-      <h3 className="margin-t-32">Login to Roots</h3>
-      <div className="card padding-64 bor-rad-8 box-shd margin-t-32">
+      <div className="card column login-container w12 align-center  margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
+        <LogoIcon />
+        <h3 className="margin-t-8 margin-b-32 primary-color">
+          Login to Greenify
+        </h3>
         <form className="column" onSubmit={(e) => handleSubmit(e)} action="#">
           <section className="column margin-b-16">
             <label for="email" className="margin-b-8">
@@ -29,11 +33,10 @@ export const Login = () => {
             <input
               id="email"
               name="email"
-              type="text"
+              type="email"
               placeholder=" "
               autocomplete="username"
               required
-              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </section>
@@ -47,36 +50,17 @@ export const Login = () => {
               type="password"
               autocomplete="current-password"
               aria-describedby="password-constraints"
-              value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            {/* <button
-              id="toggle-password"
-              type="button"
-              aria-label="Show password as plain text. Warning: this will display your password on the screen.">
-              Show password
-            </button> */}
-            {/* <div id="password-constraints">
-              Eight or more characters, with at least one&nbsp;lowercase and one
-              uppercase letter.
-            </div> */}
           </section>
-          {/* <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}></input> */}
-          {/* <input
-            type="password"
-            placeholder="Password"
-            className="margin-t-32 "
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}></input> */}
-          {/* <div className="text-help">Help text</div> */}
-          <button className="btn-pry-fil margin-t-32 w12">Login</button>
+          {loginError && (
+            <h6 className="font-xs text-center text-error bold margin-b-8">
+              {" "}
+              Invalid username or password.
+            </h6>
+          )}
+          <button className="btn-pry-fil w12">Login</button>
         </form>
       </div>
     </section>

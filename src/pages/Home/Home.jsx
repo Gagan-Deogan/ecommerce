@@ -4,14 +4,18 @@ import "./home.css";
 import { ProductCard } from "../../components/ProductCard";
 import { useRequest } from "../../Utils/request";
 import { useStatus } from "../../Context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
-
+  const navigate = useNavigate();
   const [homeProducts, setHomeProducts] = useState();
   const { status, setStatus } = useStatus();
+
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
 
   useEffect(() => {
     const cancelToken = getCancelToken();
@@ -69,7 +73,8 @@ export const Home = () => {
                     details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
-                    key={product._id}></ProductCard>
+                    key={product._id}
+                    handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
               </div>
             </section>
@@ -89,7 +94,8 @@ export const Home = () => {
                     details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
-                    key={product._id}></ProductCard>
+                    key={product._id}
+                    handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
               </div>
             </section>
@@ -109,7 +115,8 @@ export const Home = () => {
                     details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
-                    key={product._id}></ProductCard>
+                    key={product._id}
+                    handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
               </div>
             </section>
@@ -127,7 +134,8 @@ export const Home = () => {
                     details={product}
                     showAddToCart={false}
                     showAddTOWishlist={false}
-                    key={product._id}></ProductCard>
+                    key={product._id}
+                    handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
               </div>
             </section>

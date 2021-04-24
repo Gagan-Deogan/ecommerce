@@ -96,6 +96,25 @@ a:focus-visible,
   height: 2rem;
   margin-top: 1.25rem;
 }
+input[type="email"] {
+  padding: 0.68rem 1rem;
+  border: 1px solid var(--primary-default);
+  border-radius: 4px;
+  font-family: "Lato", sans-serif;
+  appearance: none;
+  font-size: 1rem;
+  line-height: 1.14em;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  background-color: var(--grey-opac);
+}
+.text-error {
+  letter-spacing: 0.3px;
+  color: var(--red-dark);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 /* end */
 section {
   max-width: 100rem;

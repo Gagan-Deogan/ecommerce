@@ -76,8 +76,9 @@ export const Store = () => {
       cancelToken.cancel();
     };
   }, []);
-
-  //
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
   useEffect(() => {
     if (products) {
       const categoryQuery = categoryId
@@ -143,6 +144,7 @@ export const Store = () => {
                     handleAddToCart={handleAddToCart}
                     betterHandleWishList={betterHandleWishList}
                     handleWishList={handleWishList}
+                    handleProductDetail={handleProductDetail}
                   />
                 ))}
             </div>

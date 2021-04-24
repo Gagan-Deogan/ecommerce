@@ -12,8 +12,7 @@ fieldset {
 }
 
 .card {
-  /* width: auto; */
-  width: 100%;
+  width: auto;
 }
 
 .product-container {
