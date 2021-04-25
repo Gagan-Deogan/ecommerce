@@ -95,7 +95,6 @@ export const Store = () => {
       );
     }
   }, [sortBy, showRating, showInvertory]);
-  console.log(products);
   return (
     <>
       {status !== "IDLE" && <Loader />}

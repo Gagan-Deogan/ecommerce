@@ -274,7 +274,7 @@ export const Logo = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "160px" }}
+      style={{ height: "auto", width: "10rem" }}
       viewBox="0 0 313.355 96.805">
       <g
         id="greenify_logo_horizontal"
@@ -325,7 +325,10 @@ export const Logo = () => {
 };
 export const LogoIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.92 96.805">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: "auto", width: "4rem" }}
+      viewBox="0 0 66.92 96.805">
       <g
         id="Group_6"
         data-name="Group 6"
@@ -400,6 +403,50 @@ export const DotIcon = () => {
         stroke-width="1">
         <circle cx="2.5" cy="2.5" r="2.5" stroke="none" />
         <circle cx="2.5" cy="2.5" r="2" fill="none" />
+      </g>
+    </svg>
+  );
+};
+export const HamburgerIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: "auto", width: "20px" }}
+      viewBox="0 0 20 14">
+      <g id="menu_1_" data-name="menu (1)" transform="translate(-2 -5)">
+        <line
+          id="Line_1"
+          data-name="Line 1"
+          x2="18"
+          transform="translate(3 12)"
+          fill="none"
+          stroke="#111827"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
+        <line
+          id="Line_2"
+          data-name="Line 2"
+          x2="18"
+          transform="translate(3 6)"
+          fill="none"
+          stroke="#111827"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
+        <line
+          id="Line_3"
+          data-name="Line 3"
+          x2="18"
+          transform="translate(3 18)"
+          fill="none"
+          stroke="#111827"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+        />
       </g>
     </svg>
   );

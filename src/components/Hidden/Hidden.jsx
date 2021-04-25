@@ -13,9 +13,9 @@ export const Hidden = ({ children, hideAt }) => {
   };
   switch (hideAt) {
     case "sm-down":
-      return <>{windowWidth < 600 ? "" : children}</>;
+      return <>{windowWidth <= 600 ? "" : children}</>;
     case "md-down":
-      return <>{windowWidth < 900 ? "" : children}</>;
+      return <>{windowWidth <= 900 ? "" : children}</>;
     case "sm-up":
       return <>{windowWidth > 600 ? "" : children}</>;
     case "md-up":

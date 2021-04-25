@@ -4,9 +4,11 @@ import { Store } from "./pages/Store";
 import { Wishlist } from "./pages/Wislist";
 import { Cart } from "./pages/Cart";
 import { Login } from "./pages/Login";
+import { Profile } from "./pages/Profile";
 import { ProductDetail } from "./pages/ProductDetail";
 import { NavBar } from "./components/NavBar";
 import { Snakbar } from "./components/Snakbar";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useSnakbarContext } from "./Context";
 import { useAuthContext } from "./Context";
 
@@ -26,6 +28,7 @@ export default function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/productdetail/:id" element={<ProductDetail />} />
+        <ProtectedRoute path="/profile" element={<Profile />} />
         <UserNotReachableRoute path="/login" element={<Login />} />
       </Routes>
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}

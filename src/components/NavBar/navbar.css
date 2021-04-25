@@ -10,3 +10,8 @@ nav {
 .nav-center > li > .btn-link:hover {
   background: none;
 }
+.left-sheet {
+  background: var(--inner-background);
+  height: 100%;
+  width: 17rem;
+}

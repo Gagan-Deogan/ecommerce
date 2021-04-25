@@ -133,6 +133,9 @@ input[type="email"] {
   border-radius: 1.25rem;
   background: var(--red-default);
 }
+.background-red {
+  background: var(--red-dark);
+}
 /* end */
 section {
   max-width: 100rem;

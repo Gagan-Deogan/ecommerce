@@ -1,5 +1,5 @@
-.cart-card {
-  /* height: 12rem; */
+.card-vertical > img {
+  height: 100%;
 }
 .price-container {
   position: sticky;

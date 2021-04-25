@@ -11,7 +11,7 @@ export const CartCard = ({
   inWishlist = false,
 }) => {
   return (
-    <li className="column margin-t-16 border-bottom padding-b-8">
+    <li className="column  margin-t-16 border-bottom padding-b-8">
       <div className="row card card-vertical cart-card w12">
         <img
           src={REACT_APP_IMAGE_URL + product.details.image}
