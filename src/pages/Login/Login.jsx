@@ -1,8 +1,8 @@
 import "./login.css";
 import { useState } from "react";
 import { useAuthContext } from "../../Context";
-import { useLocation, useNavigate } from "react-router-dom";
-import { LogoIcon } from "../../assests";
+import { useNavigate } from "react-router-dom";
+import { LogoIcon } from "../../assests/icons";
 export const Login = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -27,28 +27,27 @@ export const Login = () => {
         </h3>
         <form className="column" onSubmit={(e) => handleSubmit(e)} action="#">
           <section className="column margin-b-16">
-            <label for="email" className="margin-b-8">
+            <label htmlFor="email" className="margin-b-8">
               Email
             </label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder=" "
-              autocomplete="username"
+              autoComplete="username"
               required
               onChange={(e) => setEmail(e.target.value)}
             />
           </section>
           <section className="column margin-b-16  ">
-            <label for="current-password" className="margin-b-8">
+            <label htmlFor="current-password" className="margin-b-8">
               Password
             </label>
             <input
               id="current-password"
               name="current-password"
               type="password"
-              autocomplete="current-password"
+              autoComplete="current-password"
               aria-describedby="password-constraints"
               onChange={(e) => setPassword(e.target.value)}
               required

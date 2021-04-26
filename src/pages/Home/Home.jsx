@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import wapperbackground from "../../assests/wall.png";
+import wapperbackground from "../../assests/images/wall.png";
 import "./home.css";
 import { ProductCard } from "../../components/ProductCard";
 import { useRequest } from "../../Utils/request";
@@ -50,8 +50,6 @@ export const Home = () => {
           <>
             <header className="w12">
               <picture>
-                {/* <source media="(min-width:650px)" srcset="img_pink_flowers.jpg" />
-                              <source media="(min-width:465px)" srcset="img_white_flower.jpg" /> */}
                 <img
                   className="responsive-img "
                   src={wapperbackground}
@@ -59,14 +57,20 @@ export const Home = () => {
                 />
               </picture>
             </header>
-            <section className="catagories-container w12 padding-16 ">
+            <section className="catagories-container w12 padding-16">
               <div className="row justify-between align-center">
                 <h2 className="bold">Deal of the Day</h2>
-                <Link className="bold text-end btn-link" to={`/store`}>
+                <Link
+                  className="bold text-end btn-link"
+                  to={`/store?&showInvertory=true&showOffer=true&showNew=false&showBestSeller=false`}>
                   SEE MORE
                 </Link>
               </div>
-              <p>FlyDryPRO technology with Cool Pass to keep you dry</p>
+              <p>
+                All of this is available at a quite reasonable price so that
+                everyone can have their own glorious and lush plants set-up at
+                their loving abode.
+              </p>
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestDeals.map((product) => (
                   <ProductCard
@@ -83,11 +87,15 @@ export const Home = () => {
                 <h2 className="bold">Plants</h2>
                 <Link
                   className="bold text-end btn-link"
-                  to={`/store?category="607d20d2ebcbc4055460af6f"`}>
+                  to={`/store?category="607d20d2ebcbc4055460af6f"&showInvertory=true&showOffer=false&showNew=false&showBestSeller=false`}>
                   SEE MORE
                 </Link>
               </div>
-              <p>FlyDryPRO technology with Cool Pass to keep you dry</p>
+              <p>
+                All of this is available at a quite reasonable price so that
+                everyone can have their own glorious and lush plants set-up at
+                their loving abode.
+              </p>
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.plants.map((product) => (
                   <ProductCard
@@ -101,14 +109,18 @@ export const Home = () => {
             </section>
             <section className="catagories-container w12 padding-16 ">
               <div className="row justify-between align-center">
-                <h2 className="bold">Planters</h2>
+                <h2 className="bold">Tools</h2>
                 <Link
                   className="bold text-end btn-link"
-                  to={`/store?category="607d5210ebcbc4055460af75"`}>
+                  to={`/store?category="607d5210ebcbc4055460af75"&showInvertory=true&showOffer=false&showNew=false&showBestSeller=false`}>
                   SEE MORE
                 </Link>
               </div>
-              <p>FlyDryPRO technology with Cool Pass to keep you dry</p>
+              <p>
+                All of this is available at a quite reasonable price so that
+                everyone can have their own glorious and lush plants set-up at
+                their loving abode.
+              </p>
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.tools.map((product) => (
                   <ProductCard
@@ -123,11 +135,20 @@ export const Home = () => {
             <section className="catagories-container w12 padding-16 ">
               <div className="row justify-between align-center">
                 <h2 className="bold">Best Sellers</h2>
-                {/* <a className="bold text-end btn-link" href="#">
+                <Link
+                  className="bold text-end btn-link"
+                  to={
+                    "/store?showInvertory=true&showOffer=false&showNew=false&showBestSeller=true"
+                  }
+                  href="#">
                   SEE MORE
-                </a> */}
+                </Link>
               </div>
-              <p>FlyDryPRO technology with Cool Pass to keep you dry</p>
+              <p>
+                All of this is available at a quite reasonable price so that
+                everyone can have their own glorious and lush plants set-up at
+                their loving abode.
+              </p>
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestSellers.map((product) => (
                   <ProductCard

@@ -7,7 +7,7 @@ import {
   UserIcon,
   Logo,
   HamburgerIcon,
-} from "../../assests";
+} from "../../assests/icons";
 import { Avatar } from "../Avatar";
 import { Model } from "../Model";
 import { useCartContext, useAuthContext } from "../../Context";
@@ -45,16 +45,16 @@ const NavOption = ({
 };
 
 export const NavBar = () => {
-  const { cartList, wishList } = useCartContext();
+  const { cartlist, wishlist } = useCartContext();
   const { user } = useAuthContext();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
   const { REACT_APP_IMAGE_URL } = process.env;
   return (
     <nav className="row padding-l-16 padding-r-16 align-center">
-      <div className="row sm-w6 w12 justify-start align-center">
+      <NavLink to="/" className="row sm-w6 w12 justify-start align-center">
         <Logo />
-      </div>
+      </NavLink>
       <Hidden hideAt="sm-down">
         <ul className="row sm-w8 w12 justify-evenly align-center ">
           <NavOption
@@ -67,7 +67,7 @@ export const NavBar = () => {
             }
             name="Home"></NavOption>
           <NavOption
-            navTo="/store"
+            navTo="/store?&showInvertory=true&showOffer=false&showNew=false&showNew=false"
             TitleClasses="margin-t-4 font-xs"
             icon={
               <BagIcon
@@ -86,7 +86,7 @@ export const NavBar = () => {
               />
             }
             name="Wishlist"
-            badge={wishList.length}></NavOption>
+            badge={wishlist.length}></NavOption>
           <NavOption
             navTo="/cart"
             TitleClasses="margin-t-4 font-xs"
@@ -96,7 +96,7 @@ export const NavBar = () => {
               />
             }
             name="Cart"
-            badge={cartList.length}></NavOption>
+            badge={cartlist.length}></NavOption>
         </ul>
         <ul className="row sm-w2 w12 justify-end align-center">
           {user ? (
@@ -122,29 +122,38 @@ export const NavBar = () => {
       </Hidden>
       <Hidden hideAt="sm-up">
         <div className="row sm-w6 w12 justify-end align-center">
-          <button className="btn-link" onClick={() => setIsOpenModel(true)}>
-            <HamburgerIcon />
-          </button>
-          <ul>
+          <ul className="row">
+            <NavOption
+              navTo="/wishlist"
+              TitleClasses="hide"
+              onClick={() => setIsOpenModel(false)}
+              icon={
+                <WishlistIcon
+                  color={
+                    loaction.pathname === "/wishlist" ? "#61973f" : "#6b7280"
+                  }
+                />
+              }
+              badge={wishlist.length}></NavOption>
             <NavOption
               navTo="/cart"
-              TitleClasses="hide"
               onClick={() => setIsOpenModel(false)}
               icon={
                 <CartIcon
                   color={loaction.pathname === "/cart" ? "#61973f" : "#6b7280"}
                 />
               }
-              name="Cart"
-              badge={cartList.length}></NavOption>
+              badge={cartlist.length}></NavOption>
           </ul>
+          <button className="btn-link" onClick={() => setIsOpenModel(true)}>
+            <HamburgerIcon />
+          </button>
         </div>
         <Model isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel}>
           <aside className="left-sheet column">
             <div className=" row w12 justify-start align-start padding-16 padding-l-32">
               <Logo />
             </div>
-
             <ul className="column w12 justify-evenly align-start ">
               <NavOption
                 navTo="/"
@@ -158,7 +167,7 @@ export const NavBar = () => {
                 }
                 name="Home"></NavOption>
               <NavOption
-                navTo="/store"
+                navTo="/store?&showInvertory=true&showOffer=false&showNew=false&showNew=false"
                 TitleClasses="margin-l-8"
                 isVertical
                 onClick={() => setIsOpenModel(false)}
@@ -170,33 +179,37 @@ export const NavBar = () => {
                   />
                 }
                 name="Store"></NavOption>
-              <NavOption
-                navTo="/wishlist"
-                TitleClasses="margin-l-8"
-                isVertical
-                onClick={() => setIsOpenModel(false)}
-                icon={
-                  <WishlistIcon
-                    color={
-                      loaction.pathname === "/wishlist" ? "#61973f" : "#6b7280"
-                    }
+              {user && (
+                <NavLink
+                  to="/profile"
+                  onClick={() => setIsOpenModel(false)}
+                  className="row padding-16">
+                  <Avatar
+                    image={REACT_APP_IMAGE_URL + user.image}
+                    name={user.name}
                   />
-                }
-                name="Wishlist"
-                badge={wishList.length}></NavOption>
+                  <div className="column margin-l-8">
+                    <h5 className="bold">{user.name}</h5>
+                    <h6 className="primary-color">View Profile</h6>
+                  </div>
+                </NavLink>
+              )}
+              {!user && (
+                <NavOption
+                  navTo="/login"
+                  TitleClasses="margin-l-8"
+                  onClick={() => setIsOpenModel(false)}
+                  icon={
+                    <UserIcon
+                      color={
+                        loaction.pathname === "/login" ? "#61973f" : "#6b7280"
+                      }
+                    />
+                  }
+                  name="Login"
+                  isVertical></NavOption>
+              )}
             </ul>
-            {user && (
-              <div className="row padding-16">
-                <Avatar
-                  image={REACT_APP_IMAGE_URL + user.image}
-                  name={user.name}
-                />
-                <div className="column margin-l-8">
-                  <h5 className="bold">{user.name}</h5>
-                  <h6 className="primary-color">View Profile</h6>
-                </div>
-              </div>
-            )}
           </aside>
         </Model>
       </Hidden>

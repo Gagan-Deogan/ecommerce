@@ -1,17 +1,6 @@
-import { StarIcon } from "../../assests";
-import { FavFillIcon, FavIcon } from "../../assests";
+import { StarIcon } from "../../assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
-export const ProductCard = ({
-  details,
-  showAddToCart = true,
-  showAddTOWishlist = true,
-  inCartlist = false,
-  inWishlist = false,
-  betterHandleWishList,
-  handleWishList,
-  handleAddToCart,
-  handleProductDetail,
-}) => {
+export const ProductCard = ({ details, handleProductDetail }) => {
   return (
     <div
       key="route"
@@ -49,30 +38,7 @@ export const ProductCard = ({
             </h5>
           )}
         </div>
-        {/* {showAddToCart && (
-          <button
-            className={`margin-t-16 sm-btn-pry-fil  ${
-              !details.avalibility || inCartlist ? "btn-dis" : ""
-            }`}
-            onClick={(e) => handleAddToCart(e, details)}
-            disabled={!details.avalibility || inCartlist ? true : false}>
-            {inCartlist
-              ? "IN CART"
-              : !details.avalibility
-              ? "SOLD OUT"
-              : "ADD TO CART"}
-          </button>
-        )} */}
       </div>
-      {/* {showAddTOWishlist && (
-        <button
-          className="btn-icon card-wish"
-          onClick={(e) => handleStopPropagation(e, betterHandleWishList(details, inWishlist))}
-          onClick={(e) => handleStopPropagation(e)}
-          >
-          {inWishlist ? <FavFillIcon /> : <FavIcon />}
-        </button>
-      )} */}
       {details.rating && (
         <div className="card-ratg row">
           <h6 className="bold margin-r-4">{details.rating}</h6>

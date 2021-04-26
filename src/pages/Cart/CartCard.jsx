@@ -1,12 +1,10 @@
-import React from "react";
 import "./cart.css";
-import { AddIcon } from "../../assests";
-import { SubtractIcon } from "../../assests";
+import { AddIcon, SubtractIcon } from "../../assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
 export const CartCard = ({
   product,
   handleRemoveFromCart,
-  handleQuantityChange,
+  betterHandleQuantityChange,
   handleSaveForLater,
   inWishlist = false,
 }) => {
@@ -45,7 +43,11 @@ export const CartCard = ({
             <button
               className="btn-icon margin-r-8"
               onClick={() => {
-                handleQuantityChange("DECREMENT_QUANTITY", product.details._id);
+                betterHandleQuantityChange({
+                  type: "DECREMENT_QUANTITY",
+                  id: product.details._id,
+                  quantity: product.quantity,
+                });
               }}>
               <SubtractIcon />
             </button>
@@ -53,7 +55,11 @@ export const CartCard = ({
             <button
               className="btn-icon margin-l-8"
               onClick={() =>
-                handleQuantityChange("INCREMENT_QUANTITY", product.details._id)
+                betterHandleQuantityChange({
+                  type: "INCREMENT_QUANTITY",
+                  id: product.details._id,
+                  quantity: product.quantity,
+                })
               }>
               <AddIcon />
             </button>

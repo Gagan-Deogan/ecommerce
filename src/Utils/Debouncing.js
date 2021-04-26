@@ -1,9 +1,9 @@
 export const useDebouncing = (someExpensiveFunction, difference) => {
   let timer;
-  return function (product, inWishlist) {
+  return function ({ ...rest }) {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      someExpensiveFunction(product, inWishlist);
+      someExpensiveFunction({ ...rest });
     }, difference);
   };
 };

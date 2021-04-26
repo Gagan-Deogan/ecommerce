@@ -25,6 +25,9 @@ export const FiltersMenu = ({
   sortBy,
   showRating,
   dispatch,
+  showOffer,
+  showNew,
+  showBestSeller,
 }) => {
   return (
     <>
@@ -57,7 +60,6 @@ export const FiltersMenu = ({
           onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 4 })}
         />
         <RadioButton
-          name="rating"
           name="3★ & above"
           checked={showRating === 3}
           onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 3 })}
@@ -82,18 +84,18 @@ export const FiltersMenu = ({
         />
         <Checkbox
           name="Offers only"
-          checked={showInvertory}
-          onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
+          checked={showOffer}
+          onChange={() => dispatch({ type: "TOGGLE_SHOW_OFFER" })}
         />
         <Checkbox
           name="Best Sellers"
-          checked={showInvertory}
-          onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
+          checked={showBestSeller}
+          onChange={() => dispatch({ type: "TOGGLE_SHOW_BESTSELLER" })}
         />
         <Checkbox
           name="Show New only"
-          checked={showInvertory}
-          onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
+          checked={showNew}
+          onChange={() => dispatch({ type: "TOGGLE_SHOW_NEW" })}
         />
       </fieldset>
     </>

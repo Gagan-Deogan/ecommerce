@@ -12,9 +12,11 @@ import {
   getSortedData,
   getProductByRating,
   getFilterbyAvalibility,
+  getFilterByOffer,
+  getFilterbyLabel,
 } from "./filters";
 import "./store.css";
-import { FiltersIcons } from "../../assests";
+import { FiltersIcons } from "../../assests/icons";
 import { Loader } from "../../components/Loader";
 import { useRequest } from "../../Utils/request";
 
@@ -22,8 +24,6 @@ export const Store = () => {
   const { queryParser, queryEncoder } = useQuery();
   const [products, setProducts] = useState([]);
   const {
-    cartList,
-    wishList,
     betterHandleWishList,
     handleAddToCart,
     handleWishList,
@@ -38,19 +38,26 @@ export const Store = () => {
     sortBy: queryParser("sortBy") || "",
     showRating: queryParser("showRating"),
     showInvertory: queryParser("showInvertory") || true,
+    showOffer: queryParser("showOffer") || false,
+    showNew: queryParser("showNew") || false,
+    showBestSeller: queryParser("showBestSeller") || false,
   };
   const categoryId = queryParser("category");
 
-  const [{ sortBy, showRating, showInvertory }, dispatch] = useReducer(
-    reducer,
-    initial
-  );
+  const [
+    { sortBy, showRating, showInvertory, showOffer, showNew, showBestSeller },
+    dispatch,
+  ] = useReducer(reducer, initial);
 
   // sorts the data
   const sortedData = getSortedData(products, sortBy);
   const filterByRating = getProductByRating(sortedData, showRating);
-  const filterData = getFilterbyAvalibility(filterByRating, showInvertory);
-
+  const filterByInventory = getFilterbyAvalibility(
+    filterByRating,
+    showInvertory
+  );
+  const filterbyOffer = getFilterByOffer(filterByInventory, showOffer);
+  const filterData = getFilterbyLabel(filterbyOffer, showBestSeller, showNew);
   // For calling end points....
   useEffect(() => {
     const cancelToken = getCancelToken();
@@ -90,11 +97,22 @@ export const Store = () => {
         ? `&showRating=${queryEncoder(showRating)}`
         : "";
       const inventoryQuery = `&showInvertory=${queryEncoder(showInvertory)}`;
+      const discountQuery = `&showOffer=${showOffer}`;
+      const newQuery = `&showNew=${showNew}`;
+      const BestSellerQuery = `&showBestSeller=${showBestSeller}`;
       navigate(
-        `/store?${categoryQuery + sortQuery + ratingQuery + inventoryQuery}`
+        `/store?${
+          categoryQuery +
+          sortQuery +
+          ratingQuery +
+          inventoryQuery +
+          discountQuery +
+          newQuery +
+          BestSellerQuery
+        }`
       );
     }
-  }, [sortBy, showRating, showInvertory]);
+  }, [sortBy, showRating, showInvertory, showOffer, showNew, showBestSeller]);
   return (
     <>
       {status !== "IDLE" && <Loader />}
@@ -102,12 +120,14 @@ export const Store = () => {
         <>
           <section className="route-container row sm-column align-start justify-center w12 padding-16 padding-t-32">
             <Hidden hideAt="sm-up">
-              <button
-                className="sm-btn-pry bold primary-color margin-b-32"
-                onClick={() => setIsOpenModel(true)}>
-                <h3 className="margin-r-8">Filters</h3>
-                <FiltersIcons />
-              </button>
+              <div className="bottom-sheet row justify-end">
+                <button
+                  className="sm-btn-pry-fil bold margin-t-16 margin-r-16 padding-b-16"
+                  onClick={() => setIsOpenModel(true)}>
+                  <FiltersIcons />
+                  <h3 className="margin-l-8">Filters</h3>
+                </button>
+              </div>
             </Hidden>
             <Hidden hideAt="sm-down">
               <div className="column filter-container bor-rad-8 margin-r-16 bor-sol">
@@ -115,17 +135,23 @@ export const Store = () => {
                   sortBy={sortBy}
                   showRating={showRating}
                   showInvertory={showInvertory}
+                  showOffer={showOffer}
+                  showNew={showNew}
+                  showBestSeller={showBestSeller}
                   dispatch={dispatch}
                 />
               </div>
             </Hidden>
             <Hidden hideAt="sm-up">
               <Model isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel}>
-                <div className="bottom-sheet">
+                <div className="bottom-sheet padding-b-16">
                   <FiltersMenu
                     sortBy={sortBy}
                     showRating={showRating}
                     showInvertory={showInvertory}
+                    showOffer={showOffer}
+                    showNew={showNew}
+                    showBestSeller={showBestSeller}
                     dispatch={dispatch}
                   />
                 </div>

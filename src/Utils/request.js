@@ -17,7 +17,15 @@ export const useRequest = () => {
         return res.data;
       }
       case "POST": {
-        const res = await instance.post(endpoint, body, cancelToken);
+        const res = await instance.post(endpoint, body);
+        return res.data;
+      }
+      case "PUT": {
+        const res = await instance.put(endpoint, body);
+        return res.data;
+      }
+      case "DELETE": {
+        const res = await instance.delete(endpoint);
         return res.data;
       }
       default:

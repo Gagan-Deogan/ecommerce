@@ -1,11 +1,35 @@
 import "./productDetail.css";
+import { StarIcon } from "../../assests/icons";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useStatus, useCartContext } from "../../Context";
 import { useRequest, getProductWithFlags } from "../../Utils";
 import { Loader } from "../../components/Loader";
-import { StarIcon } from "../../assests";
+import { Hidden } from "../../components/Hidden";
 const { REACT_APP_IMAGE_URL } = process.env;
+
+const CartButton = ({ inCartlist, productDetail, onClick }) => {
+  return (
+    <button
+      className={`btn-pry-fil ${
+        inCartlist || !productDetail.avalibility ? "btn-dis" : ""
+      } `}
+      onClick={onClick}>
+      {inCartlist && "IN CART"}
+      {!inCartlist && productDetail.avalibility && "ADD TO CART"}
+      {!productDetail.avalibility && "OUT OF STOCK"}
+    </button>
+  );
+};
+
+const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
+  return (
+    <button className="margin-l-16 btn-pry" onClick={onClick}>
+      {inWishlist && "REMOVE FROM WISHLIST"}
+      {!inWishlist && "ADD TO WISHLIST"}
+    </button>
+  );
+};
 
 export const ProductDetail = () => {
   const { id } = useParams();
@@ -13,15 +37,15 @@ export const ProductDetail = () => {
   const {
     handleAddToCart,
     betterHandleWishList,
-    cartList,
-    wishList,
+    cartlist,
+    wishlist,
   } = useCartContext();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 
   const { inCartlist, inWishlist } = getProductWithFlags({
-    cartList,
-    wishList,
+    cartlist,
+    wishlist,
     product: productDetail,
   });
   useEffect(() => {
@@ -76,7 +100,6 @@ export const ProductDetail = () => {
                 <p className="bold margin-l-8">Fast Delivery Available</p>
               )}
             </div>
-
             <p className="margin-b-16 grey-color">
               {productDetail.description}
             </p>
@@ -100,24 +123,48 @@ export const ProductDetail = () => {
                 </h5>
               )}
             </div>
-            <div className="row">
-              <button
-                className={`btn-pry-fil ${
-                  inCartlist || productDetail.aavalibility ? "btn-dis" : ""
-                } `}
-                onClick={() => handleAddToCart(productDetail)}>
-                {inCartlist && !productDetail.avalibility && "IN CART"}
-                {!inCartlist && !productDetail.avalibility && "ADD TO CART"}
-                {productDetail.avalibility && "OUT OF STOCK"}
-              </button>
-              <button
-                className="margin-l-16 btn-pry"
-                onClick={() => betterHandleWishList(productDetail, inWishlist)}>
-                {inWishlist && "REMOVE FROM WISHLIST"}
-                {!inWishlist && "ADD TO WISHLIST"}
-              </button>
-            </div>
+            <Hidden hideAt="sm-down">
+              <div className="row">
+                <CartButton
+                  inCartlist={inCartlist}
+                  productDetail={productDetail}
+                  onClick={() => {
+                    if (productDetail.avalibility && !inCartlist)
+                      handleAddToCart(productDetail, inWishlist);
+                  }}
+                />
+                <WishlistButton
+                  inWishlist={inWishlist}
+                  productDetail={productDetail}
+                  onClick={() =>
+                    betterHandleWishList({
+                      product: productDetail,
+                      inWishlist: inWishlist,
+                    })
+                  }
+                />
+              </div>
+            </Hidden>
           </div>
+          <Hidden hideAt="sm-up">
+            <div className="bottom-sheet row justify-evenly padding-8">
+              <CartButton
+                inCartlist={inCartlist}
+                productDetail={productDetail}
+                onClick={() => {
+                  if (productDetail.avalibility && !inCartlist)
+                    handleAddToCart(productDetail, inWishlist);
+                }}
+              />
+              <WishlistButton
+                inWishlist={inWishlist}
+                productDetail={productDetail}
+                onClick={() =>
+                  betterHandleWishList({ productDetail, inWishlist })
+                }
+              />
+            </div>
+          </Hidden>
         </section>
       )}
     </>

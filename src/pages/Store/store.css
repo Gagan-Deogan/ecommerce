@@ -25,9 +25,11 @@ fieldset {
 }
 .bottom-sheet {
   position: fixed;
-  z-index: 999;
+  z-index: 100;
+  left: 0;
   bottom: 0;
   width: 100vw;
+  padding-bottom: 1rem;
   background-color: var(--inner-background);
   border-top: 1px solid var(--grey-light);
 }

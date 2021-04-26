@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { CloseIcon } from "../../assests";
-import { CheckIcon } from "../../assests";
+import { useEffect } from "react";
+import { CloseIcon, CheckIcon } from "../../assests/icons";
 import { useSnakbarContext } from "../../Context";
 import "./snakbar.css";
 export const Snakbar = () => {

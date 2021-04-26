@@ -5,19 +5,20 @@ import { reducer } from "./Utils";
 import { useRequest } from "../../Utils/request";
 const CartContext = createContext();
 
-const intialState = { cartList: [], wishList: [] };
+const intialState = { cartlist: [], wishlist: [] };
 
 export const CartContextProvider = ({ children }) => {
-  const [{ cartList, wishList }, cartDispatch] = useReducer(
+  const [{ cartlist, wishlist }, cartDispatch] = useReducer(
     reducer,
     intialState
   );
   const { snakbarDispatch } = useSnakbarContext();
   const { user } = useAuthContext();
   const { request } = useRequest();
-  const handleWishList = (product, inWishlist) => {
+
+  const handleWishList = ({ product, inWishlist }) => {
     const wishType = inWishlist ? "REMOVE_FROM_WISHLIST" : "ADD_TO_WISHLIST";
-    const wishPayload = inWishlist ? product._id : product;
+    const wishPayload = inWishlist ? product : product;
     const sankbarMsg = inWishlist
       ? "Succesfull Removed from Wishlist"
       : "Succesfull Added to Wishlist ";
@@ -44,23 +45,67 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
-  const handleRemoveFromCart = (id) => {
-    cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
-    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
+  const handleRemoveFromCart = async (id) => {
+    if (user) {
+      const { success } = await request({
+        method: "DELETE",
+        endpoint: `/carts/${user._id}/${id}`,
+      });
+      if (success) {
+        cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
+        snakbarDispatch({
+          type: "ERROR",
+          payload: "Product Remove Succesfully",
+        });
+      }
+    } else {
+      cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
+      snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
+    }
   };
 
-  const handleQuantityChange = (type, id) => {
-    cartDispatch({ type: type, payload: id });
+  const handleQuantityChange = async ({ type, id, quantity }) => {
+    if (user) {
+      const { success } = await request({
+        method: "PUT",
+        endpoint: `/carts/${user._id}`,
+        body: {
+          productId: id,
+          quantity: type === "INCREMENT_QUANTITY" ? quantity + 1 : quantity - 1,
+        },
+      });
+      if (success) {
+        cartDispatch({ type: type, payload: id });
+      }
+    } else {
+      cartDispatch({ type: type, payload: id });
+    }
   };
 
-  const handleSaveForLater = (product) => {
-    cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+  const betterHandleQuantityChange = useDebouncing(handleQuantityChange, 500);
+
+  const handleSaveForLater = async (product) => {
+    if (user) {
+      const { success } = await request({
+        method: "DELETE",
+        endpoint: `/carts/${user._id}/${product._id}`,
+      });
+      if (success) {
+        cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+        snakbarDispatch({
+          type: "DEFAULT",
+          payload: "Product Added to Wishlist",
+        });
+      }
+    } else {
+      cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+    }
   };
 
-  const setCartAndWish = ({ loaclCart = [], loaclWish = [] }) => {
+  const setCartAndWish = ({ cartlist = [], wishlist = [] }) => {
     cartDispatch({
       type: "SET_CART",
-      payload: { cartList: loaclCart, wishList: loaclWish },
+      payload: { cartlist, wishlist },
     });
   };
 
@@ -75,7 +120,7 @@ export const CartContextProvider = ({ children }) => {
     };
   };
 
-  const { totalEffectivePrice, totalDiscount, totalPrice } = cartList.reduce(
+  const { totalEffectivePrice, totalDiscount, totalPrice } = cartlist.reduce(
     priceReducer,
     {
       totalEffectivePrice: 0,
@@ -87,43 +132,41 @@ export const CartContextProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       (async () => {
-        const { success, products } = await request({
+        const { success, data } = await request({
           method: "GET",
           endpoint: `/carts/${user._id}`,
         });
         if (success) {
-          setCartAndWish({ loaclCart: products, loaclWish: [] });
+          setCartAndWish({ cartlist: data, loaclWish: [] });
         }
       })();
     } else {
       const loaclCart = JSON.parse(localStorage.getItem("cartlist"));
       const loaclWish = JSON.parse(localStorage.getItem("wishlist"));
       if (loaclCart || loaclWish) {
-        setCartAndWish({ loaclCart, loaclWish });
+        setCartAndWish({ cartlist: loaclCart, wishlist: loaclWish });
       }
     }
   }, [user]);
 
   useEffect(() => {
     if (!!!user) {
-      localStorage.setItem("cartlist", JSON.stringify(cartList));
+      localStorage.setItem("cartlist", JSON.stringify(cartlist));
     }
-  }, [user, cartList]);
+  }, [user, cartlist]);
   useEffect(() => {
-    if (!!!user) {
-      localStorage.setItem("wishlist", JSON.stringify(wishList));
-    }
-  }, [user, wishList]);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [user, wishlist]);
   return (
     <CartContext.Provider
       value={{
-        cartList: cartList,
-        wishList: wishList,
+        cartlist: cartlist,
+        wishlist: wishlist,
         betterHandleWishList: betterHandleWishList,
         handleWishList: handleWishList,
         handleAddToCart: handleAddToCart,
         handleRemoveFromCart,
-        handleQuantityChange,
+        betterHandleQuantityChange,
         handleSaveForLater,
         totalPrice,
         totalEffectivePrice,

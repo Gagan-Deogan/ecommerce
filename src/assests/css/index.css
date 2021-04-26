@@ -94,6 +94,15 @@ a:focus-visible,
   max-width: none;
   min-width: none;
 }
+.sm-btn-pry-fil-err {
+  background: var(--red-dark);
+}
+.btn-err {
+  background: var(--red-dark);
+}
+.btn-err:active {
+  background-color: var(--red-light);
+}
 .border-bottom {
   border-bottom: 1px solid var(--grey-light);
 }
@@ -135,6 +144,15 @@ input[type="email"] {
 }
 .background-red {
   background: var(--red-dark);
+}
+.bottom-sheet {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: var(--inner-background);
+  border-top: 1px solid var(--grey-light);
 }
 /* end */
 section {

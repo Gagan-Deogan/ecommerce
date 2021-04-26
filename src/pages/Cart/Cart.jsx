@@ -1,22 +1,21 @@
-import React from "react";
 import { useCartContext } from "../../Context";
 import { CartCard } from "./CartCard.jsx";
 import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const {
-    cartList,
-    wishList,
+    cartlist,
+    wishlist,
     handleRemoveFromCart,
-    handleQuantityChange,
+    betterHandleQuantityChange,
     handleSaveForLater,
     totalPrice,
     totalEffectivePrice,
     totalDiscount,
   } = useCartContext();
   const getProductWithWishlistFlag = () => {
-    const wishlistProductId = wishList.map((product) => product.details._id);
-    return cartList.map((product) =>
+    const wishlistProductId = wishlist.map((product) => product.details._id);
+    return cartlist.map((product) =>
       wishlistProductId.includes(product.details._id)
         ? { ...product, inWishlist: true }
         : product
@@ -37,7 +36,7 @@ export const Cart = () => {
                 <CartCard
                   product={product}
                   handleRemoveFromCart={handleRemoveFromCart}
-                  handleQuantityChange={handleQuantityChange}
+                  betterHandleQuantityChange={betterHandleQuantityChange}
                   handleSaveForLater={handleSaveForLater}
                   inWishlist={product.inWishlist}
                   key={product._id}></CartCard>
@@ -63,7 +62,7 @@ export const Cart = () => {
             </div>
             <div className="w12 padding-16 border-bottom">
               <div className="w12 row justify-between ">
-                <h5>Price({cartList.length} items )</h5>
+                <h5>Price({cartlist.length} items )</h5>
                 <h5>{totalPrice}</h5>
               </div>
               {!!totalDiscount && (

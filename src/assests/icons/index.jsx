@@ -327,7 +327,7 @@ export const LogoIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "4rem" }}
+      style={{ height: "auto", width: "3rem" }}
       viewBox="0 0 66.92 96.805">
       <g
         id="Group_6"
@@ -374,18 +374,18 @@ export const FiltersIcons = () => {
       aria-hidden="true"
       role="img"
       className="iconify iconify--ph"
-      style={{ height: "auto", width: "24px" }}
+      style={{ height: "auto", width: "2rem" }}
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 256 256">
       <path
         d="M139.998 58.343V40a12 12 0 1 0-24 0v18.343a31.988 31.988 0 0 0 0 59.314V216a12 12 0 0 0 24 0v-98.343a31.988 31.988 0 0 0 0-59.314z"
-        fill="#059669"></path>
+        fill="#fff"></path>
       <path
         d="M231.998 168a32.045 32.045 0 0 0-20-29.657L212 40a12 12 0 1 0-24 0v98.343a31.988 31.988 0 0 0 0 59.314V216a12 12 0 0 0 24 0v-18.344a32.044 32.044 0 0 0 20-29.656z"
-        fill="#059669"></path>
+        fill="#fff"></path>
       <path
         d="M67.998 106.343V40a12 12 0 1 0-24 0v66.343a31.988 31.988 0 0 0 0 59.313V216a12 12 0 1 0 24 0v-50.343a31.988 31.988 0 0 0 0-59.314z"
-        fill="#059669"></path>
+        fill="#fff"></path>
     </svg>
   );
 };
@@ -400,7 +400,7 @@ export const DotIcon = () => {
         data-name="Ellipse 2"
         fill="#6b7280"
         stroke="#707070"
-        stroke-width="1">
+        strokeWidth="1">
         <circle cx="2.5" cy="2.5" r="2.5" stroke="none" />
         <circle cx="2.5" cy="2.5" r="2" fill="none" />
       </g>
@@ -421,9 +421,9 @@ export const HamburgerIcon = () => {
           transform="translate(3 12)"
           fill="none"
           stroke="#111827"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
         <line
           id="Line_2"
@@ -432,9 +432,9 @@ export const HamburgerIcon = () => {
           transform="translate(3 6)"
           fill="none"
           stroke="#111827"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
         <line
           id="Line_3"
@@ -443,9 +443,9 @@ export const HamburgerIcon = () => {
           transform="translate(3 18)"
           fill="none"
           stroke="#111827"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </g>
     </svg>
