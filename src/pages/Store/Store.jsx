@@ -1,24 +1,23 @@
+import "./store.css";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartContext } from "../../Context";
-import { useStatus } from "../../Context";
+import { useCartContext } from "../../Context/CartContext";
+import { useStatus } from "../../Context/LoaderContext";
 import { ProductCard } from "../../components/ProductCard";
 import { Hidden } from "../../components/Hidden";
 import { Model } from "../../components/Model";
-import { useQuery } from "../../Utils";
+import { Loader } from "../../components/Loader";
 import { FiltersMenu } from "./FiltersMenu.jsx";
-import { reducer } from "./filters";
+import { useQuery, useRequest } from "../../Utils";
 import {
+  reducer,
   getSortedData,
   getProductByRating,
   getFilterbyAvalibility,
   getFilterByOffer,
   getFilterbyLabel,
-} from "./filters";
-import "./store.css";
+} from "./utils";
 import { FiltersIcons } from "../../assests/icons";
-import { Loader } from "../../components/Loader";
-import { useRequest } from "../../Utils/request";
 
 export const Store = () => {
   const { queryParser, queryEncoder } = useQuery();
@@ -58,6 +57,9 @@ export const Store = () => {
   );
   const filterbyOffer = getFilterByOffer(filterByInventory, showOffer);
   const filterData = getFilterbyLabel(filterbyOffer, showBestSeller, showNew);
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
   // For calling end points....
   useEffect(() => {
     const cancelToken = getCancelToken();
@@ -81,9 +83,7 @@ export const Store = () => {
       cancelToken.cancel();
     };
   }, []);
-  const handleProductDetail = (id) => {
-    navigate(`/productdetail/${id}`);
-  };
+
   useEffect(() => {
     if (products) {
       const categoryQuery = categoryId

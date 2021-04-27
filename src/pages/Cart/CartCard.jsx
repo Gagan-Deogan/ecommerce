@@ -75,7 +75,7 @@ export const CartCard = ({
         {!inWishlist && (
           <button
             className="btn-link margin-l-8"
-            onClick={() => handleSaveForLater(product.details)}>
+            onClick={() => handleSaveForLater({ product: product.details })}>
             Save for later
           </button>
         )}

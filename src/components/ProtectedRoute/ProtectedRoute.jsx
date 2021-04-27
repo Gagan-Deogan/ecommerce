@@ -1,5 +1,5 @@
-import { useAuthContext } from "../../Context";
 import { Route, Navigate } from "react-router-dom";
+import { useAuthContext } from "../../Context/AuthContext";
 export const ProtectedRoute = ({ path, ...props }) => {
   const { user } = useAuthContext();
   return user ? (

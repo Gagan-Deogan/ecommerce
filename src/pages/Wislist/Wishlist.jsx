@@ -1,15 +1,10 @@
-import React from "react";
 import "./wishlist.css";
-import { ProductCard } from "../../components/ProductCard/ProductCard";
-import { useCartContext } from "../../Context";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../../Context/CartContext";
+import { ProductCard } from "../../components/ProductCard/ProductCard";
 export const Wishlist = () => {
-  const {
-    wishlist,
-    betterHandleWishList,
-    handleWishList,
-    handleAddToCart,
-  } = useCartContext();
+  const { wishlist } = useCartContext();
   const navigate = useNavigate();
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
@@ -32,11 +27,6 @@ export const Wishlist = () => {
           {wishlist.map((product) => (
             <ProductCard
               details={product.details}
-              inWishlist={true}
-              showAddToCart={false}
-              betterHandleWishList={betterHandleWishList}
-              handleWishList={handleWishList}
-              handleAddToCart={handleAddToCart}
               handleProductDetail={handleProductDetail}></ProductCard>
           ))}
         </ul>

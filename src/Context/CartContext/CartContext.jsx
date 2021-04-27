@@ -1,7 +1,8 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
 import { useDebouncing } from "../../Utils";
-import { useSnakbarContext, useAuthContext } from "../";
-import { reducer } from "./Utils";
+import { useSnakbarContext } from "../SnakbarContext";
+import { useAuthContext } from "../AuthContext";
+import { reducer } from "./reducer";
 import { useRequest } from "../../Utils/request";
 const CartContext = createContext();
 
@@ -25,10 +26,9 @@ export const CartContextProvider = ({ children }) => {
     cartDispatch({ type: wishType, payload: wishPayload });
     snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
   };
-
   const betterHandleWishList = useDebouncing(handleWishList, 500);
 
-  const handleAddToCart = async (product) => {
+  const handleAddToCart = async ({ product }) => {
     if (user) {
       const { success } = await request({
         method: "POST",
@@ -81,10 +81,9 @@ export const CartContextProvider = ({ children }) => {
       cartDispatch({ type: type, payload: id });
     }
   };
-
   const betterHandleQuantityChange = useDebouncing(handleQuantityChange, 500);
 
-  const handleSaveForLater = async (product) => {
+  const handleSaveForLater = async ({ product }) => {
     if (user) {
       const { success } = await request({
         method: "DELETE",

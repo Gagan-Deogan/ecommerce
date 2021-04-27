@@ -1,7 +1,7 @@
 import "./login.css";
 import { useState } from "react";
-import { useAuthContext } from "../../Context";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../Context/AuthContext";
 import { LogoIcon } from "../../assests/icons";
 export const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ export const Login = () => {
               Email
             </label>
             <input
-              id="email"
               name="email"
               type="email"
               autoComplete="username"
@@ -44,7 +43,6 @@ export const Login = () => {
               Password
             </label>
             <input
-              id="current-password"
               name="current-password"
               type="password"
               autoComplete="current-password"

@@ -1,11 +1,12 @@
 import "./productDetail.css";
-import { StarIcon } from "../../assests/icons";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useStatus, useCartContext } from "../../Context";
-import { useRequest, getProductWithFlags } from "../../Utils";
+import { useCartContext } from "../../Context/CartContext";
+import { useStatus } from "../../Context/LoaderContext";
 import { Loader } from "../../components/Loader";
 import { Hidden } from "../../components/Hidden";
+import { useRequest, getProductWithFlags } from "../../Utils";
+import { StarIcon } from "../../assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCartlist, productDetail, onClick }) => {
@@ -118,9 +119,9 @@ export const ProductDetail = () => {
                   </h5>
                 </>
               ) : (
-                <h5 className="bold margin-r-4 ">
+                <h2 className="bold margin-r-4 ">
                   {"Rs. " + productDetail.effectivePrice}
-                </h5>
+                </h2>
               )}
             </div>
             <Hidden hideAt="sm-down">
@@ -130,7 +131,7 @@ export const ProductDetail = () => {
                   productDetail={productDetail}
                   onClick={() => {
                     if (productDetail.avalibility && !inCartlist)
-                      handleAddToCart(productDetail, inWishlist);
+                      handleAddToCart({ product: productDetail });
                   }}
                 />
                 <WishlistButton
@@ -153,7 +154,7 @@ export const ProductDetail = () => {
                 productDetail={productDetail}
                 onClick={() => {
                   if (productDetail.avalibility && !inCartlist)
-                    handleAddToCart(productDetail, inWishlist);
+                    handleAddToCart({ product: productDetail });
                 }}
               />
               <WishlistButton

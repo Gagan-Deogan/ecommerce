@@ -9,8 +9,8 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { NavBar } from "./components/NavBar";
 import { Snakbar } from "./components/Snakbar";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { useSnakbarContext } from "./Context";
-import { useAuthContext } from "./Context";
+import { useSnakbarContext } from "./Context/SnakbarContext";
+import { useAuthContext } from "./Context/AuthContext";
 
 const UserNotReachableRoute = ({ path, ...props }) => {
   const { user } = useAuthContext();

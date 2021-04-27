@@ -3,7 +3,7 @@ import wapperbackground from "../../assests/images/wall.png";
 import "./home.css";
 import { ProductCard } from "../../components/ProductCard";
 import { useRequest } from "../../Utils/request";
-import { useStatus } from "../../Context";
+import { useStatus } from "../../Context/LoaderContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 

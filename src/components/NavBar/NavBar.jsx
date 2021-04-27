@@ -1,4 +1,6 @@
+import "./navbar.css";
 import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   HomeIcon,
   CartIcon,
@@ -8,11 +10,10 @@ import {
   Logo,
   HamburgerIcon,
 } from "../../assests/icons";
-import { Avatar } from "../Avatar";
+import { useAuthContext } from "../../Context/AuthContext";
+import { useCartContext } from "../../Context/CartContext";
 import { Model } from "../Model";
-import { useCartContext, useAuthContext } from "../../Context";
-import { NavLink, useLocation } from "react-router-dom";
-import "./navbar.css";
+import { Avatar } from "../Avatar";
 import { Hidden } from "../Hidden";
 const NavOption = ({
   name,
@@ -99,14 +100,15 @@ export const NavBar = () => {
             badge={cartlist.length}></NavOption>
         </ul>
         <ul className="row sm-w2 w12 justify-end align-center">
-          {user ? (
+          {user && (
             <NavLink to="/profile">
               <Avatar
                 image={REACT_APP_IMAGE_URL + user.image}
                 name={user.name}
               />
             </NavLink>
-          ) : (
+          )}
+          {!user && (
             <NavOption
               navTo="/login"
               TitleClasses="margin-t-4 font-xs"

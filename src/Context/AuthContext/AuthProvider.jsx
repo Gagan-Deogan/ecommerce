@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const { request } = useRequest();
+
   useEffect(() => {
     const isAlreadyLoggedIn = JSON.parse(localStorage.getItem("user"));
     if (!!isAlreadyLoggedIn) {
@@ -35,7 +36,8 @@ export const AuthProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const userLogout = () => {
+
+  const handleLogout = () => {
     localStorage.removeItem("user");
     setUser();
   };
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         handleLogin,
-        userLogout,
+        handleLogout,
       }}>
       {children}
     </AuthContext.Provider>
