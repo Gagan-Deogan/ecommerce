@@ -2,7 +2,7 @@ import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../Context/AuthContext";
-import { LogoIcon } from "../../assests/icons";
+import { LogoIcon, VisibleIcon, VisibleOffIcon } from "../../assests/icons";
 export const Login = () => {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -11,6 +11,7 @@ export const Login = () => {
   }
 
   const [email, setEmail] = useState();
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState();
   const { handleLogin } = useAuthContext();
@@ -42,14 +43,22 @@ export const Login = () => {
             <label htmlFor="current-password" className="margin-b-8">
               Password
             </label>
-            <input
-              name="current-password"
-              type="password"
-              autoComplete="current-password"
-              aria-describedby="password-constraints"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="position-relative">
+              <input
+                name="current-password"
+                type={!showPassword ? "password" : "text"}
+                autoComplete="current-password"
+                aria-describedby="password-constraints"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <span
+                className="position-absolute right padding-8 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}>
+                {showPassword && <VisibleIcon />}
+                {!showPassword && <VisibleOffIcon />}
+              </span>
+            </div>
           </section>
           {loginError && (
             <h6 className="font-xs text-center text-error bold margin-b-8">

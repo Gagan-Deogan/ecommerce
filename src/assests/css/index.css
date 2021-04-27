@@ -49,6 +49,16 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: var(--grey-default);
 }
 /* changes in lib */
+.position-relative {
+  position: relative;
+}
+.position-absolute {
+  position: absolute;
+}
+.right {
+  top: 0;
+  right: 0;
+}
 a:focus,
 .btn-link:focus {
   border: none;
