@@ -10,12 +10,7 @@ import { NavBar } from "./components/NavBar";
 import { Snakbar } from "./components/Snakbar";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useSnakbarContext } from "./Context/SnakbarContext";
-import { useAuthContext } from "./Context/AuthContext";
-
-const UserNotReachableRoute = ({ path, ...props }) => {
-  const { user } = useAuthContext();
-  return !user ? <Route path={path} {...props} /> : <Navigate replace to="/" />;
-};
+// import { useAuthContext } from "./Context/AuthContext";
 
 export default function App() {
   const { snakbarStatus } = useSnakbarContext();
@@ -29,7 +24,7 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/productdetail/:id" element={<ProductDetail />} />
         <ProtectedRoute path="/profile" element={<Profile />} />
-        <UserNotReachableRoute path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}
     </main>
