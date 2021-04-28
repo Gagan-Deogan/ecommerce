@@ -66,14 +66,14 @@ export const Store = () => {
     (async () => {
       setStatus("PENDING");
       try {
-        const { products, success } = await request({
+        const { data, success } = await request({
           method: "GET",
           endpoint: categoryId ? `categories/${categoryId}` : "/products",
           cancelToken: cancelToken.token,
         });
         setStatus("IDLE");
         if (success) {
-          setProducts(products);
+          setProducts(data);
         }
       } catch (err) {
         setStatus("IDLE");

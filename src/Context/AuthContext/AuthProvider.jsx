@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = async (email, password, setLoginError) => {
     try {
-      const { success, user } = await request({
+      const { success, data } = await request({
         method: "POST",
         endpoint: "/users/login",
         body: {
@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }) => {
         },
       });
       if (success) {
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/store");
       } else {
         setLoginError(true);

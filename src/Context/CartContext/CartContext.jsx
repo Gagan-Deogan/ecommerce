@@ -32,8 +32,7 @@ export const CartContextProvider = ({ children }) => {
     if (user) {
       const { success } = await request({
         method: "POST",
-        endpoint: `/carts/${user._id}`,
-        body: { productId: product._id },
+        endpoint: `/carts/${user._id}/${product._id}`,
       });
       if (success) {
         cartDispatch({ type: "ADD_TO_CART", payload: product });
@@ -68,9 +67,8 @@ export const CartContextProvider = ({ children }) => {
     if (user) {
       const { success } = await request({
         method: "PUT",
-        endpoint: `/carts/${user._id}`,
+        endpoint: `/carts/${user._id}/${id}`,
         body: {
-          productId: id,
           quantity: type === "INCREMENT_QUANTITY" ? quantity + 1 : quantity - 1,
         },
       });
