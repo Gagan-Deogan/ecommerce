@@ -21,7 +21,6 @@ Live Demo [https://greenify.netlify.app/]
 
 > Tech Stack
 
--React
--React Router v6
--Ajax
-
+- React
+- React Router v6
+- Ajax
