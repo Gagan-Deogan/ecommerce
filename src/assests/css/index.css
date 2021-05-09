@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://bucketcss.netlify.app/css/bucket-minify.css");
+body {
+  --primary-dark: #166534;
+  --primary-default: #61973f;
+  --primary-light: #76af53;
+
+  --grey-dark: #6b7280;
+  --grey-default: #909090;
+  --grey-light: #d1d5db;
+  --grey-opac: #d1d5db7e;
+
+  --red-dark: #b91c1c;
+  --red-default: #dc2626;
+  --red-light: #ef4444;
+
+  --yellow-dark: #e4b601;
+  --yellow-default: #facc15;
+  --yellow-light: #fde047;
+
+  --green-dark: #166534;
+  --green-default: #16a34a;
+  --green-light: #22c55e;
+
+  --sm-pd: 0.5rem 3vw;
+
+  --black: #111827;
+  --inner-text: #f7fafc;
+  --background: #ffffff;
+  --inner-background: #ffffff;
+  --foreground: #0e182a;
+  font-family: "Lato", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 16px;
+  margin: auto;
+}
+body::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0.8rem;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--grey-dark);
+  border: 3px solid transparent;
+  border-radius: 9px;
+  background-clip: content-box;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--grey-default);
+}
+/* changes in lib */
+.position-relative {
+  position: relative;
+}
+.position-absolute {
+  position: absolute;
+}
+.right {
+  top: 0;
+  right: 0;
+}
+a:focus,
+.btn-link:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+a:focus-visible,
+.btn-link:focus-visible {
+  box-shadow: 0 0 1px 0.09rem var(--primary-default);
+}
+.badge {
+  top: 0;
+}
+.primary-color {
+  color: var(--primary-default);
+}
+.card > img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  height: auto;
+}
+.text-end {
+  text-align: end;
+}
+.model-container {
+  display: block;
+}
+.btn-link:hover {
+  color: var(--primary-dark);
+}
+@media (max-width: 600px) {
+  .sm-column {
+    flex-direction: column;
+  }
+}
+.btn-pry-fil {
+  width: auto;
+  max-width: none;
+  min-width: none;
+}
+.btn-pry {
+  width: auto;
+  max-width: none;
+  min-width: none;
+}
+.sm-btn-pry-fil-err {
+  background: var(--red-dark);
+}
+.btn-err {
+  background: var(--red-dark);
+}
+.btn-err:active {
+  background-color: var(--red-light);
+}
+.border-bottom {
+  border-bottom: 1px solid var(--grey-light);
+}
+.card > .card-title > button {
+  height: 2rem;
+  margin-top: 1.25rem;
+}
+input[type="email"] {
+  padding: 0.68rem 1rem;
+  border: 1px solid var(--primary-default);
+  border-radius: 4px;
+  font-family: "Lato", sans-serif;
+  appearance: none;
+  font-size: 1rem;
+  line-height: 1.14em;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  background-color: var(--grey-opac);
+}
+.text-error {
+  letter-spacing: 0.3px;
+  color: var(--red-dark);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.card-ratg {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  background: var(--yellow-default);
+}
+.card-badge {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1em;
+  color: var(--inner-text);
+  border-radius: 1.25rem;
+  background: var(--red-default);
+}
+.background-red {
+  background: var(--red-dark);
+}
+.bottom-sheet {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background-color: var(--inner-background);
+  border-top: 1px solid var(--grey-light);
+}
+.dis-inline {
+  display: inline;
+}
+.card-ratg > span {
+  font-size: 1rem;
+}
+/* end */
+section {
+  max-width: 100rem;
+  margin: auto;
+  width: 100%;
+}
+label span {
+  font-size: 1rem;
+}
+.font-xs {
+  font-size: 0.75rem;
+}
+.pry-clr {
+  color: var(--primary-dark);
+}
+.dis-grid {
+  display: grid;
+}
+.responsive-img {
+  width: 100%;
+}
