@@ -3,12 +3,12 @@ import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../Context/CartContext";
 import { useStatus } from "../../Context/LoaderContext";
-import { ProductCard } from "../../components/ProductCard";
-import { Hidden } from "../../components/Hidden";
-import { Model } from "../../components/Model";
-import { Loader } from "../../components/Loader";
+import { ProductCard } from "../../Components/ProductCard";
+import { Hidden } from "../../Components/Hidden";
+import { Model } from "../../Components/Model";
+import { Loader } from "../../Components/Loader";
 import { FiltersMenu } from "./FiltersMenu.jsx";
-import { useQuery, useRequest } from "../../Utils";
+import { useQuery, useRequest } from "../../utils";
 import {
   reducer,
   getSortedData,

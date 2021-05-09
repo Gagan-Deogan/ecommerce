@@ -164,6 +164,12 @@ input[type="email"] {
   background-color: var(--inner-background);
   border-top: 1px solid var(--grey-light);
 }
+.dis-inline {
+  display: inline;
+}
+.card-ratg > span {
+  font-size: 1rem;
+}
 /* end */
 section {
   max-width: 100rem;
@@ -172,7 +178,6 @@ section {
 }
 label span {
   font-size: 1rem;
-  cursor: pointer;
 }
 .font-xs {
   font-size: 0.75rem;

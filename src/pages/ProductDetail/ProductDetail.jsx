@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCartContext } from "../../Context/CartContext";
 import { useStatus } from "../../Context/LoaderContext";
-import { Loader } from "../../components/Loader";
-import { Hidden } from "../../components/Hidden";
-import { useRequest, getProductWithFlags } from "../../Utils";
+import { Loader } from "../../Components/Loader";
+import { Hidden } from "../../Components/Hidden";
+import { useRequest, getProductWithFlags } from "../../utils";
 import { StarIcon } from "../../assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
 
@@ -85,8 +85,10 @@ export const ProductDetail = () => {
                 {productDetail.name}
               </h2>
               {productDetail.rating && (
-                <div className="card-ratg row">
-                  <h6 className="bold margin-r-4">{productDetail.rating}</h6>
+                <div className="card-ratg">
+                  <span className="bold margin-r-4">
+                    {productDetail.rating}
+                  </span>
                   <StarIcon />
                 </div>
               )}

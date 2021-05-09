@@ -40,8 +40,8 @@ export const ProductCard = ({ details, handleProductDetail }) => {
         </div>
       </div>
       {details.rating && (
-        <div className="card-ratg row">
-          <h6 className="bold margin-r-4">{details.rating}</h6>
+        <div className="card-ratg">
+          <span className="bold margin-r-4">{details.rating}</span>
           <StarIcon />
         </div>
       )}

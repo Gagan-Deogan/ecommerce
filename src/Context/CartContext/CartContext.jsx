@@ -1,9 +1,9 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { useDebouncing } from "../../Utils";
+import { useDebouncing } from "../../utils";
 import { useSnakbarContext } from "../SnakbarContext";
 import { useAuthContext } from "../AuthContext";
 import { reducer } from "./reducer";
-import { useRequest } from "../../Utils/request";
+import { useRequest } from "../../utils/request";
 const CartContext = createContext();
 
 const intialState = { cartlist: [], wishlist: [] };
