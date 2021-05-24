@@ -49,36 +49,9 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: var(--grey-default);
 }
 /* changes in lib */
-.position-relative {
-  position: relative;
-}
-.position-absolute {
-  position: absolute;
-}
 .right {
   top: 0;
   right: 0;
-}
-a:focus,
-.btn-link:focus {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-a:focus-visible,
-.btn-link:focus-visible {
-  box-shadow: 0 0 1px 0.09rem var(--primary-default);
-}
-.badge {
-  top: 0;
-}
-.primary-color {
-  color: var(--primary-default);
-}
-.card > img {
-  -o-object-fit: cover;
-  object-fit: cover;
-  height: auto;
 }
 .text-end {
   text-align: end;
@@ -88,11 +61,6 @@ a:focus-visible,
 }
 .btn-link:hover {
   color: var(--primary-dark);
-}
-@media (max-width: 600px) {
-  .sm-column {
-    flex-direction: column;
-  }
 }
 .btn-pry-fil {
   width: auto;
@@ -113,31 +81,9 @@ a:focus-visible,
 .btn-err:active {
   background-color: var(--red-light);
 }
-.border-bottom {
-  border-bottom: 1px solid var(--grey-light);
-}
-.card > .card-title > button {
-  height: 2rem;
-  margin-top: 1.25rem;
-}
-input[type="email"] {
-  padding: 0.68rem 1rem;
-  border: 1px solid var(--primary-default);
-  border-radius: 4px;
-  font-family: "Lato", sans-serif;
-  appearance: none;
-  font-size: 1rem;
-  line-height: 1.14em;
-  letter-spacing: 0.05em;
-  color: var(--foreground);
-  background-color: var(--grey-opac);
-}
 .text-error {
   letter-spacing: 0.3px;
   color: var(--red-dark);
-}
-.cursor-pointer {
-  cursor: pointer;
 }
 .card-ratg {
   padding: 0.125rem 0.25rem;
@@ -163,9 +109,6 @@ input[type="email"] {
   width: 100vw;
   background-color: var(--inner-background);
   border-top: 1px solid var(--grey-light);
-}
-.dis-inline {
-  display: inline;
 }
 .card-ratg > span {
   font-size: 1rem;
