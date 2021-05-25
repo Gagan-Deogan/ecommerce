@@ -23,7 +23,7 @@ export const Home = () => {
       setStatus("PENDING");
       const res = await request({
         method: "GET",
-        endpoint: "/homes",
+        endpoint: "/home",
         cancelToken: cancelToken.token,
       });
       if (res && res.success) {

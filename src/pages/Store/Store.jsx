@@ -32,6 +32,10 @@ export const Store = () => {
   const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();
 
+  // close Model
+  const handleCloseModel = () => {
+    setIsOpenModel(false);
+  };
   // url decoding
   const initial = {
     sortBy: queryParser("sortBy") || "",
@@ -143,7 +147,7 @@ export const Store = () => {
               </div>
             </Hidden>
             <Hidden hideAt="sm-up">
-              <Model isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel}>
+              <Model isOpen={isOpenModel} closeModel={handleCloseModel}>
                 <div className="bottom-sheet padding-b-16">
                   <FiltersMenu
                     sortBy={sortBy}

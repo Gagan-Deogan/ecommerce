@@ -51,6 +51,9 @@ export const NavBar = () => {
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
   const { REACT_APP_IMAGE_URL } = process.env;
+  const handleCloseModel = () => {
+    setIsOpenModel(false);
+  };
   return (
     <nav className="row padding-l-16 padding-r-16 align-center">
       <NavLink to="/" className="row sm-w6 w12 justify-start align-center">
@@ -151,7 +154,7 @@ export const NavBar = () => {
             <HamburgerIcon />
           </button>
         </div>
-        <Model isOpenModel={isOpenModel} setIsOpenModel={setIsOpenModel}>
+        <Model isOpen={isOpenModel} closeModel={handleCloseModel}>
           <aside className="left-sheet column">
             <div className=" row w12 justify-start align-start padding-16 padding-l-32">
               <Logo />

@@ -12,7 +12,7 @@ export default function App() {
       <NavBar />
       <Navigation />
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}
-      {status === "ERROR" && <ErrorModel />}
+      <ErrorModel />
     </main>
   );
 }

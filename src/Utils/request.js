@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { useStatus } from "../Context/LoaderContext";
 const { REACT_APP_API_URL } = process.env;
 export const instance = axios.create({

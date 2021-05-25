@@ -1,13 +1,12 @@
-export const Model = ({ children, isOpenModel, setIsOpenModel, className }) => {
+export const Model = ({ children, isOpen, closeModel, className }) => {
   const handleClose = (e) => {
-    console.log(e);
     if (e.target.id === "model-container") {
-      setIsOpenModel(!isOpenModel);
+      closeModel();
     }
   };
   return (
     <>
-      {isOpenModel && (
+      {isOpen && (
         <div
           id="model-container"
           className={`model-container position-fixed ${className}`}
