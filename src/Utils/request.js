@@ -1,11 +1,16 @@
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { useStatus } from "../Context/LoaderContext";
 const { REACT_APP_API_URL } = process.env;
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: REACT_APP_API_URL,
   headers: { "content-type": "application/json" },
 });
+
 export const useRequest = () => {
   const getCancelToken = () => axios.CancelToken.source();
+  const { setStatus } = useStatus();
+
   const request = async ({ method, endpoint, body = {}, cancelToken }) => {
     try {
       switch (method) {
@@ -31,7 +36,9 @@ export const useRequest = () => {
           return null;
       }
     } catch (err) {
-      console.log(err);
+      if (err.response.status === 500) {
+        setStatus("ERROR");
+      }
     }
   };
   return { request, getCancelToken };

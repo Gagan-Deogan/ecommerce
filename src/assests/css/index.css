@@ -57,7 +57,7 @@ body::-webkit-scrollbar-thumb:hover {
   text-align: end;
 }
 .model-container {
-  display: block;
+  display: flex;
 }
 .btn-link:hover {
   color: var(--primary-dark);

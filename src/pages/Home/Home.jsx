@@ -6,7 +6,7 @@ import { useRequest } from "../../utils/request";
 import { useStatus } from "../../Context/LoaderContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../Components/Loader";
-
+import { ErrorModel } from "../../Components/ErrorModel";
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();
@@ -21,20 +21,14 @@ export const Home = () => {
     const cancelToken = getCancelToken();
     (async () => {
       setStatus("PENDING");
-      try {
-        const { data, success } = await request({
-          method: "GET",
-          endpoint: "/home",
-          cancelToken: cancelToken.token,
-        });
-        if (success) {
-          setStatus("IDLE");
-          setHomeProducts(data);
-        } else {
-          console.log("some thing went worng.");
-        }
-      } catch (err) {
+      const res = await request({
+        method: "GET",
+        endpoint: "/homes",
+        cancelToken: cancelToken.token,
+      });
+      if (res && res.success) {
         setStatus("IDLE");
+        setHomeProducts(res.data);
       }
     })();
     return () => {
@@ -45,7 +39,7 @@ export const Home = () => {
   return (
     <>
       <div className="column align-center route-cont home-container">
-        {status !== "IDLE" && <Loader />}
+        {status === "PENDING" && <Loader />}
         {status === "IDLE" && homeProducts && (
           <>
             <header className="w12">

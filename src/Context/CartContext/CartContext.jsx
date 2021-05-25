@@ -138,8 +138,8 @@ export const CartContextProvider = ({ children }) => {
         }
       })();
     } else {
-      const loaclCart = JSON.parse(localStorage.getItem("cartlist"));
-      const loaclWish = JSON.parse(localStorage.getItem("wishlist"));
+      const loaclCart = JSON.parse(localStorage?.getItem("cartlist"));
+      const loaclWish = JSON.parse(localStorage?.getItem("wishlist"));
       if (loaclCart || loaclWish) {
         setCartAndWish({ cartlist: loaclCart, wishlist: loaclWish });
       }
@@ -148,11 +148,11 @@ export const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!!!user) {
-      localStorage.setItem("cartlist", JSON.stringify(cartlist));
+      localStorage?.setItem("cartlist", JSON.stringify(cartlist));
     }
   }, [user, cartlist]);
   useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    localStorage?.setItem("wishlist", JSON.stringify(wishlist));
   }, [user, wishlist]);
   return (
     <CartContext.Provider

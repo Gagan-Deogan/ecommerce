@@ -1,5 +1,6 @@
-export const Model = ({ children, isOpenModel, setIsOpenModel }) => {
+export const Model = ({ children, isOpenModel, setIsOpenModel, className }) => {
   const handleClose = (e) => {
+    console.log(e);
     if (e.target.id === "model-container") {
       setIsOpenModel(!isOpenModel);
     }
@@ -9,7 +10,7 @@ export const Model = ({ children, isOpenModel, setIsOpenModel }) => {
       {isOpenModel && (
         <div
           id="model-container"
-          className="model-container pos-f justify-center align-center"
+          className={`model-container position-fixed ${className}`}
           onClick={handleClose}>
           {children}
         </div>
