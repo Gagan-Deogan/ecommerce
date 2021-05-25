@@ -9,7 +9,7 @@ export const Model = ({ children, isOpenModel, setIsOpenModel }) => {
       {isOpenModel && (
         <div
           id="model-container"
-          className="model-container pos-f justify-center align-center"
+          className="model-container position-fixed justify-center align-center"
           onClick={handleClose}>
           {children}
         </div>
