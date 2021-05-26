@@ -7,16 +7,17 @@ import { ProductCard } from "../../Components/ProductCard";
 import { Hidden } from "../../Components/Hidden";
 import { Model } from "../../Components/Model";
 import { Loader } from "../../Components/Loader";
-import { FiltersMenu } from "./FiltersMenu.jsx";
+import { FiltersMenu } from "../../Components/FiltersMenu";
 import { useQuery, useRequest } from "../../utils";
+import { reducer } from "./reducer";
 import {
-  reducer,
   getSortedData,
   getProductByRating,
   getFilterbyAvalibility,
   getFilterByOffer,
   getFilterbyLabel,
-} from "./utils";
+  applyFilterToUrl,
+} from "../../utils/filters";
 import { FiltersIcons } from "../../assests/icons";
 
 export const Store = () => {
@@ -69,54 +70,46 @@ export const Store = () => {
     const cancelToken = getCancelToken();
     (async () => {
       setStatus("PENDING");
-      try {
-        const { data, success } = await request({
-          method: "GET",
-          endpoint: categoryId ? `categories/${categoryId}` : "/products",
-          cancelToken: cancelToken.token,
-        });
+      const res = await request({
+        method: "GET",
+        endpoint: categoryId ? `categories/${categoryId}` : "/products",
+        cancelToken: cancelToken.token,
+      });
+      if (res && res.success) {
         setStatus("IDLE");
-        if (success) {
-          setProducts(data);
-        }
-      } catch (err) {
-        setStatus("IDLE");
+        setProducts(res.data);
       }
     })();
     return () => {
       cancelToken.cancel();
     };
-  }, []);
+  }, [categoryId]);
 
   useEffect(() => {
     if (products) {
-      const categoryQuery = categoryId
-        ? `category=${queryEncoder(categoryId)}&`
-        : "";
-      const sortQuery =
-        sortBy === "LH" || sortBy === "HL"
-          ? `sortBy=${queryEncoder(sortBy)}`
-          : "";
-      const ratingQuery = showRating
-        ? `&showRating=${queryEncoder(showRating)}`
-        : "";
-      const inventoryQuery = `&showInvertory=${queryEncoder(showInvertory)}`;
-      const discountQuery = `&showOffer=${showOffer}`;
-      const newQuery = `&showNew=${showNew}`;
-      const BestSellerQuery = `&showBestSeller=${showBestSeller}`;
-      navigate(
-        `/store?${
-          categoryQuery +
-          sortQuery +
-          ratingQuery +
-          inventoryQuery +
-          discountQuery +
-          newQuery +
-          BestSellerQuery
-        }`
+      applyFilterToUrl(
+        categoryId,
+        queryEncoder,
+        sortBy,
+        showRating,
+        showInvertory,
+        showOffer,
+        showNew,
+        showBestSeller,
+        navigate
       );
     }
-  }, [sortBy, showRating, showInvertory, showOffer, showNew, showBestSeller]);
+  }, [
+    categoryId,
+    sortBy,
+    showRating,
+    showInvertory,
+    showOffer,
+    showNew,
+    showBestSeller,
+    products,
+  ]);
+
   return (
     <>
       {status !== "IDLE" && <Loader />}

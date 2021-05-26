@@ -1,4 +1,4 @@
-export const useDebouncing = (someExpensiveFunction, difference) => {
+export const debouncing = (someExpensiveFunction, difference) => {
   let timer;
   return function ({ ...rest }) {
     clearTimeout(timer);

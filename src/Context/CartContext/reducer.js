@@ -37,20 +37,21 @@ export const reducer = (state, action) => {
             : product
         ),
       };
-    case "ADD_TO_WISHLIST":
+    case "TOOGLE_PRODUCT_FROM_WISHLIST":
+      const selectProduct = state.wishlist.find(
+        (product) => product.details._id === action.payload.product._id
+      );
+      if (selectProduct) {
+        return {
+          ...state,
+          wishlist: state.wishlist.filter(
+            (product) => product._id !== selectProduct._id
+          ),
+        };
+      }
       return {
         ...state,
-        wishlist: [
-          ...state.wishlist,
-          { details: action.payload, inWishlist: true },
-        ],
-      };
-    case "REMOVE_FROM_WISHLIST":
-      return {
-        ...state,
-        wishlist: state.wishlist.filter(
-          (product) => product.details._id !== action.payload._id
-        ),
+        wishlist: [...state.wishlist, { details: action.payload.product }],
       };
     case "SAVE_FOR_LATER":
       const details = action.payload;

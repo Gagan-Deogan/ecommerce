@@ -5,10 +5,9 @@ export const ErrorModel = () => {
   const { status, setStatus } = useStatus();
   const location = useLocation();
   const navigate = useNavigate();
-  console.log({ location });
   const handleRetry = () => {
     setStatus("IDLE");
-    navigate(location.pathname);
+    navigate("/");
   };
   return (
     <Model

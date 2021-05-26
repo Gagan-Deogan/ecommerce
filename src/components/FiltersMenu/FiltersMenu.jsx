@@ -1,5 +1,3 @@
-import React from "react";
-
 const RadioButton = ({ name, checked, onChange }) => {
   return (
     <label className="row justify-between margin-t-8 align-center">

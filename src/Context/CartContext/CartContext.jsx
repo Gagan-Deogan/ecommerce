@@ -1,5 +1,5 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { useDebouncing, useRequest } from "../../utils";
+import { debouncing, useRequest } from "../../utils";
 import { useSnakbarContext } from "../SnakbarContext";
 import { useAuthContext } from "../AuthContext";
 import { reducer } from "./reducer";
@@ -13,27 +13,16 @@ export const CartContextProvider = ({ children }) => {
     intialState
   );
   const { snakbarDispatch } = useSnakbarContext();
-  const { user } = useAuthContext();
+  const { user, token } = useAuthContext();
   const { request } = useRequest();
-
-  const handleWishList = ({ product, inWishlist }) => {
-    const wishType = inWishlist ? "REMOVE_FROM_WISHLIST" : "ADD_TO_WISHLIST";
-    const wishPayload = inWishlist ? product : product;
-    const sankbarMsg = inWishlist
-      ? "Succesfull Removed from Wishlist"
-      : "Succesfull Added to Wishlist ";
-    cartDispatch({ type: wishType, payload: wishPayload });
-    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
-  };
-  const betterHandleWishList = useDebouncing(handleWishList, 500);
 
   const handleAddToCart = async ({ product }) => {
     if (user) {
-      const { success } = await request({
+      const res = await request({
         method: "POST",
-        endpoint: `/carts/${user._id}/${product._id}`,
+        endpoint: `/carts/${product._id}`,
       });
-      if (success) {
+      if (res && res.success) {
         cartDispatch({ type: "ADD_TO_CART", payload: product });
         snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
       }
@@ -45,11 +34,11 @@ export const CartContextProvider = ({ children }) => {
 
   const handleRemoveFromCart = async (id) => {
     if (user) {
-      const { success } = await request({
+      const res = await request({
         method: "DELETE",
-        endpoint: `/carts/${user._id}/${id}`,
+        endpoint: `/carts/${id}`,
       });
-      if (success) {
+      if (res && res.success) {
         cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
         snakbarDispatch({
           type: "ERROR",
@@ -64,29 +53,29 @@ export const CartContextProvider = ({ children }) => {
 
   const handleQuantityChange = async ({ type, id, quantity }) => {
     if (user) {
-      const { success } = await request({
+      const res = await request({
         method: "PUT",
-        endpoint: `/carts/${user._id}/${id}`,
+        endpoint: `/carts/${id}`,
         body: {
           quantity: type === "INCREMENT_QUANTITY" ? quantity + 1 : quantity - 1,
         },
       });
-      if (success) {
+      if (res && res.success) {
         cartDispatch({ type: type, payload: id });
       }
     } else {
       cartDispatch({ type: type, payload: id });
     }
   };
-  const betterHandleQuantityChange = useDebouncing(handleQuantityChange, 500);
+  const betterHandleQuantityChange = debouncing(handleQuantityChange, 500);
 
   const handleSaveForLater = async ({ product }) => {
     if (user) {
-      const { success } = await request({
+      const res = await request({
         method: "DELETE",
-        endpoint: `/carts/${user._id}/${product._id}`,
+        endpoint: `/carts/${product._id}`,
       });
-      if (success) {
+      if (res && res.success) {
         cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
         snakbarDispatch({
           type: "DEFAULT",
@@ -126,14 +115,14 @@ export const CartContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    if (user) {
+    if (user && token) {
       (async () => {
-        const { success, data } = await request({
+        const res = await request({
           method: "GET",
-          endpoint: `/carts/${user._id}`,
+          endpoint: `/carts`,
         });
-        if (success) {
-          setCartAndWish({ cartlist: data, loaclWish: [] });
+        if (res && res.success) {
+          setCartAndWish({ cartlist: res.data, loaclWish: [] });
         }
       })();
     } else {
@@ -143,7 +132,7 @@ export const CartContextProvider = ({ children }) => {
         setCartAndWish({ cartlist: loaclCart, wishlist: loaclWish });
       }
     }
-  }, [user]);
+  }, [user, token]);
 
   useEffect(() => {
     if (!!!user) {
@@ -153,13 +142,12 @@ export const CartContextProvider = ({ children }) => {
   useEffect(() => {
     localStorage?.setItem("wishlist", JSON.stringify(wishlist));
   }, [user, wishlist]);
+
   return (
     <CartContext.Provider
       value={{
         cartlist: cartlist,
         wishlist: wishlist,
-        betterHandleWishList: betterHandleWishList,
-        handleWishList: handleWishList,
         handleAddToCart: handleAddToCart,
         handleRemoveFromCart,
         betterHandleQuantityChange,
@@ -167,6 +155,7 @@ export const CartContextProvider = ({ children }) => {
         totalPrice,
         totalEffectivePrice,
         totalDiscount,
+        cartDispatch,
       }}>
       {children}
     </CartContext.Provider>

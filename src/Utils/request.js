@@ -35,7 +35,7 @@ export const useRequest = () => {
           return null;
       }
     } catch (err) {
-      if (err.response.status === 500) {
+      if (err.response.status === 503) {
         setStatus("ERROR");
       }
     }

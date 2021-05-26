@@ -1,70 +1,48 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRequest, instance } from "../../utils";
-import { useStatus } from "../LoaderContext";
+import { getUserDetails } from "./auth.services";
+import {
+  useRequest,
+  instance,
+  setupAuthExceptionHandler,
+  setupAuthHeaderForServiceCalls,
+} from "../../utils";
 const AuthContext = createContext();
-
-function setupAuthExceptionHandler(handleLogout, navigate, setStatus) {
-  const UNAUTHORIZED = 401;
-  instance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error?.response?.status === UNAUTHORIZED) {
-        handleLogout();
-        navigate("/login");
-      }
-      return Promise.reject(error);
-    }
-  );
-}
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
+  const [token, setToken] = useState();
   const { request } = useRequest();
-  const { setStatus } = useStatus();
 
-  const handleLogin = async (email, password, setLoginError) => {
-    try {
-      const { success, data } = await request({
-        method: "POST",
-        endpoint: "/users/login",
-        body: {
-          email,
-          password,
-        },
-      });
-      if (success) {
-        setUser(data);
-        localStorage?.setItem("user", JSON.stringify(data));
-        navigate("/store");
-      } else {
-        setLoginError(true);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  setupAuthHeaderForServiceCalls(token, instance);
 
   const handleLogout = () => {
-    localStorage?.removeItem("user");
+    localStorage?.removeItem("Token");
     setUser();
+    setToken();
   };
 
   useEffect(() => {
-    setupAuthExceptionHandler(handleLogout, navigate, setStatus);
-    const isAlreadyLoggedIn = JSON.parse(localStorage.getItem("user"));
-
-    if (!!isAlreadyLoggedIn) {
-      setUser(isAlreadyLoggedIn);
+    const AuthToken = localStorage?.getItem("Token");
+    if (AuthToken) {
+      setupAuthExceptionHandler(handleLogout, navigate, instance);
+      setToken(AuthToken);
     }
   }, []);
+
+  useEffect(() => {
+    getUserDetails(token, user, setUser, request);
+  }, [token]);
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        handleLogin,
+        token,
         handleLogout,
+        setUser,
+        setToken,
       }}>
       {children}
     </AuthContext.Provider>

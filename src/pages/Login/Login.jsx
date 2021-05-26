@@ -1,23 +1,29 @@
 import "./login.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAuthContext } from "../../Context/AuthContext";
 import { LogoIcon, VisibleIcon, VisibleOffIcon } from "../../assests/icons";
+import { loginUserWithEmailAndPassword } from "./login.services";
+import { useRequest } from "../../utils";
 export const Login = () => {
+  const { request } = useRequest();
   const navigate = useNavigate();
-  const { user } = useAuthContext();
-  if (user) {
-    navigate("/");
-  }
-
   const [email, setEmail] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState();
-  const { handleLogin } = useAuthContext();
+  const { setUser, setToken } = useAuthContext();
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(email, password, setLoginError);
+    loginUserWithEmailAndPassword({
+      email,
+      password,
+      setLoginError,
+      setUser,
+      setToken,
+      request,
+      navigate,
+    });
   };
   return (
     <section className="column justify-center align-center">

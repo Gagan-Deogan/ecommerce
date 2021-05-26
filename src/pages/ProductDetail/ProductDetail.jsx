@@ -5,8 +5,13 @@ import { useCartContext } from "../../Context/CartContext";
 import { useStatus } from "../../Context/LoaderContext";
 import { Loader } from "../../Components/Loader";
 import { Hidden } from "../../Components/Hidden";
-import { useRequest, getProductWithFlags } from "../../utils";
+import {
+  useRequest,
+  getProductWithFlags,
+  betterHandleWishList,
+} from "../../utils";
 import { StarIcon } from "../../assests/icons";
+import { useSnakbarContext } from "../../Context/SnakbarContext";
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCartlist, productDetail, onClick }) => {
@@ -37,10 +42,11 @@ export const ProductDetail = () => {
   const { status, setStatus } = useStatus();
   const {
     handleAddToCart,
-    betterHandleWishList,
     cartlist,
     wishlist,
+    cartDispatch,
   } = useCartContext();
+  const { snakbarDispatch } = useSnakbarContext();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 
@@ -141,8 +147,12 @@ export const ProductDetail = () => {
                   productDetail={productDetail}
                   onClick={() =>
                     betterHandleWishList({
+                      cartDispatch,
+                      snakbarDispatch,
                       product: productDetail,
-                      inWishlist: inWishlist,
+                      sankbarMsg: inWishlist
+                        ? "Product Remove Successfully"
+                        : "Product Added Successfully",
                     })
                   }
                 />

@@ -1,32 +1,3 @@
-const initialFilters = {
-  sortBy: "",
-  showRating: null,
-  showInvertory: true,
-  showOffer: false,
-  showNew: false,
-  showBestSeller: false,
-};
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case "SORT":
-      return { ...state, sortBy: action.payload };
-    case "FIILTER_BY_RATINGS":
-      return { ...state, showRating: action.payload };
-    case "TOGGLE_INVENTORY":
-      return { ...state, showInvertory: !state.showInvertory };
-    case "TOGGLE_SHOW_OFFER":
-      return { ...state, showOffer: !state.showOffer };
-    case "TOGGLE_SHOW_NEW":
-      return { ...state, showNew: !state.showNew };
-    case "TOGGLE_SHOW_BESTSELLER":
-      return { ...state, showBestSeller: !state.showBestSeller };
-    case "INITIAL":
-      return { ...initialFilters };
-    default:
-      return state;
-  }
-};
-
 export const getSortedData = (products, sortBy) => {
   switch (sortBy) {
     case "LH":
@@ -74,4 +45,39 @@ export const getFilterbyLabel = (product, showBestSeller, showNew) => {
     return product.filter((product) => showTheseLabels.includes(product.label));
   }
   return product;
+};
+export const applyFilterToUrl = (
+  categoryId,
+  queryEncoder,
+  sortBy,
+  showRating,
+  showInvertory,
+  showOffer,
+  showNew,
+  showBestSeller,
+  navigate
+) => {
+  const categoryQuery = categoryId
+    ? `category=${queryEncoder(categoryId)}&`
+    : "";
+  const sortQuery =
+    sortBy === "LH" || sortBy === "HL" ? `sortBy=${queryEncoder(sortBy)}` : "";
+  const ratingQuery = showRating
+    ? `&showRating=${queryEncoder(showRating)}`
+    : "";
+  const inventoryQuery = `&showInvertory=${queryEncoder(showInvertory)}`;
+  const discountQuery = `&showOffer=${showOffer}`;
+  const newQuery = `&showNew=${showNew}`;
+  const BestSellerQuery = `&showBestSeller=${showBestSeller}`;
+  navigate(
+    `/store?${
+      categoryQuery +
+      sortQuery +
+      ratingQuery +
+      inventoryQuery +
+      discountQuery +
+      newQuery +
+      BestSellerQuery
+    }`
+  );
 };

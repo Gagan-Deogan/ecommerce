@@ -13,20 +13,12 @@ export const Navigation = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} key={location.key} />
-      <Route path="/store" element={<Store />} key={location.key} />
-      <Route path="/wishlist" element={<Wishlist />} key={location.key} />
-      <Route path="/cart" element={<Cart />} key={location.key} />
-      <Route
-        path="/productdetail/:id"
-        element={<ProductDetail />}
-        key={location.key}
-      />
-      <ProtectedRoute
-        path="/profile"
-        element={<Profile />}
-        key={location.key}
-      />
-      <Route path="/login" element={<Login />} key={location.key} />
+      <Route path="/store" element={<Store />} />
+      <Route path="/wishlist" element={<Wishlist />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <ProtectedRoute path="/profile" element={<Profile />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 };
