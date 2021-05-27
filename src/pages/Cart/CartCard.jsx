@@ -1,6 +1,6 @@
 import "./cart.css";
 import { AddIcon, SubtractIcon } from "assests/icons";
-import { useCartContext } from "Context/CartContext";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { betterHandleQuantityChange } from "utils";
 import { useAuthContext } from "Context/AuthContext";
 import { useRequest } from "utils";
@@ -14,7 +14,7 @@ export const CartCard = ({ product, inWishlist = false }) => {
     handleRemoveFromCart,
     handleSaveForLater,
     cartDispatch,
-  } = useCartContext();
+  } = useCartAndWishlist();
   const { user } = useAuthContext();
   const { _id, name, image, discount, effectivePrice, price } = product.details;
   const { quantity } = product;

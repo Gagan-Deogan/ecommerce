@@ -1,5 +1,5 @@
 import { AddIcon, SubtractIcon } from "assests/icons";
-import { useCartContext } from "Context/CartContext";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import {
   betterHandleQuantityChange,
   handleRemoveFromCart,
@@ -14,7 +14,7 @@ const { REACT_APP_IMAGE_URL } = process.env;
 export const CartCard = ({ product, inWishlist = false }) => {
   const { request } = useRequest();
   const { snakbarDispatch } = useSnakbarContext();
-  const { cartDispatch } = useCartContext();
+  const { cartDispatch } = useCartAndWishlist();
   const { user } = useAuthContext();
   const { _id, name, image, discount, effectivePrice, price } = product.details;
   const { quantity } = product;

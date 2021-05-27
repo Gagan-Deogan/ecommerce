@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useCartContext } from "Context/CartContext";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { CartCard } from "Components/CartCard";
 import { betterHandleQuantityChange } from "utils";
 export const Cart = () => {
@@ -11,7 +11,7 @@ export const Cart = () => {
     totalPrice,
     totalEffectivePrice,
     totalDiscount,
-  } = useCartContext();
+  } = useCartAndWishlist();
   const getProductWithWishlistFlag = () => {
     const wishlistProductId = wishlist.map((product) => product.details._id);
     return cartlist.map((product) =>

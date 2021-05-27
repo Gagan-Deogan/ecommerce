@@ -1,18 +1,16 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { debouncing, useRequest } from "utils";
-import { useSnakbarContext } from "../SnakbarContext";
+import { useRequest } from "utils";
 import { useAuthContext } from "../AuthContext";
 import { reducer } from "./reducer";
-const CartContext = createContext();
 
+const CartAndWishlistContext = createContext();
 const intialState = { cartlist: [], wishlist: [] };
 
-export const CartContextProvider = ({ children }) => {
+export const CartAndWishlistProvider = ({ children }) => {
   const [{ cartlist, wishlist }, cartDispatch] = useReducer(
     reducer,
     intialState
   );
-  const { snakbarDispatch } = useSnakbarContext();
   const { user, token } = useAuthContext();
   const { request } = useRequest();
 
@@ -73,7 +71,7 @@ export const CartContextProvider = ({ children }) => {
   }, [user, wishlist]);
 
   return (
-    <CartContext.Provider
+    <CartAndWishlistContext.Provider
       value={{
         cartlist: cartlist,
         wishlist: wishlist,
@@ -83,10 +81,10 @@ export const CartContextProvider = ({ children }) => {
         cartDispatch,
       }}>
       {children}
-    </CartContext.Provider>
+    </CartAndWishlistContext.Provider>
   );
 };
 
-export const useCartContext = () => {
-  return useContext(CartContext);
+export const useCartAndWishlist = () => {
+  return useContext(CartAndWishlistContext);
 };

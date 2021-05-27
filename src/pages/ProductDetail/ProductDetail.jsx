@@ -1,7 +1,7 @@
 import "./productDetail.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCartContext } from "Context/CartContext";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { useStatus } from "Context/LoaderContext";
 import { Loader } from "Components/Loader";
 import { Hidden } from "Components/Hidden";
@@ -43,7 +43,7 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const { status, setStatus } = useStatus();
   const { user } = useAuthContext();
-  const { cartlist, wishlist, cartDispatch } = useCartContext();
+  const { cartlist, wishlist, cartDispatch } = useCartAndWishlist();
   const { snakbarDispatch } = useSnakbarContext();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();

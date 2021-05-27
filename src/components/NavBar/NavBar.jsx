@@ -11,7 +11,7 @@ import {
   HamburgerIcon,
 } from "assests/icons";
 import { useAuthContext } from "Context/AuthContext";
-import { useCartContext } from "Context/CartContext";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { Model } from "../Model";
 import { Avatar } from "../Avatar";
 import { Hidden } from "../Hidden";
@@ -46,7 +46,7 @@ const NavOption = ({
 };
 
 export const NavBar = () => {
-  const { cartlist, wishlist } = useCartContext();
+  const { cartlist, wishlist } = useCartAndWishlist();
   const { user } = useAuthContext();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
