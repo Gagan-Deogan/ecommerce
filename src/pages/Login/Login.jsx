@@ -1,10 +1,10 @@
 import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuthContext } from "../../Context/AuthContext";
-import { LogoIcon, VisibleIcon, VisibleOffIcon } from "../../assests/icons";
+import { useAuthContext } from "Context/AuthContext";
+import { LogoIcon, VisibleIcon, VisibleOffIcon } from "assests/icons";
 import { loginUserWithEmailAndPassword } from "./login.services";
-import { useRequest } from "../../utils";
+import { useRequest } from "utils";
 export const Login = () => {
   const { request } = useRequest();
   const navigate = useNavigate();

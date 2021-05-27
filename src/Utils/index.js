@@ -7,4 +7,10 @@ export {
   setupAuthExceptionHandler,
   setupAuthHeaderForServiceCalls,
 } from "./setupRequest";
-export { betterHandleWishList } from "./cart.service";
+export {
+  betterHandleWishList,
+  handleAddToCart,
+  betterHandleQuantityChange,
+  handleRemoveFromCart,
+  handleSaveForLater,
+} from "./cart.service";

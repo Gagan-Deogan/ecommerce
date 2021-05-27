@@ -1,5 +1,5 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { debouncing, useRequest } from "../../utils";
+import { debouncing, useRequest } from "utils";
 import { useSnakbarContext } from "../SnakbarContext";
 import { useAuthContext } from "../AuthContext";
 import { reducer } from "./reducer";
@@ -16,80 +16,9 @@ export const CartContextProvider = ({ children }) => {
   const { user, token } = useAuthContext();
   const { request } = useRequest();
 
-  const handleAddToCart = async ({ product }) => {
-    if (user) {
-      const res = await request({
-        method: "POST",
-        endpoint: `/carts/${product._id}`,
-      });
-      if (res && res.success) {
-        cartDispatch({ type: "ADD_TO_CART", payload: product });
-        snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
-      }
-    } else {
-      cartDispatch({ type: "ADD_TO_CART", payload: product });
-      snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
-    }
-  };
-
-  const handleRemoveFromCart = async (id) => {
-    if (user) {
-      const res = await request({
-        method: "DELETE",
-        endpoint: `/carts/${id}`,
-      });
-      if (res && res.success) {
-        cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
-        snakbarDispatch({
-          type: "ERROR",
-          payload: "Product Remove Succesfully",
-        });
-      }
-    } else {
-      cartDispatch({ type: "REMOVE_FROM_CART", payload: id });
-      snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
-    }
-  };
-
-  const handleQuantityChange = async ({ type, id, quantity }) => {
-    if (user) {
-      const res = await request({
-        method: "PUT",
-        endpoint: `/carts/${id}`,
-        body: {
-          quantity: type === "INCREMENT_QUANTITY" ? quantity + 1 : quantity - 1,
-        },
-      });
-      if (res && res.success) {
-        cartDispatch({ type: type, payload: id });
-      }
-    } else {
-      cartDispatch({ type: type, payload: id });
-    }
-  };
-  const betterHandleQuantityChange = debouncing(handleQuantityChange, 500);
-
-  const handleSaveForLater = async ({ product }) => {
-    if (user) {
-      const res = await request({
-        method: "DELETE",
-        endpoint: `/carts/${product._id}`,
-      });
-      if (res && res.success) {
-        cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
-        snakbarDispatch({
-          type: "DEFAULT",
-          payload: "Product Added to Wishlist",
-        });
-      }
-    } else {
-      cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
-    }
-  };
-
   const setCartAndWish = ({ cartlist = [], wishlist = [] }) => {
     cartDispatch({
-      type: "SET_CART",
+      type: "LOAD_CART",
       payload: { cartlist, wishlist },
     });
   };
@@ -148,10 +77,6 @@ export const CartContextProvider = ({ children }) => {
       value={{
         cartlist: cartlist,
         wishlist: wishlist,
-        handleAddToCart: handleAddToCart,
-        handleRemoveFromCart,
-        betterHandleQuantityChange,
-        handleSaveForLater,
         totalPrice,
         totalEffectivePrice,
         totalDiscount,

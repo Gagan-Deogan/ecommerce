@@ -1,17 +1,19 @@
 import "./productDetail.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCartContext } from "../../Context/CartContext";
-import { useStatus } from "../../Context/LoaderContext";
-import { Loader } from "../../Components/Loader";
-import { Hidden } from "../../Components/Hidden";
+import { useCartContext } from "Context/CartContext";
+import { useStatus } from "Context/LoaderContext";
+import { Loader } from "Components/Loader";
+import { Hidden } from "Components/Hidden";
 import {
   useRequest,
   getProductWithFlags,
   betterHandleWishList,
-} from "../../utils";
-import { StarIcon } from "../../assests/icons";
-import { useSnakbarContext } from "../../Context/SnakbarContext";
+  handleAddToCart,
+} from "utils";
+import { StarIcon } from "assests/icons";
+import { useSnakbarContext } from "Context/SnakbarContext";
+import { useAuthContext } from "Context/AuthContext";
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCartlist, productDetail, onClick }) => {
@@ -40,12 +42,8 @@ const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
 export const ProductDetail = () => {
   const { id } = useParams();
   const { status, setStatus } = useStatus();
-  const {
-    handleAddToCart,
-    cartlist,
-    wishlist,
-    cartDispatch,
-  } = useCartContext();
+  const { user } = useAuthContext();
+  const { cartlist, wishlist, cartDispatch } = useCartContext();
   const { snakbarDispatch } = useSnakbarContext();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
@@ -139,7 +137,13 @@ export const ProductDetail = () => {
                   productDetail={productDetail}
                   onClick={() => {
                     if (productDetail.avalibility && !inCartlist)
-                      handleAddToCart({ product: productDetail });
+                      handleAddToCart({
+                        product: productDetail,
+                        user,
+                        cartDispatch,
+                        snakbarDispatch,
+                        request,
+                      });
                   }}
                 />
                 <WishlistButton
@@ -166,14 +170,27 @@ export const ProductDetail = () => {
                 productDetail={productDetail}
                 onClick={() => {
                   if (productDetail.avalibility && !inCartlist)
-                    handleAddToCart({ product: productDetail });
+                    handleAddToCart({
+                      product: productDetail,
+                      user,
+                      cartDispatch,
+                      snakbarDispatch,
+                      request,
+                    });
                 }}
               />
               <WishlistButton
                 inWishlist={inWishlist}
                 productDetail={productDetail}
                 onClick={() =>
-                  betterHandleWishList({ productDetail, inWishlist })
+                  betterHandleWishList({
+                    cartDispatch,
+                    snakbarDispatch,
+                    product: productDetail,
+                    sankbarMsg: inWishlist
+                      ? "Product Remove Successfully"
+                      : "Product Added Successfully",
+                  })
                 }
               />
             </div>

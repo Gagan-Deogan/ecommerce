@@ -1,4 +1,4 @@
-import { StarIcon } from "../../assests/icons";
+import { StarIcon } from "assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
 export const ProductCard = ({ details, handleProductDetail }) => {
   const {

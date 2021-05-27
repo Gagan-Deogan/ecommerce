@@ -1,4 +1,4 @@
-import { useAuthContext } from "../../Context/AuthContext";
+import { useAuthContext } from "Context/AuthContext";
 export const Profile = () => {
   const { handleLogout } = useAuthContext();
   return (

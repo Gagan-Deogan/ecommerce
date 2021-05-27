@@ -1,20 +1,20 @@
-import "./cart.css";
 import { AddIcon, SubtractIcon } from "assests/icons";
 import { useCartContext } from "Context/CartContext";
-import { betterHandleQuantityChange } from "utils";
+import {
+  betterHandleQuantityChange,
+  handleRemoveFromCart,
+  handleSaveForLater,
+} from "utils";
 import { useAuthContext } from "Context/AuthContext";
+import { useSnakbarContext } from "Context/SnakbarContext";
 import { useRequest } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
 export const CartCard = ({ product, inWishlist = false }) => {
   const { request } = useRequest();
-
-  const {
-    handleRemoveFromCart,
-    handleSaveForLater,
-    cartDispatch,
-  } = useCartContext();
+  const { snakbarDispatch } = useSnakbarContext();
+  const { cartDispatch } = useCartContext();
   const { user } = useAuthContext();
   const { _id, name, image, discount, effectivePrice, price } = product.details;
   const { quantity } = product;
@@ -79,13 +79,31 @@ export const CartCard = ({ product, inWishlist = false }) => {
         </div>
       </div>
       <div className="row margin-t-16">
-        <button className="btn-link" onClick={() => handleRemoveFromCart(_id)}>
+        <button
+          className="btn-link"
+          onClick={() =>
+            handleRemoveFromCart({
+              productId: _id,
+              user,
+              cartDispatch,
+              snakbarDispatch,
+              request,
+            })
+          }>
           Remove from Cart
         </button>
         {!inWishlist && (
           <button
             className="btn-link margin-l-8"
-            onClick={() => handleSaveForLater({ product: product.details })}>
+            onClick={() =>
+              handleSaveForLater({
+                product: product.details,
+                user,
+                cartDispatch,
+                snakbarDispatch,
+                request,
+              })
+            }>
             Save for later
           </button>
         )}

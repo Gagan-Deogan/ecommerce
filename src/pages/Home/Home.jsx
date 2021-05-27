@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import wapperbackground from "../../assests/images/wall.png";
+import wapperbackground from "assests/images/wall.png";
 import "./home.css";
-import { ProductCard } from "../../Components/ProductCard";
-import { useRequest } from "../../utils/request";
-import { useStatus } from "../../Context/LoaderContext";
+import { ProductCard } from "Components/ProductCard";
+import { useRequest } from "utils/request";
+import { useStatus } from "Context/LoaderContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader } from "../../Components/Loader";
-import { ErrorModel } from "../../Components/ErrorModel";
+import { Loader } from "Components/Loader";
+import { ErrorModel } from "Components/ErrorModel";
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();

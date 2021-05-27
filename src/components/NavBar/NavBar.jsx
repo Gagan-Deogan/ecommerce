@@ -9,9 +9,9 @@ import {
   UserIcon,
   Logo,
   HamburgerIcon,
-} from "../../assests/icons";
-import { useAuthContext } from "../../Context/AuthContext";
-import { useCartContext } from "../../Context/CartContext";
+} from "assests/icons";
+import { useAuthContext } from "Context/AuthContext";
+import { useCartContext } from "Context/CartContext";
 import { Model } from "../Model";
 import { Avatar } from "../Avatar";
 import { Hidden } from "../Hidden";

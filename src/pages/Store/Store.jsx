@@ -1,14 +1,13 @@
 import "./store.css";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartContext } from "../../Context/CartContext";
-import { useStatus } from "../../Context/LoaderContext";
-import { ProductCard } from "../../Components/ProductCard";
-import { Hidden } from "../../Components/Hidden";
-import { Model } from "../../Components/Model";
-import { Loader } from "../../Components/Loader";
-import { FiltersMenu } from "../../Components/FiltersMenu";
-import { useQuery, useRequest } from "../../utils";
+import { useStatus } from "Context/LoaderContext";
+import { ProductCard } from "Components/ProductCard";
+import { Hidden } from "Components/Hidden";
+import { Model } from "Components/Model";
+import { Loader } from "Components/Loader";
+import { FiltersMenu } from "Components/FiltersMenu";
+import { useQuery, useRequest } from "utils";
 import { reducer } from "./reducer";
 import {
   getSortedData,
@@ -17,17 +16,12 @@ import {
   getFilterByOffer,
   getFilterbyLabel,
   applyFilterToUrl,
-} from "../../utils/filters";
-import { FiltersIcons } from "../../assests/icons";
+} from "utils/filters";
+import { FiltersIcons } from "assests/icons";
 
 export const Store = () => {
   const { queryParser, queryEncoder } = useQuery();
   const [products, setProducts] = useState([]);
-  const {
-    betterHandleWishList,
-    handleAddToCart,
-    handleWishList,
-  } = useCartContext();
   const { status, setStatus } = useStatus();
   const [isOpenModel, setIsOpenModel] = useState(false);
   const { request, getCancelToken } = useRequest();
@@ -160,9 +154,6 @@ export const Store = () => {
                   <ProductCard
                     details={product}
                     key={product._id}
-                    handleAddToCart={handleAddToCart}
-                    betterHandleWishList={betterHandleWishList}
-                    handleWishList={handleWishList}
                     handleProductDetail={handleProductDetail}
                   />
                 ))}
