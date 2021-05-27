@@ -4,11 +4,11 @@ export {
   getTotalPrices,
 } from "./pricesCalculators";
 
-export { debouncing } from "./Debouncing";
+export { debouncing } from "./debouncing";
 
-export { useQuery } from "./Query";
+export { useQuery } from "./query.hook";
 
-export { instance, useRequest } from "./request";
+export { instance, useRequest } from "./request.hook";
 
 export {
   getProductWithFlags,

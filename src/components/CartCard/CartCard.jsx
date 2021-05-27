@@ -5,17 +5,17 @@ import {
   handleRemoveFromCart,
   handleSaveForLater,
 } from "utils";
-import { useAuthContext } from "Context/AuthContext";
-import { useSnakbarContext } from "Context/SnakbarContext";
+import { useAuth } from "Context/AuthProvider";
+import { useSnakbar } from "Context/SnakbarProvider";
 import { useRequest } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
 export const CartCard = ({ item, inWishlist = false }) => {
   const { request } = useRequest();
-  const { snakbarDispatch } = useSnakbarContext();
+  const { snakbarDispatch } = useSnakbar();
   const { cartAndWishlistDispatch } = useCartAndWishlist();
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const { _id, name, image, discount, effectivePrice, price } = item.product;
   const { quantity } = item;
   return (

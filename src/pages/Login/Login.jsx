@@ -1,7 +1,7 @@
 import "./login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuthContext } from "Context/AuthContext";
+import { useAuth } from "Context/AuthProvider";
 import { LogoIcon, VisibleIcon, VisibleOffIcon } from "assests/icons";
 import { loginUserWithEmailAndPassword } from "./login.services";
 import { useRequest } from "utils";
@@ -12,7 +12,7 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState();
-  const { setUser, setToken } = useAuthContext();
+  const { setUser, setToken } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUserWithEmailAndPassword({

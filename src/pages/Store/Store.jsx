@@ -1,7 +1,7 @@
 import "./store.css";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStatus } from "Context/LoaderContext";
+import { useStatus } from "Context/LoaderProvider";
 import { ProductCard } from "Components/ProductCard";
 import { Hidden } from "Components/Hidden";
 import { Model } from "Components/Model";

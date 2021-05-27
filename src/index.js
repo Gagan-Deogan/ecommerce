@@ -2,23 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./assests/css/index.css";
 import App from "./App.jsx";
-import { AuthProvider } from "./Context/AuthContext";
+import { AuthProvider } from "./Context/AuthProvider";
 import { CartAndWishlistProvider } from "./Context/CartAndWishlistProvider";
-import { SnakbarContextProvider } from "./Context/SnakbarContext";
-import { LoaderContextProvider } from "./Context/LoaderContext";
+import { SnakbarProvider } from "./Context/SnakbarProvider";
+import { LoaderProvider } from "./Context/LoaderProvider";
 import { BrowserRouter as Router } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <LoaderContextProvider>
+      <LoaderProvider>
         <AuthProvider>
-          <SnakbarContextProvider>
+          <SnakbarProvider>
             <CartAndWishlistProvider>
               <App />
             </CartAndWishlistProvider>
-          </SnakbarContextProvider>
+          </SnakbarProvider>
         </AuthProvider>
-      </LoaderContextProvider>
+      </LoaderProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

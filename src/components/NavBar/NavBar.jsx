@@ -10,7 +10,7 @@ import {
   Logo,
   HamburgerIcon,
 } from "assests/icons";
-import { useAuthContext } from "Context/AuthContext";
+import { useAuth } from "Context/AuthProvider";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { Model } from "../Model";
 import { Avatar } from "../Avatar";
@@ -50,7 +50,7 @@ export const NavBar = () => {
     cartDetails: { cartItems },
     wishlist,
   } = useCartAndWishlist();
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
   const { REACT_APP_IMAGE_URL } = process.env;

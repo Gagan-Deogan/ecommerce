@@ -4,7 +4,7 @@ const SnakbarContext = createContext();
 
 const intialSnakbar = { isShow: false, alertType: "", msg: "" };
 
-export const SnakbarContextProvider = ({ children }) => {
+export const SnakbarProvider = ({ children }) => {
   const [snakbarStatus, snakbarDispatch] = useReducer(reducer, intialSnakbar);
 
   return (
@@ -17,6 +17,6 @@ export const SnakbarContextProvider = ({ children }) => {
     </SnakbarContext.Provider>
   );
 };
-export const useSnakbarContext = () => {
+export const useSnakbar = () => {
   return useContext(SnakbarContext);
 };

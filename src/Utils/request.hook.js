@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useStatus } from "../Context/LoaderContext";
+import { useStatus } from "../Context/LoaderProvider";
 const { REACT_APP_API_URL } = process.env;
 export const instance = axios.create({
   baseURL: REACT_APP_API_URL,

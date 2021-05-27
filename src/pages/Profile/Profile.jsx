@@ -1,6 +1,6 @@
-import { useAuthContext } from "Context/AuthContext";
+import { useAuth } from "Context/AuthProvider";
 export const Profile = () => {
-  const { handleLogout } = useAuthContext();
+  const { handleLogout } = useAuth();
   return (
     <>
       <section className="row justify-center align-center padding-64">

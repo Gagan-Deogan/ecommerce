@@ -1,6 +1,6 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
 import { useRequest } from "utils";
-import { useAuthContext } from "../AuthContext";
+import { useAuth } from "../AuthProvider";
 import { reducer } from "./reducer";
 
 const CartAndWishlistContext = createContext();
@@ -19,7 +19,7 @@ export const CartAndWishlistProvider = ({ children }) => {
     reducer,
     intialState
   );
-  const { user, token } = useAuthContext();
+  const { user, token } = useAuth();
   const { request } = useRequest();
 
   useEffect(() => {

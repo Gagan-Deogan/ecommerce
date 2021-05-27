@@ -1,4 +1,4 @@
-import { debouncing } from "./Debouncing";
+import { debouncing } from "./debouncing";
 
 const handleWishList = ({
   cartAndWishlistDispatch,
@@ -88,6 +88,7 @@ export const handleRemoveFromCart = async ({
     snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
   }
 };
+
 export const handleSaveForLater = async ({
   product,
   user,

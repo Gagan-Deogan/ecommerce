@@ -2,7 +2,7 @@ import "./productDetail.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
-import { useStatus } from "Context/LoaderContext";
+import { useStatus } from "Context/LoaderProvider";
 import { Loader } from "Components/Loader";
 import { Hidden } from "Components/Hidden";
 import {
@@ -12,8 +12,8 @@ import {
   handleAddToCart,
 } from "utils";
 import { StarIcon } from "assests/icons";
-import { useSnakbarContext } from "Context/SnakbarContext";
-import { useAuthContext } from "Context/AuthContext";
+import { useSnakbar } from "Context/SnakbarProvider";
+import { useAuth } from "Context/AuthProvider";
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCartlist, productDetail, onClick }) => {
@@ -42,13 +42,13 @@ const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
 export const ProductDetail = () => {
   const { id } = useParams();
   const { status, setStatus } = useStatus();
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   const {
     cartDetails: { cartItems },
     wishlist,
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
-  const { snakbarDispatch } = useSnakbarContext();
+  const { snakbarDispatch } = useSnakbar();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 

@@ -28,6 +28,7 @@ export const getFilterbyAvalibility = (products, showInvertory) => {
     return products.filter((product) => product.avalibility === true);
   return products;
 };
+
 export const getFilterByOffer = (product, showOffer) => {
   if (showOffer) return product.filter((product) => product.discount > 0);
   return product;
@@ -46,6 +47,7 @@ export const getFilterbyLabel = (product, showBestSeller, showNew) => {
   }
   return product;
 };
+
 export const applyFilterToUrl = (
   categoryId,
   queryEncoder,

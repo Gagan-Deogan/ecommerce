@@ -1,9 +1,9 @@
 import "./snakbar.css";
 import { useEffect } from "react";
 import { CloseIcon, CheckIcon } from "assests/icons";
-import { useSnakbarContext } from "Context/SnakbarContext";
+import { useSnakbar } from "Context/SnakbarProvider";
 export const Snakbar = () => {
-  const { snakbarStatus, snakbarDispatch } = useSnakbarContext();
+  const { snakbarStatus, snakbarDispatch } = useSnakbar();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       snakbarDispatch({ type: "INITAIL" });

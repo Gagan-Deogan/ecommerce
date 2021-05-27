@@ -1,7 +1,7 @@
 import { Route, Navigate } from "react-router-dom";
-import { useAuthContext } from "Context/AuthContext";
+import { useAuth } from "Context/AuthProvider";
 export const ProtectedRoute = ({ path, ...props }) => {
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   return user ? (
     <Route path={path} {...props} />
   ) : (
