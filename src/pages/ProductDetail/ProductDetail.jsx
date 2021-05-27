@@ -43,13 +43,17 @@ export const ProductDetail = () => {
   const { id } = useParams();
   const { status, setStatus } = useStatus();
   const { user } = useAuthContext();
-  const { cartlist, wishlist, cartDispatch } = useCartAndWishlist();
+  const {
+    cartDetails: { cartItems },
+    wishlist,
+    cartAndWishlistDispatch,
+  } = useCartAndWishlist();
   const { snakbarDispatch } = useSnakbarContext();
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 
   const { inCartlist, inWishlist } = getProductWithFlags({
-    cartlist,
+    cartItems,
     wishlist,
     product: productDetail,
   });
@@ -99,7 +103,7 @@ export const ProductDetail = () => {
             </div>
             <div className="row margin-b-8 align-center justify-start">
               {productDetail.label && (
-                <div class="card-badge">
+                <div className="card-badge">
                   <span>{productDetail.label}</span>
                 </div>
               )}
@@ -140,7 +144,7 @@ export const ProductDetail = () => {
                       handleAddToCart({
                         product: productDetail,
                         user,
-                        cartDispatch,
+                        cartAndWishlistDispatch,
                         snakbarDispatch,
                         request,
                       });
@@ -151,7 +155,7 @@ export const ProductDetail = () => {
                   productDetail={productDetail}
                   onClick={() =>
                     betterHandleWishList({
-                      cartDispatch,
+                      cartAndWishlistDispatch,
                       snakbarDispatch,
                       product: productDetail,
                       sankbarMsg: inWishlist
@@ -173,7 +177,7 @@ export const ProductDetail = () => {
                     handleAddToCart({
                       product: productDetail,
                       user,
-                      cartDispatch,
+                      cartAndWishlistDispatch,
                       snakbarDispatch,
                       request,
                     });
@@ -184,7 +188,7 @@ export const ProductDetail = () => {
                 productDetail={productDetail}
                 onClick={() =>
                   betterHandleWishList({
-                    cartDispatch,
+                    cartAndWishlistDispatch,
                     snakbarDispatch,
                     product: productDetail,
                     sankbarMsg: inWishlist

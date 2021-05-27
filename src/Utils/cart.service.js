@@ -1,12 +1,12 @@
 import { debouncing } from "./Debouncing";
 
 const handleWishList = ({
-  cartDispatch,
+  cartAndWishlistDispatch,
   snakbarDispatch,
   product,
   sankbarMsg,
 }) => {
-  cartDispatch({
+  cartAndWishlistDispatch({
     type: "TOOGLE_PRODUCT_FROM_WISHLIST",
     payload: { product: product },
   });
@@ -17,7 +17,7 @@ export const betterHandleWishList = debouncing(handleWishList, 500);
 export const handleAddToCart = async ({
   user,
   product,
-  cartDispatch,
+  cartAndWishlistDispatch,
   snakbarDispatch,
   request,
 }) => {
@@ -27,11 +27,11 @@ export const handleAddToCart = async ({
       endpoint: `/carts/${product._id}`,
     });
     if (res && res.success) {
-      cartDispatch({ type: "ADD_TO_CART", payload: product });
+      cartAndWishlistDispatch({ type: "ADD_TO_CART", payload: { product } });
       snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
     }
   } else {
-    cartDispatch({ type: "ADD_TO_CART", payload: product });
+    cartAndWishlistDispatch({ type: "ADD_TO_CART", payload: { product } });
     snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
   }
 };
@@ -41,7 +41,7 @@ const handleQuantityChange = async ({
   type,
   productId,
   quantity,
-  cartDispatch,
+  cartAndWishlistDispatch,
   request,
 }) => {
   if (user) {
@@ -53,42 +53,18 @@ const handleQuantityChange = async ({
       },
     });
     if (res && res.success) {
-      cartDispatch({ type: type, payload: productId });
+      cartAndWishlistDispatch({ type: type, payload: { productId } });
     }
   } else {
-    cartDispatch({ type: type, payload: productId });
+    cartAndWishlistDispatch({ type: type, payload: { productId } });
   }
 };
 export const betterHandleQuantityChange = debouncing(handleQuantityChange, 500);
 
 export const handleRemoveFromCart = async ({
-  productId,
-  user,
-  cartDispatch,
-  snakbarDispatch,
-  request,
-}) => {
-  if (user) {
-    const res = await request({
-      method: "DELETE",
-      endpoint: `/carts/${productId}`,
-    });
-    if (res && res.success) {
-      cartDispatch({ type: "REMOVE_FROM_CART", payload: productId });
-      snakbarDispatch({
-        type: "ERROR",
-        payload: "Product Remove Succesfully",
-      });
-    }
-  } else {
-    cartDispatch({ type: "REMOVE_FROM_CART", payload: productId });
-    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
-  }
-};
-export const handleSaveForLater = async ({
   product,
   user,
-  cartDispatch,
+  cartAndWishlistDispatch,
   snakbarDispatch,
   request,
 }) => {
@@ -98,13 +74,40 @@ export const handleSaveForLater = async ({
       endpoint: `/carts/${product._id}`,
     });
     if (res && res.success) {
-      cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+      cartAndWishlistDispatch({
+        type: "REMOVE_FROM_CART",
+        payload: { product },
+      });
+      snakbarDispatch({
+        type: "ERROR",
+        payload: "Product Remove Succesfully",
+      });
+    }
+  } else {
+    cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
+    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
+  }
+};
+export const handleSaveForLater = async ({
+  product,
+  user,
+  cartAndWishlistDispatch,
+  snakbarDispatch,
+  request,
+}) => {
+  if (user) {
+    const res = await request({
+      method: "DELETE",
+      endpoint: `/carts/${product._id}`,
+    });
+    if (res && res.success) {
+      cartAndWishlistDispatch({ type: "SAVE_FOR_LATER", payload: { product } });
       snakbarDispatch({
         type: "DEFAULT",
         payload: "Product Added to Wishlist",
       });
     }
   } else {
-    cartDispatch({ type: "SAVE_FOR_LATER", payload: product });
+    cartAndWishlistDispatch({ type: "SAVE_FOR_LATER", payload: { product } });
   }
 };

@@ -11,13 +11,13 @@ import { useRequest } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
-export const CartCard = ({ product, inWishlist = false }) => {
+export const CartCard = ({ item, inWishlist = false }) => {
   const { request } = useRequest();
   const { snakbarDispatch } = useSnakbarContext();
-  const { cartDispatch } = useCartAndWishlist();
+  const { cartAndWishlistDispatch } = useCartAndWishlist();
   const { user } = useAuthContext();
-  const { _id, name, image, discount, effectivePrice, price } = product.details;
-  const { quantity } = product;
+  const { _id, name, image, discount, effectivePrice, price } = item.product;
+  const { quantity } = item;
   return (
     <li className="column  margin-t-16 border-bottom padding-b-8">
       <div className="row card card-vertical cart-card w12">
@@ -52,10 +52,10 @@ export const CartCard = ({ product, inWishlist = false }) => {
                 betterHandleQuantityChange({
                   type: "DECREMENT_QUANTITY",
                   productId: _id,
-                  quantity: product.quantity,
+                  quantity: quantity,
                   request,
                   user,
-                  cartDispatch,
+                  cartAndWishlistDispatch,
                 });
               }}>
               <SubtractIcon />
@@ -65,12 +65,12 @@ export const CartCard = ({ product, inWishlist = false }) => {
               className="btn-icon margin-l-8"
               onClick={() =>
                 betterHandleQuantityChange({
-                  type: "DECREMENT_QUANTITY",
+                  type: "INCREMENT_QUANTITY",
                   productId: _id,
-                  quantity: product.quantity,
+                  quantity: quantity,
                   request,
                   user,
-                  cartDispatch,
+                  cartAndWishlistDispatch,
                 })
               }>
               <AddIcon />
@@ -83,9 +83,9 @@ export const CartCard = ({ product, inWishlist = false }) => {
           className="btn-link"
           onClick={() =>
             handleRemoveFromCart({
-              productId: _id,
+              product: item.product,
               user,
-              cartDispatch,
+              cartAndWishlistDispatch,
               snakbarDispatch,
               request,
             })
@@ -97,9 +97,9 @@ export const CartCard = ({ product, inWishlist = false }) => {
             className="btn-link margin-l-8"
             onClick={() =>
               handleSaveForLater({
-                product: product.details,
+                product: item.product,
                 user,
-                cartDispatch,
+                cartAndWishlistDispatch,
                 snakbarDispatch,
                 request,
               })

@@ -152,7 +152,7 @@ export const Store = () => {
               {!!filterData.length &&
                 filterData.map((product) => (
                   <ProductCard
-                    details={product}
+                    product={product}
                     key={product._id}
                     handleProductDetail={handleProductDetail}
                   />

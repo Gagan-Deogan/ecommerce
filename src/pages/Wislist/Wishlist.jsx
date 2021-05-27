@@ -26,7 +26,7 @@ export const Wishlist = () => {
         <ul className="dis-grid product-container wishlist-item margin-t-16 ">
           {wishlist.map((product) => (
             <ProductCard
-              details={product.details}
+              product={product}
               handleProductDetail={handleProductDetail}></ProductCard>
           ))}
         </ul>

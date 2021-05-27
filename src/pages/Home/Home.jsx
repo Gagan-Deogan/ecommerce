@@ -68,9 +68,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestDeals.map((product) => (
                   <ProductCard
-                    details={product}
-                    showAddToCart={false}
-                    showAddTOWishlist={false}
+                    product={product}
                     key={product._id}
                     handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
@@ -93,9 +91,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.plants.map((product) => (
                   <ProductCard
-                    details={product}
-                    showAddToCart={false}
-                    showAddTOWishlist={false}
+                    product={product}
                     key={product._id}
                     handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
@@ -118,9 +114,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.tools.map((product) => (
                   <ProductCard
-                    details={product}
-                    showAddToCart={false}
-                    showAddTOWishlist={false}
+                    product={product}
                     key={product._id}
                     handleProductDetail={handleProductDetail}></ProductCard>
                 ))}
@@ -146,9 +140,7 @@ export const Home = () => {
               <div className="dis-grid catagories-container--card margin-t-16">
                 {homeProducts?.bestSellers.map((product) => (
                   <ProductCard
-                    details={product}
-                    showAddToCart={false}
-                    showAddTOWishlist={false}
+                    product={product}
                     key={product._id}
                     handleProductDetail={handleProductDetail}></ProductCard>
                 ))}

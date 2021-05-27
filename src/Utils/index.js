@@ -1,12 +1,25 @@
-export { discountCalculator } from "./discountCalculator";
+export {
+  getPriceByAddingProduct,
+  getPricesByRemovingProduct,
+  getTotalPrices,
+} from "./pricesCalculators";
+
 export { debouncing } from "./Debouncing";
+
 export { useQuery } from "./Query";
+
 export { instance, useRequest } from "./request";
-export { getProductWithFlags } from "./getProductWithFlags";
+
+export {
+  getProductWithFlags,
+  getProductWithWishlistFlag,
+} from "./getProductWithFlags";
+
 export {
   setupAuthExceptionHandler,
   setupAuthHeaderForServiceCalls,
 } from "./setupRequest";
+
 export {
   betterHandleWishList,
   handleAddToCart,

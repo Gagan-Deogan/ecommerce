@@ -4,81 +4,68 @@ import { useAuthContext } from "../AuthContext";
 import { reducer } from "./reducer";
 
 const CartAndWishlistContext = createContext();
-const intialState = { cartlist: [], wishlist: [] };
+const intialState = {
+  cartDetails: {
+    cartItems: [],
+    totalEffectivePrice: 0,
+    totalDiscount: 0,
+    totalPrice: 0,
+  },
+  wishlist: [],
+};
 
 export const CartAndWishlistProvider = ({ children }) => {
-  const [{ cartlist, wishlist }, cartDispatch] = useReducer(
+  const [cartAndWishlist, cartAndWishlistDispatch] = useReducer(
     reducer,
     intialState
   );
   const { user, token } = useAuthContext();
   const { request } = useRequest();
 
-  const setCartAndWish = ({ cartlist = [], wishlist = [] }) => {
-    cartDispatch({
-      type: "LOAD_CART",
-      payload: { cartlist, wishlist },
-    });
-  };
-
-  const priceReducer = (acc, value) => {
-    return {
-      totalEffectivePrice:
-        acc.totalEffectivePrice + value.details.effectivePrice * value.quantity,
-      totalDiscount:
-        acc.totalDiscount +
-        (value.details.price - value.details.effectivePrice) * value.quantity,
-      totalPrice: acc.totalPrice + value.details.price * value.quantity,
-    };
-  };
-
-  const { totalEffectivePrice, totalDiscount, totalPrice } = cartlist.reduce(
-    priceReducer,
-    {
-      totalEffectivePrice: 0,
-      totalDiscount: 0,
-      totalPrice: 0,
-    }
-  );
-
   useEffect(() => {
-    if (user && token) {
+    if (user) {
       (async () => {
         const res = await request({
           method: "GET",
           endpoint: `/carts`,
         });
         if (res && res.success) {
-          setCartAndWish({ cartlist: res.data, loaclWish: [] });
+          cartAndWishlistDispatch({
+            type: "LOAD_CART",
+            payload: {
+              cartAndWishlist: {
+                cartDetails: { cartItems: res.data },
+                wishlist: [],
+              },
+            },
+          });
         }
       })();
     } else {
-      const loaclCart = JSON.parse(localStorage?.getItem("cartlist"));
-      const loaclWish = JSON.parse(localStorage?.getItem("wishlist"));
-      if (loaclCart || loaclWish) {
-        setCartAndWish({ cartlist: loaclCart, wishlist: loaclWish });
+      const loaclCartAndWishlist = JSON.parse(
+        localStorage?.getItem("cartAndWishlist")
+      );
+      if (loaclCartAndWishlist) {
+        cartAndWishlistDispatch({
+          type: "LOAD_CART",
+          payload: { cartAndWishlist: loaclCartAndWishlist },
+        });
       }
     }
   }, [user, token]);
 
   useEffect(() => {
     if (!!!user) {
-      localStorage?.setItem("cartlist", JSON.stringify(cartlist));
+      localStorage?.setItem("cartAndWishlist", JSON.stringify(cartAndWishlist));
     }
-  }, [user, cartlist]);
-  useEffect(() => {
-    localStorage?.setItem("wishlist", JSON.stringify(wishlist));
-  }, [user, wishlist]);
+  }, [user, cartAndWishlist]);
 
   return (
     <CartAndWishlistContext.Provider
       value={{
-        cartlist: cartlist,
-        wishlist: wishlist,
-        totalPrice,
-        totalEffectivePrice,
-        totalDiscount,
-        cartDispatch,
+        cartDetails: cartAndWishlist.cartDetails,
+        wishlist: cartAndWishlist.wishlist,
+        cartAndWishlistDispatch,
       }}>
       {children}
     </CartAndWishlistContext.Provider>

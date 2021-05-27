@@ -1,26 +1,18 @@
+import "./cart.css";
 import { useNavigate } from "react-router-dom";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { CartCard } from "Components/CartCard";
-import { betterHandleQuantityChange } from "utils";
+import { getProductWithWishlistFlag } from "utils";
 export const Cart = () => {
   const {
-    cartlist,
+    cartDetails: { cartItems, totalDiscount, totalEffectivePrice, totalPrice },
     wishlist,
-    handleRemoveFromCart,
-    handleSaveForLater,
-    totalPrice,
-    totalEffectivePrice,
-    totalDiscount,
   } = useCartAndWishlist();
-  const getProductWithWishlistFlag = () => {
-    const wishlistProductId = wishlist.map((product) => product.details._id);
-    return cartlist.map((product) =>
-      wishlistProductId.includes(product.details._id)
-        ? { ...product, inWishlist: true }
-        : product
-    );
-  };
-  const productWithWishListFlag = getProductWithWishlistFlag();
+
+  const productWithWishListFlag = getProductWithWishlistFlag(
+    cartItems,
+    wishlist
+  );
   const navigate = useNavigate();
   return (
     <>
@@ -31,11 +23,11 @@ export const Cart = () => {
           </div>
           {!!productWithWishListFlag.length && (
             <ul className="column w12 padding-16 padding-t-8">
-              {productWithWishListFlag.map((product) => (
+              {productWithWishListFlag.map((item) => (
                 <CartCard
-                  product={product}
-                  inWishlist={product.inWishlist}
-                  key={product._id}></CartCard>
+                  item={item}
+                  inWishlist={item.inWishlist}
+                  key={item._id}></CartCard>
               ))}
             </ul>
           )}
@@ -58,7 +50,7 @@ export const Cart = () => {
             </div>
             <div className="w12 padding-16 border-bottom">
               <div className="w12 row justify-between ">
-                <h5>Price({cartlist.length} items )</h5>
+                <h5>Price({cartItems.length} items )</h5>
                 <h5>{totalPrice}</h5>
               </div>
               {!!totalDiscount && (

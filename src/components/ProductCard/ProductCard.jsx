@@ -1,6 +1,6 @@
 import { StarIcon } from "assests/icons";
 const { REACT_APP_IMAGE_URL } = process.env;
-export const ProductCard = ({ details, handleProductDetail }) => {
+export const ProductCard = ({ product, handleProductDetail }) => {
   const {
     _id,
     label,
@@ -10,7 +10,7 @@ export const ProductCard = ({ details, handleProductDetail }) => {
     effectivePrice,
     price,
     rating,
-  } = details;
+  } = product;
   return (
     <div
       key="route"

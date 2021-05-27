@@ -46,7 +46,10 @@ const NavOption = ({
 };
 
 export const NavBar = () => {
-  const { cartlist, wishlist } = useCartAndWishlist();
+  const {
+    cartDetails: { cartItems },
+    wishlist,
+  } = useCartAndWishlist();
   const { user } = useAuthContext();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
@@ -100,7 +103,7 @@ export const NavBar = () => {
               />
             }
             name="Cart"
-            badge={cartlist.length}></NavOption>
+            badge={cartItems.length}></NavOption>
         </ul>
         <ul className="row sm-w2 w12 justify-end align-center">
           {user && (
@@ -148,7 +151,7 @@ export const NavBar = () => {
                   color={loaction.pathname === "/cart" ? "#61973f" : "#6b7280"}
                 />
               }
-              badge={cartlist.length}></NavOption>
+              badge={cartItems.length}></NavOption>
           </ul>
           <button className="btn-link" onClick={() => setIsOpenModel(true)}>
             <HamburgerIcon />
