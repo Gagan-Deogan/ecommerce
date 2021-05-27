@@ -5,7 +5,7 @@ export const setupAuthExceptionHandler = (handleLogout, navigate, instance) => {
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
         handleLogout();
-        navigate({ pathname: "/login", state: "asdlkasd" });
+        navigate({ pathname: "/login" });
       }
       return Promise.reject(error);
     }

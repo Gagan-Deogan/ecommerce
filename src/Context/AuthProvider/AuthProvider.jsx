@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserDetails } from "./auth.services";
+import { getUserDetails } from "utils/auth.services";
 import {
   useRequest,
   instance,
   setupAuthExceptionHandler,
   setupAuthHeaderForServiceCalls,
-} from "../../utils";
+} from "utils";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

@@ -3,16 +3,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "Context/AuthProvider";
 import { LogoIcon, VisibleIcon, VisibleOffIcon } from "assests/icons";
-import { loginUserWithEmailAndPassword } from "./login.services";
+import { loginUserWithEmailAndPassword } from "utils";
 import { useRequest } from "utils";
+import { Link } from "react-router-dom";
 export const Login = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
+  const { setUser, setToken } = useAuth();
   const [email, setEmail] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState();
-  const { setUser, setToken } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     loginUserWithEmailAndPassword({
@@ -27,20 +28,21 @@ export const Login = () => {
   };
   return (
     <section className="column justify-center align-center">
-      <div className="card column login-container w12 align-center  margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
+      <div className="login-container column sm-w10 md-w5 w6 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
         <LogoIcon />
         <h3 className="margin-t-8 margin-b-32 primary-color">
           Login to Greenify
         </h3>
-        <form className="column" onSubmit={(e) => handleSubmit(e)} action="#">
+        <form className="column w12" onSubmit={handleSubmit} action="#">
           <section className="column margin-b-16">
             <label htmlFor="email" className="margin-b-8">
               Email
             </label>
             <input
-              name="email"
+              name="current-email"
               type="email"
-              autoComplete="username"
+              autoComplete="current-email"
+              className="w12"
               required
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -56,6 +58,7 @@ export const Login = () => {
                 autoComplete="current-password"
                 aria-describedby="password-constraints"
                 onChange={(e) => setPassword(e.target.value)}
+                className="w12"
                 required
               />
               <span
@@ -74,6 +77,10 @@ export const Login = () => {
           )}
           <button className="btn-pry-fil w12">Login</button>
         </form>
+        <Link className="font-xs margin-t-16" to="/signup">
+          Don't have an account?{" "}
+          <span className="primary-color">Signup now!</span>
+        </Link>
       </div>
     </section>
   );

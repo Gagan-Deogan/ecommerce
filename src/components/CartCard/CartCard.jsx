@@ -36,7 +36,7 @@ export const CartCard = ({ item, inWishlist = false }) => {
                   {" "}
                   {"Rs. " + price}
                 </h6>
-                <h6 className="primary-clr margin-l-4 font-xs">
+                <h6 className="primary-color margin-l-4 font-xs">
                   {" "}
                   {discount + " %Off"}
                 </h6>

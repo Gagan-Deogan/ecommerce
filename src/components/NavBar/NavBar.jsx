@@ -53,7 +53,7 @@ export const NavBar = () => {
   const { user } = useAuth();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
-  const { REACT_APP_IMAGE_URL } = process.env;
+
   const handleCloseModel = () => {
     setIsOpenModel(false);
   };
@@ -108,10 +108,7 @@ export const NavBar = () => {
         <ul className="row sm-w2 w12 justify-end align-center">
           {user && (
             <NavLink to="/profile">
-              <Avatar
-                image={REACT_APP_IMAGE_URL + user.image}
-                name={user.name}
-              />
+              <Avatar image={user.image} name={user.name} />
             </NavLink>
           )}
           {!user && (
@@ -192,10 +189,7 @@ export const NavBar = () => {
                   to="/profile"
                   onClick={() => setIsOpenModel(false)}
                   className="row padding-16">
-                  <Avatar
-                    image={REACT_APP_IMAGE_URL + user.image}
-                    name={user.name}
-                  />
+                  <Avatar image={user.image} name={user.name} />
                   <div className="column margin-l-8">
                     <h5 className="bold">{user.name}</h5>
                     <h6 className="primary-color">View Profile</h6>

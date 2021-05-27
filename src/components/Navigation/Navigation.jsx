@@ -7,6 +7,7 @@ import { Login } from "../../Pages/Login";
 import { Profile } from "../../Pages/Profile";
 import { ProductDetail } from "../../Pages/ProductDetail";
 import { ProtectedRoute } from "../ProtectedRoute";
+import { SignUp } from "Pages/SignUp";
 
 export const Navigation = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ export const Navigation = () => {
       <Route path="/productdetail/:id" element={<ProductDetail />} />
       <ProtectedRoute path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
   );
 };

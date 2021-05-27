@@ -23,7 +23,7 @@ export const CartAndWishlistProvider = ({ children }) => {
   const { request } = useRequest();
 
   useEffect(() => {
-    if (user) {
+    if (user && token) {
       (async () => {
         const res = await request({
           method: "GET",

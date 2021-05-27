@@ -35,7 +35,7 @@ export const ProductCard = ({ product, handleProductDetail }) => {
               <h6 className="grey-color text-line-thro margin-l-4 font-xs">
                 {"Rs. " + price}
               </h6>
-              <h6 className="primary-clr margin-l-4 font-xs">
+              <h6 className="primary-color margin-l-4 font-xs">
                 {" "}
                 {discount + " %Off"}
               </h6>
