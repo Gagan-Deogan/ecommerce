@@ -478,3 +478,38 @@ export const VisibleOffIcon = () => {
     </svg>
   );
 };
+export const ProfileIcon = ({ color = "#6b7280" }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ height: "auto", width: "24px" }}
+      viewBox="0 0 24 24"
+      width="24px"
+      fill={color}>
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+    </svg>
+  );
+};
+export const OrderIcon = ({ color = "#6b7280" }) => {
+  return (
+    <svg style={{ height: "auto", width: "24px" }} viewBox="0 0 24 24">
+      <path
+        d="M4 20h2V10a1 1 0 0 1 1-1h12V7a1 1 0 0 0-1-1h-3.051c-.252-2.244-2.139-4-4.449-4S6.303 3.756 6.051 6H3a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2zm6.5-16c1.207 0 2.218.86 2.45 2h-4.9c.232-1.14 1.243-2 2.45-2z"
+        fill={color}></path>
+      <path
+        d="M21 11H9a1 1 0 0 0-1 1v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a1 1 0 0 0-1-1zm-6 7c-2.757 0-5-2.243-5-5h2c0 1.654 1.346 3 3 3s3-1.346 3-3h2c0 2.757-2.243 5-5 5z"
+        fill={color}></path>
+    </svg>
+  );
+};
+export const LogoutIcon = () => {
+  return (
+    <svg style={{ height: "auto", width: "24px" }} viewBox="0 0 24 24">
+      <path
+        d="M12 21c4.411 0 8-3.589 8-8c0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z"
+        fill="#6b7280"></path>
+      <path d="M11 2h2v10h-2z" fill="#6b7280"></path>
+    </svg>
+  );
+};

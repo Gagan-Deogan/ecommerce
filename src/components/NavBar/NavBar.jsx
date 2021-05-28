@@ -107,7 +107,7 @@ export const NavBar = () => {
         </ul>
         <ul className="row sm-w2 w12 justify-end align-center">
           {user && (
-            <NavLink to="/profile">
+            <NavLink to="/my/profile">
               <Avatar image={user.image} name={user.name} />
             </NavLink>
           )}
@@ -186,7 +186,7 @@ export const NavBar = () => {
                 name="Store"></NavOption>
               {user && (
                 <NavLink
-                  to="/profile"
+                  to="/my/profile"
                   onClick={() => setIsOpenModel(false)}
                   className="row padding-16">
                   <Avatar image={user.image} name={user.name} />

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserDetails } from "utils/auth.services";
+import { getUserDetails } from "services/auth.services";
 import {
   useRequest,
   instance,

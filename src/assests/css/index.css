@@ -53,6 +53,14 @@ body::-webkit-scrollbar-thumb:hover {
   top: 0;
   right: 0;
 }
+.position-sticky {
+  position: sticky;
+  top: 7rem;
+  height: 85vh;
+}
+.border-right {
+  border-right: 1px solid var(--grey-light);
+}
 .text-end {
   text-align: end;
 }
@@ -114,9 +122,14 @@ body::-webkit-scrollbar-thumb:hover {
   font-size: 1rem;
 }
 /* end */
+
+.avatar-lg > img {
+  width: 15rem;
+  height: 15rem;
+}
 section {
   max-width: 100rem;
-  margin: auto;
+  margin: 0 auto 0 auto;
   width: 100%;
 }
 label span {

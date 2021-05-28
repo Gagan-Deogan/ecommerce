@@ -4,7 +4,7 @@ import {
   betterHandleQuantityChange,
   handleRemoveFromCart,
   handleSaveForLater,
-} from "utils";
+} from "services";
 import { useAuth } from "Context/AuthProvider";
 import { useSnakbar } from "Context/SnakbarProvider";
 import { useRequest } from "utils";

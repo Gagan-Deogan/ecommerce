@@ -5,12 +5,8 @@ import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { useStatus } from "Context/LoaderProvider";
 import { Loader } from "Components/Loader";
 import { Hidden } from "Components/Hidden";
-import {
-  useRequest,
-  getProductWithFlags,
-  betterHandleWishList,
-  handleAddToCart,
-} from "utils";
+import { useRequest, getProductWithFlags } from "utils";
+import { betterHandleWishList, handleAddToCart } from "services";
 import { StarIcon } from "assests/icons";
 import { useSnakbar } from "Context/SnakbarProvider";
 import { useAuth } from "Context/AuthProvider";

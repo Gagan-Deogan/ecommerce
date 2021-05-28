@@ -2,39 +2,12 @@ import "./signup.css";
 import { useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PasswordInput } from "Components/PasswordInput";
-import { signUpAndLoginUser, useRequest } from "utils";
+import { useRequest, isPasswordStrong } from "utils";
+import { signUpAndLoginUser } from "services";
 import { useAuth } from "Context/AuthProvider";
 import { Spinner } from "Components/Spinner";
-const initial = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  showLoader: false,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "CHANGE_EMAIL":
-      return { ...state, email: action.payload.email };
-    case "CHANGE_NAME":
-      return { ...state, name: action.payload.name };
-    case "CHANGE_PASSWORD":
-      return { ...state, password: action.payload.password };
-    case "CHANGE_CONFIRM_PASSWORD":
-      return { ...state, confirmPassword: action.payload.confirmPassword };
-    case "SHOW_LOADER":
-      return { ...state, showLoader: true };
-    default:
-      return state;
-  }
-};
-
-const isPasswordStrong = (password) => {
-  const regx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-  const isStrong = password.match(regx);
-  return isStrong ? "" : "Password is not Strong";
-};
+import { Input } from "Components/Input";
+import { reducer, initial } from "./reducer";
 
 export const SignUp = () => {
   const { request } = useRequest();
@@ -42,7 +15,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
 
   const [
-    { name, email, password, confirmPassword, showLoader },
+    { name, email, password, confirmPassword, showSpinner },
     dispatch,
   ] = useReducer(reducer, initial);
 
@@ -76,9 +49,8 @@ export const SignUp = () => {
             <label htmlFor="new-email" className="margin-b-8">
               Email
             </label>
-            <input
+            <Input
               name="new-email"
-              autoComplete="new-email"
               type="email"
               value={email}
               onChange={(e) =>
@@ -94,7 +66,7 @@ export const SignUp = () => {
             <label htmlFor="new-name" className="margin-b-8">
               Name
             </label>
-            <input
+            <Input
               name="new-name"
               type="text"
               value={name}
@@ -104,7 +76,7 @@ export const SignUp = () => {
                   payload: { name: e.target.value },
                 })
               }
-              required
+              required={true}
             />
           </section>
           <section className="column margin-b-16">
@@ -142,10 +114,10 @@ export const SignUp = () => {
             </div>
           </section>
           <button
-            className={`sm-btn-pry-fil w12 ${showLoader && "btn-dis"} `}
-            disabled={showLoader}>
+            className={`sm-btn-pry-fil w12 ${showSpinner && "btn-dis"} `}
+            disabled={showSpinner}>
             Sign Up
-            {showLoader && <Spinner />}
+            {showSpinner && <Spinner />}
           </button>
         </form>
         <Link className="font-xs margin-t-16" to="/login">

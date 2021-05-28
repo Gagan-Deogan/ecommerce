@@ -14,7 +14,7 @@ export const useRequest = () => {
     try {
       switch (method) {
         case "GET": {
-          const res = await instance.get(endpoint, body, {
+          const res = await instance.get(endpoint, {
             cancelToken: cancelToken,
           });
           return res.data;
@@ -35,7 +35,7 @@ export const useRequest = () => {
           return null;
       }
     } catch (err) {
-      if (err.response.status === 503) {
+      if (err?.response?.status === 503) {
         setStatus("ERROR");
       }
     }

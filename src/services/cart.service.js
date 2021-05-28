@@ -1,4 +1,4 @@
-import { debouncing } from "./debouncing";
+import { debouncing } from "utils/debouncing";
 
 const handleWishList = ({
   cartAndWishlistDispatch,
