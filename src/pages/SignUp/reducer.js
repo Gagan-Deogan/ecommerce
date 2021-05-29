@@ -3,6 +3,7 @@ export const initial = {
   email: "",
   password: "",
   confirmPassword: "",
+  signUpError: "",
   showSpinner: false,
 };
 
@@ -16,8 +17,10 @@ export const reducer = (state, action) => {
       return { ...state, password: action.payload.password };
     case "CHANGE_CONFIRM_PASSWORD":
       return { ...state, confirmPassword: action.payload.confirmPassword };
-    case "SHOW_LOADER":
-      return { ...state, showSpinner: true };
+    case "TOOGLE_SPINNER":
+      return { ...state, showSpinner: !state.showSpinner };
+    case "SHOW_SIGNUP_ERROR":
+      return { ...state, signUpError: action.payload.error };
     default:
       return state;
   }

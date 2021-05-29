@@ -9,7 +9,6 @@ export const instance = axios.create({
 export const useRequest = () => {
   const getCancelToken = () => axios.CancelToken.source();
   const { setStatus } = useStatus();
-
   const request = async ({ method, endpoint, body = {}, cancelToken }) => {
     try {
       switch (method) {
@@ -25,6 +24,7 @@ export const useRequest = () => {
         }
         case "PUT": {
           const res = await instance.put(endpoint, body);
+          console.log(res);
           return res.data;
         }
         case "DELETE": {
@@ -37,6 +37,10 @@ export const useRequest = () => {
     } catch (err) {
       if (err?.response?.status === 503) {
         setStatus("ERROR");
+      }
+      if (err?.response.status === 422) {
+        const res = err.response.data;
+        return res;
       }
     }
   };

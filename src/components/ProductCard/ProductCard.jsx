@@ -10,16 +10,23 @@ export const ProductCard = ({ product, handleProductDetail }) => {
     effectivePrice,
     price,
     rating,
+    avalibility,
   } = product;
+  const outofStockStyle = !avalibility && "out-of-stock-filter";
   return (
     <div
       key="route"
-      className="column card pos-r hov-box-shd bor-rad-8 bor-sol cursor-pointer"
+      className={`column card pos-r hov-box-shd bor-rad-8 bor-sol cursor-pointer ${outofStockStyle} `}
       onClick={() => handleProductDetail(_id)}>
       {!!label && (
         <div className="card-badge">
           <span>{label}</span>
         </div>
+      )}
+      {!avalibility && (
+        <span className="position-absolute out-of-stock-badge padding-4 bor-rad-8">
+          Out of Stock
+        </span>
       )}
       <img
         src={REACT_APP_IMAGE_URL + image}

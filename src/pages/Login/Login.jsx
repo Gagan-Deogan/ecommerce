@@ -16,7 +16,7 @@ export const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [loginError, setLoginError] = useState();
+  const [loginError, setLoginError] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +25,7 @@ export const Login = () => {
       loginUserWithEmailAndPassword({
         email,
         password,
+        setShowSpinner,
         setLoginError,
         setUser,
         setToken,
@@ -63,11 +64,9 @@ export const Login = () => {
               />
             </div>
           </section>
-          {loginError && (
-            <h6 className="font-xs text-center text-error bold margin-b-8">
-              Invalid username or password.
-            </h6>
-          )}
+          <h6 className="font-xs text-center text-error bold margin-b-8">
+            {loginError}
+          </h6>
           <button
             className={`btn-pry-fil w12 ${showSpinner && "btn-dis"} `}
             disabled={showSpinner}>

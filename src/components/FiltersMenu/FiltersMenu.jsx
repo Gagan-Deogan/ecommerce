@@ -10,7 +10,7 @@ const RadioButton = ({ name, checked, onChange }) => {
 const Checkbox = ({ name, checked, onChange }) => {
   return (
     <label className="row justify-between align-center margin-t-8">
-      <span>{name}</span>
+      <span className="grey-color">{name}</span>
       <input type="checkbox" onChange={onChange} checked={checked} />
       <div className="check"></div>
     </label>
@@ -74,24 +74,30 @@ export const FiltersMenu = ({
         />
       </fieldset>
       <fieldset className="column padding-16 padding-t-8">
-        <h6 className="bold margin-b-8">Other Filters</h6>
+        <h6 className="bold">AVALIBILITY</h6>
         <Checkbox
           name="Include out of Stock"
           checked={showInvertory}
           onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
         />
+      </fieldset>
+      <fieldset className="column padding-16 padding-t-8">
+        <h6 className="bold">OFFERS</h6>
         <Checkbox
-          name="Offers only"
+          name="Discounted"
           checked={showOffer}
           onChange={() => dispatch({ type: "TOGGLE_SHOW_OFFER" })}
         />
+      </fieldset>
+      <fieldset className="column padding-16 padding-t-8">
+        <h6 className="bold">Others</h6>
         <Checkbox
           name="Best Sellers"
           checked={showBestSeller}
           onChange={() => dispatch({ type: "TOGGLE_SHOW_BESTSELLER" })}
         />
         <Checkbox
-          name="Show New only"
+          name="New"
           checked={showNew}
           onChange={() => dispatch({ type: "TOGGLE_SHOW_NEW" })}
         />

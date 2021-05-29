@@ -8,6 +8,7 @@ import { My } from "../../Pages/My";
 import { ProductDetail } from "../../Pages/ProductDetail";
 import { ProtectedRoute } from "../ProtectedRoute";
 import { SignUp } from "Pages/SignUp";
+import { PageNotFound } from "Pages/PageNotFound";
 
 export const Navigation = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ export const Navigation = () => {
       <ProtectedRoute path="/my/*" element={<My />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );
 };

@@ -147,3 +147,13 @@ label span {
 .responsive-img {
   width: 100%;
 }
+.out-of-stock-filter {
+  filter: grayscale(1);
+  opacity: 0.9;
+}
+.out-of-stock-badge {
+  background: var(--grey-default);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

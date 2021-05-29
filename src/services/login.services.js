@@ -1,6 +1,7 @@
 export const loginUserWithEmailAndPassword = async ({
   email,
   password,
+  setShowSpinner,
   setLoginError,
   setUser,
   setToken,
@@ -15,13 +16,15 @@ export const loginUserWithEmailAndPassword = async ({
       password,
     },
   });
+  setShowSpinner(false);
   if (res && res.success) {
     const { token, user } = res.data;
     setUser(user);
     setToken(token);
     localStorage?.setItem("Token", token);
     navigate("/store");
-  } else {
-    setLoginError(true);
+  }
+  if (res && !res.success) {
+    setLoginError(res.data);
   }
 };

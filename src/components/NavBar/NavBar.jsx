@@ -9,6 +9,8 @@ import {
   UserIcon,
   Logo,
   HamburgerIcon,
+  OrderIcon,
+  LogoutIcon,
 } from "assests/icons";
 import { useAuth } from "Context/AuthProvider";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
@@ -31,7 +33,7 @@ const NavOption = ({
         end={navTo}
         className={`btn-link ${
           isVertical
-            ? "justify-start algin-start margin-t-16 margin-l-16 margin-r-16 margin-b-16"
+            ? "justify-start algin-start margin-16 margin-t-4 margin-b-4"
             : "column justify-center algin-center"
         } `}
         activeStyle={{
@@ -50,7 +52,7 @@ export const NavBar = () => {
     cartDetails: { cartItems },
     wishlist,
   } = useCartAndWishlist();
-  const { user } = useAuth();
+  const { user, handleLogout } = useAuth();
   const loaction = useLocation();
   const [isOpenModel, setIsOpenModel] = useState(false);
 
@@ -59,9 +61,11 @@ export const NavBar = () => {
   };
   return (
     <nav className="row padding-l-16 padding-r-16 align-center">
-      <NavLink to="/" className="row sm-w6 w12 justify-start align-center">
-        <Logo />
-      </NavLink>
+      <div className="row sm-w6 w12 justify-start align-center">
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
+      </div>
       <Hidden hideAt="sm-down">
         <ul className="row sm-w8 w12 justify-evenly align-center ">
           <NavOption
@@ -159,7 +163,19 @@ export const NavBar = () => {
             <div className=" row w12 justify-start align-start padding-16 padding-l-32">
               <Logo />
             </div>
-            <ul className="column w12 justify-evenly align-start ">
+            <ul className="column w12 justify-evenly">
+              {user && (
+                <NavLink
+                  to="/my/profile"
+                  onClick={() => setIsOpenModel(false)}
+                  className="row padding-16">
+                  <Avatar image={user.image} name={user.name} />
+                  <div className="column margin-l-8">
+                    <h5 className="bold">{user.name}</h5>
+                    <h6 className="primary-color">View Profile</h6>
+                  </div>
+                </NavLink>
+              )}
               <NavOption
                 navTo="/"
                 TitleClasses="margin-l-8"
@@ -184,18 +200,7 @@ export const NavBar = () => {
                   />
                 }
                 name="Store"></NavOption>
-              {user && (
-                <NavLink
-                  to="/my/profile"
-                  onClick={() => setIsOpenModel(false)}
-                  className="row padding-16">
-                  <Avatar image={user.image} name={user.name} />
-                  <div className="column margin-l-8">
-                    <h5 className="bold">{user.name}</h5>
-                    <h6 className="primary-color">View Profile</h6>
-                  </div>
-                </NavLink>
-              )}
+
               {!user && (
                 <NavOption
                   navTo="/login"
@@ -210,6 +215,34 @@ export const NavBar = () => {
                   }
                   name="Login"
                   isVertical></NavOption>
+              )}
+              {user && (
+                <NavOption
+                  navTo="/my/orders"
+                  TitleClasses="margin-l-8"
+                  onClick={() => setIsOpenModel(false)}
+                  icon={
+                    <OrderIcon
+                      color={
+                        loaction.pathname === "/my/orders"
+                          ? "#61973f"
+                          : "#6b7280"
+                      }
+                    />
+                  }
+                  name="My Orders"
+                  isVertical></NavOption>
+              )}
+              {user && (
+                <button
+                  className="btn-link justify-start margin-16 margin-t-4 margin-b-4 bold"
+                  onClick={() => {
+                    setIsOpenModel(false);
+                    handleLogout();
+                  }}>
+                  <LogoutIcon />
+                  <span className="margin-l-8 ">Logout</span>
+                </button>
               )}
             </ul>
           </aside>

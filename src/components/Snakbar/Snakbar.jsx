@@ -1,7 +1,21 @@
 import "./snakbar.css";
 import { useEffect } from "react";
-import { CloseIcon, CheckIcon } from "assests/icons";
+import { CloseIcon, CheckIcon, ErrorIcon } from "assests/icons";
 import { useSnakbar } from "Context/SnakbarProvider";
+
+const checkTypeOfSnakbar = (type) => {
+  switch (type) {
+    case "ERROR":
+      return "snakbar-err";
+    case "SUCCESS":
+      return "snakbar-suc";
+    case "WARNING":
+      return "snakbar-war";
+    default:
+      return "snakbar";
+  }
+};
+
 export const Snakbar = () => {
   const { snakbarStatus, snakbarDispatch } = useSnakbar();
   useEffect(() => {
@@ -14,23 +28,14 @@ export const Snakbar = () => {
     };
   }, []);
 
-  const checkTypeOfSnakbar = (type) => {
-    switch (type) {
-      case "ERROR":
-        return "snakbar-err";
-      case "SUCCESS":
-        return "snakbar-suc";
-      case "WARNING":
-        return "snakbar-war";
-      default:
-        return "snakbar";
-    }
-  };
+  const type = snakbarStatus["alertType"];
 
-  const snakbarType = checkTypeOfSnakbar(snakbarStatus["alertType"]);
+  const snakbarType = checkTypeOfSnakbar(type);
+
   return (
     <div className={snakbarType}>
-      <CheckIcon />
+      {type === "SUCCESS" && <CheckIcon />}
+      {type === "ERROR" && <ErrorIcon />}
       <h5>{snakbarStatus["msg"]}</h5>
       <button className="btn-link">
         <CloseIcon />

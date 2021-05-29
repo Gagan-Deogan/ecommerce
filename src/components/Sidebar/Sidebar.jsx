@@ -6,7 +6,7 @@ export const Sidebar = () => {
   const loaction = useLocation();
   return (
     <>
-      <aside className="w2 padding-16 position-sticky border-right">
+      <aside className="md-w3 w2  padding-16 position-sticky border-right">
         <NavLink
           className="btn-link justify-start margin-t-8 bold"
           to="profile"

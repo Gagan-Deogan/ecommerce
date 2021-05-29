@@ -3,6 +3,7 @@ import { ProtectedRoute } from "Components/ProtectedRoute";
 import { Profile } from "Components/Profile";
 import { Hidden } from "Components/Hidden";
 import { Sidebar } from "Components/Sidebar";
+import { Orders } from "Components/Orders";
 export const My = () => {
   const navigate = useNavigate();
   return (
@@ -15,6 +16,7 @@ export const My = () => {
           <ProtectedRoute
             path="/profile"
             element={<Profile />}></ProtectedRoute>
+          <ProtectedRoute path="/orders" element={<Orders />}></ProtectedRoute>
         </Routes>
       </section>
     </>

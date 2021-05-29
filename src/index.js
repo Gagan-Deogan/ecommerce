@@ -11,13 +11,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <LoaderProvider>
-        <AuthProvider>
-          <SnakbarProvider>
+        <SnakbarProvider>
+          <AuthProvider>
             <CartAndWishlistProvider>
               <App />
             </CartAndWishlistProvider>
-          </SnakbarProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </SnakbarProvider>
       </LoaderProvider>
     </Router>
   </React.StrictMode>,

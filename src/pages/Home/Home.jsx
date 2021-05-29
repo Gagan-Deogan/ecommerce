@@ -106,7 +106,7 @@ export const Home = () => {
                   SEE MORE
                 </Link>
               </div>
-              <p>
+              <p className="w12">
                 All of this is available at a quite reasonable price so that
                 everyone can have their own glorious and lush plants set-up at
                 their loving abode.

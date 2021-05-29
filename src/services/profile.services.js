@@ -24,27 +24,28 @@ export const updateUserName = async ({
   }
 };
 
-export const changePassword = async ({
-  showSpinner,
-  setShowSpinner,
-  setUser,
-  newName,
+export const updatePassword = async ({
+  oldPassword,
+  newPassword,
   request,
+  dispatch,
   snakbarDispatch,
+  setShowChangePassword,
 }) => {
-  setShowSpinner(true);
   const res = await request({
     method: "PUT",
-    endpoint: "/users/change_name",
-    body: { newName },
+    endpoint: "/users/change_password",
+    body: { oldPassword, newPassword },
   });
-  console.log(showSpinner);
-  setShowSpinner(false);
+  dispatch({ type: "TOOGLE_SPINNER" });
   if (res && res.success) {
-    setUser((prev) => {
-      return { ...prev, name: newName };
-    });
     snakbarDispatch({ type: "SUCCESS", payload: res.data });
-  } else {
+    setShowChangePassword(false);
+  }
+  if (res && !res.success) {
+    dispatch({
+      type: "CHANGE_OLD_PASSWORD_ERROR",
+      payload: { error: res.data },
+    });
   }
 };

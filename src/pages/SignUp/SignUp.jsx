@@ -15,7 +15,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
 
   const [
-    { name, email, password, confirmPassword, showSpinner },
+    { name, email, password, confirmPassword, showSpinner, signUpError },
     dispatch,
   ] = useReducer(reducer, initial);
 
@@ -26,7 +26,7 @@ export const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!passwordError) {
-      dispatch({ type: "SHOW_LOADER" });
+      dispatch({ type: "TOOGLE_SPINNER" });
       signUpAndLoginUser({
         email,
         name,
@@ -35,6 +35,7 @@ export const SignUp = () => {
         setToken,
         request,
         navigate,
+        dispatch,
       });
     }
   };
@@ -119,6 +120,9 @@ export const SignUp = () => {
             Sign Up
             {showSpinner && <Spinner />}
           </button>
+          <h6 className="font-xs text-center text-error bold margin-b-8">
+            {signUpError}
+          </h6>
         </form>
         <Link className="font-xs margin-t-16" to="/login">
           Already have a account?
