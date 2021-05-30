@@ -10,6 +10,7 @@ import { ErrorModel } from "Components/ErrorModel";
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();
+
   const [homeProducts, setHomeProducts] = useState();
   const { status, setStatus } = useStatus();
 

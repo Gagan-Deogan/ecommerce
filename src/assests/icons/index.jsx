@@ -103,36 +103,18 @@ export const MoonIcon = () => {
     </svg>
   );
 };
-export const FavIcon = () => {
+export const HeartIcon = ({ fill = false }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "14px" }}
+      style={{ height: "auto", width: "1rem" }}
       viewBox="0 0 17 15.855">
       <path
         id="Path_5"
         data-name="Path 5"
         d="M10,17.68,8.84,16.624C4.72,12.888,2,10.424,2,7.4A4.357,4.357,0,0,1,6.4,3,4.791,4.791,0,0,1,10,4.672,4.791,4.791,0,0,1,13.6,3,4.357,4.357,0,0,1,18,7.4c0,3.024-2.72,5.488-6.84,9.232Z"
         transform="translate(-1.5 -2.5)"
-        fill="none"
-        stroke="#ff7790"
-        strokeWidth="1"
-      />
-    </svg>
-  );
-};
-export const FavFillIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "14px" }}
-      viewBox="0 0 17 15.855">
-      <path
-        id="Path_4"
-        data-name="Path 4"
-        d="M10,17.68,8.84,16.624C4.72,12.888,2,10.424,2,7.4A4.357,4.357,0,0,1,6.4,3,4.791,4.791,0,0,1,10,4.672,4.791,4.791,0,0,1,13.6,3,4.357,4.357,0,0,1,18,7.4c0,3.024-2.72,5.488-6.84,9.232Z"
-        transform="translate(-1.5 -2.5)"
-        fill="#ff7790"
+        fill={fill ? "#ff7790" : "none"}
         stroke="#ff7790"
         strokeWidth="1"
       />

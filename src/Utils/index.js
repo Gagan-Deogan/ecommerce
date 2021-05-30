@@ -11,9 +11,10 @@ export { useQuery } from "./query.hook";
 export { instance, useRequest } from "./request.hook";
 
 export {
-  getProductWithFlags,
-  getProductWithWishlistFlag,
-} from "./getProductWithFlags";
+  isProductInCartOrWishlist,
+  getCartItemWithWishlistFlag,
+  getProductsWithWishlistFlag,
+} from "./getProductWithFlag";
 
 export {
   setupAuthExceptionHandler,
@@ -21,3 +22,12 @@ export {
 } from "./setupRequest";
 
 export { isPasswordStrong } from "./isPasswordStrong";
+
+export {
+  getSortedData,
+  getProductByRating,
+  getFilterbyAvalibility,
+  getFilterByOffer,
+  getFilterbyLabel,
+  applyFilterToUrl,
+} from "./filters";

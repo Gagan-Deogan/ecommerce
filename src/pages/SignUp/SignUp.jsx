@@ -4,18 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { PasswordInput } from "Components/PasswordInput";
 import { useRequest, isPasswordStrong } from "utils";
 import { signUpAndLoginUser } from "services";
-import { useAuth } from "Context/AuthProvider";
-import { Spinner } from "Components/Spinner";
 import { Input } from "Components/Input";
+import { Button } from "Components/Button";
 import { reducer, initial } from "./reducer";
+import { useSnakbar } from "Context/SnakbarProvider";
 
 export const SignUp = () => {
   const { request } = useRequest();
-  const { setUser, setToken } = useAuth();
   const navigate = useNavigate();
-
+  const { snakbarDispatch } = useSnakbar();
   const [
-    { name, email, password, confirmPassword, showSpinner, signUpError },
+    { name, email, password, confirmPassword, signUpError },
     dispatch,
   ] = useReducer(reducer, initial);
 
@@ -23,29 +22,16 @@ export const SignUp = () => {
   const confirmPasswordError =
     confirmPassword && confirmPassword !== password && "Password not Matching ";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!passwordError) {
-      dispatch({ type: "TOOGLE_SPINNER" });
-      signUpAndLoginUser({
-        email,
-        name,
-        password,
-        setUser,
-        setToken,
-        request,
-        navigate,
-        dispatch,
-      });
-    }
-  };
   return (
     <section className="column justify-center align-center">
       <div className="signup-container column sm-w10 md-w5 w6 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
         <h3 className="margin-t-8 margin-b-32 primary-color">
           Signup to Greenify
         </h3>
-        <form className="column w12" onSubmit={handleSubmit} action="#">
+        <form
+          className="column w12"
+          onSubmit={(e) => e.preventDefault()}
+          action="#">
           <section className="column margin-b-16">
             <label htmlFor="new-email" className="margin-b-8">
               Email
@@ -114,12 +100,21 @@ export const SignUp = () => {
               />
             </div>
           </section>
-          <button
-            className={`sm-btn-pry-fil w12 ${showSpinner && "btn-dis"} `}
-            disabled={showSpinner}>
+          <Button
+            className="sm-btn-pry-fil w12"
+            onClick={() =>
+              signUpAndLoginUser({
+                email,
+                name,
+                password,
+                request,
+                dispatch,
+                navigate,
+                snakbarDispatch,
+              })
+            }>
             Sign Up
-            {showSpinner && <Spinner />}
-          </button>
+          </Button>
           <h6 className="font-xs text-center text-error bold margin-b-8">
             {signUpError}
           </h6>

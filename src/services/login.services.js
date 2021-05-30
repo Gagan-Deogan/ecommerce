@@ -16,15 +16,16 @@ export const loginUserWithEmailAndPassword = async ({
       password,
     },
   });
-  setShowSpinner(false);
   if (res && res.success) {
     const { token, user } = res.data;
     setUser(user);
     setToken(token);
     localStorage?.setItem("Token", token);
     navigate("/store");
+    return;
   }
   if (res && !res.success) {
     setLoginError(res.data);
   }
+  return Promise.resolve();
 };

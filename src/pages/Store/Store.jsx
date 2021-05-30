@@ -7,7 +7,6 @@ import { Hidden } from "Components/Hidden";
 import { Model } from "Components/Model";
 import { Loader } from "Components/Loader";
 import { FiltersMenu } from "Components/FiltersMenu";
-import { useQuery, useRequest } from "utils";
 import { reducer } from "./reducer";
 import {
   getSortedData,
@@ -16,17 +15,22 @@ import {
   getFilterByOffer,
   getFilterbyLabel,
   applyFilterToUrl,
-} from "utils/filters";
+  getProductsWithWishlistFlag,
+  useQuery,
+  useRequest,
+} from "utils";
 import { FiltersIcons } from "assests/icons";
+import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 
 export const Store = () => {
+  const navigate = useNavigate();
   const { queryParser, queryEncoder } = useQuery();
+  const { wishlist } = useCartAndWishlist();
+  const { request, getCancelToken } = useRequest();
+
   const [products, setProducts] = useState([]);
   const { status, setStatus } = useStatus();
   const [isOpenModel, setIsOpenModel] = useState(false);
-  const { request, getCancelToken } = useRequest();
-  const navigate = useNavigate();
-
   // close Model
   const handleCloseModel = () => {
     setIsOpenModel(false);
@@ -40,15 +44,19 @@ export const Store = () => {
     showNew: queryParser("showNew") || false,
     showBestSeller: queryParser("showBestSeller") || false,
   };
-  const categoryId = queryParser("category");
 
+  const categoryId = queryParser("category");
   const [
     { sortBy, showRating, showInvertory, showOffer, showNew, showBestSeller },
     dispatch,
   ] = useReducer(reducer, initial);
 
   // sorts the data
-  const sortedData = getSortedData(products, sortBy);
+  const productsWithWishlistFlag = getProductsWithWishlistFlag(
+    products,
+    wishlist
+  );
+  const sortedData = getSortedData(productsWithWishlistFlag, sortBy);
   const filterByRating = getProductByRating(sortedData, showRating);
   const filterByInventory = getFilterbyAvalibility(
     filterByRating,
@@ -59,6 +67,7 @@ export const Store = () => {
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
+
   // For calling end points....
   useEffect(() => {
     const cancelToken = getCancelToken();

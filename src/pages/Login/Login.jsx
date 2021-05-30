@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { Input } from "Components/Input";
 import { PasswordInput } from "Components/PasswordInput";
 import { Spinner } from "Components/Spinner";
+import { Button } from "Components/Button";
 export const Login = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
@@ -18,22 +19,6 @@ export const Login = () => {
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState("");
   const [showSpinner, setShowSpinner] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email && password) {
-      setShowSpinner(true);
-      loginUserWithEmailAndPassword({
-        email,
-        password,
-        setShowSpinner,
-        setLoginError,
-        setUser,
-        setToken,
-        request,
-        navigate,
-      });
-    }
-  };
   return (
     <section className="column justify-center align-center">
       <div className="login-container column sm-w10 md-w5 w6 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
@@ -41,7 +26,10 @@ export const Login = () => {
         <h3 className="margin-t-8 margin-b-32 primary-color">
           Login to Greenify
         </h3>
-        <form className="column w12" onSubmit={handleSubmit} action="#">
+        <form
+          className="column w12"
+          onSubmit={(e) => e.preventDefault()}
+          action="#">
           <section className="column margin-b-16">
             <label htmlFor="email" className="margin-b-8">
               Email
@@ -67,15 +55,24 @@ export const Login = () => {
           <h6 className="font-xs text-center text-error bold margin-b-8">
             {loginError}
           </h6>
-          <button
-            className={`btn-pry-fil w12 ${showSpinner && "btn-dis"} `}
-            disabled={showSpinner}>
+          <Button
+            className="btn-pry-fil w12"
+            onClick={() =>
+              loginUserWithEmailAndPassword({
+                email,
+                password,
+                setLoginError,
+                setUser,
+                setToken,
+                request,
+                navigate,
+              })
+            }>
             Login
-            {showSpinner && <Spinner />}
-          </button>
+          </Button>
         </form>
         <Link className="font-xs margin-t-16" to="/signup">
-          Don't have an account?{" "}
+          Don't have an account?
           <span className="primary-color">Signup now!</span>
         </Link>
       </div>

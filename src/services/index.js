@@ -1,5 +1,6 @@
 export {
   betterHandleWishList,
+  handleWishList,
   handleAddToCart,
   betterHandleQuantityChange,
   handleRemoveFromCart,

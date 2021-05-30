@@ -5,22 +5,22 @@ import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { useStatus } from "Context/LoaderProvider";
 import { Loader } from "Components/Loader";
 import { Hidden } from "Components/Hidden";
-import { useRequest, getProductWithFlags } from "utils";
+import { useRequest, isProductInCartOrWishlist } from "utils";
 import { betterHandleWishList, handleAddToCart } from "services";
 import { StarIcon } from "assests/icons";
 import { useSnakbar } from "Context/SnakbarProvider";
 import { useAuth } from "Context/AuthProvider";
 const { REACT_APP_IMAGE_URL } = process.env;
 
-const CartButton = ({ inCartlist, productDetail, onClick }) => {
+const CartButton = ({ inCart, productDetail, onClick }) => {
   return (
     <button
       className={`btn-pry-fil ${
-        inCartlist || !productDetail.avalibility ? "btn-dis" : ""
+        inCart || !productDetail.avalibility ? "btn-dis" : ""
       } `}
       onClick={onClick}>
-      {inCartlist && "IN CART"}
-      {!inCartlist && productDetail.avalibility && "ADD TO CART"}
+      {inCart && "IN CART"}
+      {!inCart && productDetail.avalibility && "ADD TO CART"}
       {!productDetail.avalibility && "OUT OF STOCK"}
     </button>
   );
@@ -48,7 +48,7 @@ export const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 
-  const { inCartlist, inWishlist } = getProductWithFlags({
+  const { inCart, inWishlist } = isProductInCartOrWishlist({
     cartItems,
     wishlist,
     product: productDetail,
@@ -133,10 +133,10 @@ export const ProductDetail = () => {
             <Hidden hideAt="sm-down">
               <div className="row">
                 <CartButton
-                  inCartlist={inCartlist}
+                  inCart={inCart}
                   productDetail={productDetail}
                   onClick={() => {
-                    if (productDetail.avalibility && !inCartlist)
+                    if (productDetail.avalibility && !inCart)
                       handleAddToCart({
                         product: productDetail,
                         user,
@@ -166,10 +166,10 @@ export const ProductDetail = () => {
           <Hidden hideAt="sm-up">
             <div className="bottom-sheet row justify-evenly padding-8">
               <CartButton
-                inCartlist={inCartlist}
+                inCart={inCart}
                 productDetail={productDetail}
                 onClick={() => {
-                  if (productDetail.avalibility && !inCartlist)
+                  if (productDetail.avalibility && !inCart)
                     handleAddToCart({
                       product: productDetail,
                       user,

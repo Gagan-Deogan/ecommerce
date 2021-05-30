@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { CartCard } from "Components/CartCard";
 import { BillDetail } from "Components/BillDetail";
-import { getProductWithWishlistFlag } from "utils";
+import { getCartItemWithWishlistFlag } from "utils";
 
 export const Cart = () => {
   const {
@@ -11,7 +11,7 @@ export const Cart = () => {
     wishlist,
   } = useCartAndWishlist();
 
-  const productWithWishListFlag = getProductWithWishlistFlag(
+  const productWithWishListFlag = getCartItemWithWishlistFlag(
     cartItems,
     wishlist
   );

@@ -1,6 +1,6 @@
 import { debouncing } from "utils/debouncing";
 
-const handleWishList = ({
+export const handleWishList = ({
   cartAndWishlistDispatch,
   snakbarDispatch,
   product,
@@ -11,6 +11,7 @@ const handleWishList = ({
     payload: { product: product },
   });
   snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
+  return Promise.resolve();
 };
 export const betterHandleWishList = debouncing(handleWishList, 500);
 
@@ -34,6 +35,7 @@ export const handleAddToCart = async ({
     cartAndWishlistDispatch({ type: "ADD_TO_CART", payload: { product } });
     snakbarDispatch({ type: "SUCCESS", payload: "Added To Cart" });
   }
+  return Promise.resolve();
 };
 
 const handleQuantityChange = async ({
@@ -58,6 +60,7 @@ const handleQuantityChange = async ({
   } else {
     cartAndWishlistDispatch({ type: type, payload: { productId } });
   }
+  return Promise.resolve();
 };
 export const betterHandleQuantityChange = debouncing(handleQuantityChange, 500);
 
@@ -87,6 +90,7 @@ export const handleRemoveFromCart = async ({
     cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
     snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
   }
+  return Promise.resolve();
 };
 
 export const handleSaveForLater = async ({
@@ -111,4 +115,5 @@ export const handleSaveForLater = async ({
   } else {
     cartAndWishlistDispatch({ type: "SAVE_FOR_LATER", payload: { product } });
   }
+  return Promise.resolve();
 };
