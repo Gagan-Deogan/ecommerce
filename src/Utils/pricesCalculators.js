@@ -26,7 +26,6 @@ export const getPricesByRemovingProduct = (
 };
 
 export const getTotalPrices = (cartItems) => {
-  console.log(cartItems);
   const priceReducer = (acc, item) => {
     return {
       newTotalEffectivePrice:

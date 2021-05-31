@@ -25,7 +25,6 @@ export const ProductCard = ({ product, handleProductDetail }) => {
   } = product;
 
   const inWishlist = isInWishlist(wishlist, _id);
-  console.log(inWishlist);
   const outofStockStyle = !avalibility && "out-of-stock-filter";
   const sankbarMsg = inWishlist ? "Remove From Wishlist" : "Added to wishlist";
   return (

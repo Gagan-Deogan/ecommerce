@@ -24,7 +24,6 @@ export const useRequest = () => {
         }
         case "PUT": {
           const res = await instance.put(endpoint, body);
-          console.log(res);
           return res.data;
         }
         case "DELETE": {

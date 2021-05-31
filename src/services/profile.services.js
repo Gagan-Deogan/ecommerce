@@ -13,7 +13,6 @@ export const updateUserName = async ({
     endpoint: "/users/change_name",
     body: { newName },
   });
-  console.log(showSpinner);
   setShowSpinner(false);
   if (res && res.success) {
     setUser((prev) => {
