@@ -1,9 +1,8 @@
 import { Model } from "../Model";
 import { useStatus } from "Context/LoaderProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const ErrorModel = () => {
   const { status, setStatus } = useStatus();
-  const location = useLocation();
   const navigate = useNavigate();
   const handleRetry = () => {
     setStatus("IDLE");

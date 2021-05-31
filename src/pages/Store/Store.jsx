@@ -15,7 +15,6 @@ import {
   getFilterByOffer,
   getFilterbyLabel,
   applyFilterToUrl,
-  getProductsWithWishlistFlag,
   useQuery,
   useRequest,
 } from "utils";

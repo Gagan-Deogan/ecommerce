@@ -6,7 +6,6 @@ import { useRequest } from "utils/request.hook";
 import { useStatus } from "Context/LoaderProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "Components/Loader";
-import { ErrorModel } from "Components/ErrorModel";
 export const Home = () => {
   const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();

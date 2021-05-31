@@ -8,7 +8,6 @@ import { BillDetail } from "Components/BillDetail";
 export const Cart = () => {
   const {
     cartDetails: { cartItems },
-    wishlist,
   } = useCartAndWishlist();
 
   const navigate = useNavigate();

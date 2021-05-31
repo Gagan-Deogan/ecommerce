@@ -1,4 +1,4 @@
-import { useNavigate, Routes, Navigate, useLocation } from "react-router-dom";
+import { Routes, Navigate, useLocation } from "react-router-dom";
 import { ProtectedRoute } from "Components/ProtectedRoute";
 import { Profile } from "Components/Profile";
 import { Hidden } from "Components/Hidden";
