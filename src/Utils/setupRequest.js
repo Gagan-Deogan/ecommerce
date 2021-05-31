@@ -5,7 +5,7 @@ export const setupAuthExceptionHandler = (handleLogout, navigate, instance) => {
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
         handleLogout();
-        navigate({ pathname: "/login" });
+        navigate({ pathname: "/login", loaction: { state: "hello" } });
       }
       return Promise.reject(error);
     }

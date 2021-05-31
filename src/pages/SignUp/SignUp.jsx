@@ -1,5 +1,5 @@
 import "./signup.css";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PasswordInput } from "Components/PasswordInput";
 import { useRequest, isPasswordStrong } from "utils";
@@ -8,10 +8,11 @@ import { Input } from "Components/Input";
 import { Button } from "Components/Button";
 import { reducer, initial } from "./reducer";
 import { useSnakbar } from "Context/SnakbarProvider";
-
+import { useAuth } from "Context/AuthProvider";
 export const SignUp = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { snakbarDispatch } = useSnakbar();
   const [
     { name, email, password, confirmPassword, signUpError },
@@ -21,6 +22,12 @@ export const SignUp = () => {
   const passwordError = password && isPasswordStrong(password);
   const confirmPasswordError =
     confirmPassword && confirmPassword !== password && "Password not Matching ";
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <section className="column justify-center align-center">
@@ -119,9 +126,9 @@ export const SignUp = () => {
             {signUpError}
           </h6>
         </form>
-        <Link className="font-xs margin-t-16" to="/login">
+        <Link className="font-xs margin-t-16 bold" to="/login">
           Already have a account?
-          <span className="primary-color"> go to Login!</span>
+          <span className="primary-color"> Go to Login!</span>
         </Link>
       </div>
     </section>

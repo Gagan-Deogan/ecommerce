@@ -1,19 +1,32 @@
-import { debouncing } from "utils/debouncing";
-
-export const handleWishList = ({
+export const handleWishList = async ({
+  user,
+  product,
   cartAndWishlistDispatch,
   snakbarDispatch,
-  product,
   sankbarMsg,
+  request,
 }) => {
-  cartAndWishlistDispatch({
-    type: "TOOGLE_PRODUCT_FROM_WISHLIST",
-    payload: { product: product },
-  });
-  snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
+  if (user) {
+    const res = await request({
+      method: "POST",
+      endpoint: `/wishlists/${product._id}`,
+    });
+    if (res?.success) {
+      cartAndWishlistDispatch({
+        type: "TOOGLE_PRODUCT_FROM_WISHLIST",
+        payload: { product: product },
+      });
+      snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
+    }
+  } else {
+    cartAndWishlistDispatch({
+      type: "TOOGLE_PRODUCT_FROM_WISHLIST",
+      payload: { product: product },
+    });
+    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
+  }
   return Promise.resolve();
 };
-export const betterHandleWishList = debouncing(handleWishList, 500);
 
 export const handleAddToCart = async ({
   user,
@@ -38,7 +51,7 @@ export const handleAddToCart = async ({
   return Promise.resolve();
 };
 
-const handleQuantityChange = async ({
+export const handleQuantityChange = async ({
   user,
   type,
   productId,
@@ -62,7 +75,6 @@ const handleQuantityChange = async ({
   }
   return Promise.resolve();
 };
-export const betterHandleQuantityChange = debouncing(handleQuantityChange, 500);
 
 export const handleRemoveFromCart = async ({
   product,

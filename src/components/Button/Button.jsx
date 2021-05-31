@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Spinner } from "Components/Spinner";
-export const Button = ({ className, onClick, children }) => {
+export const Button = ({ className, onClick, children, disabled = false }) => {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async (e) => {
@@ -11,7 +11,7 @@ export const Button = ({ className, onClick, children }) => {
     <button
       className={`${className} ${loading && "btn-dis"} `}
       onClick={(e) => handleClick(e)}
-      disabled={loading}>
+      disabled={loading || disabled}>
       {loading ? <Spinner /> : children}{" "}
     </button>
   );

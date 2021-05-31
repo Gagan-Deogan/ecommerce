@@ -10,11 +10,7 @@ export { useQuery } from "./query.hook";
 
 export { instance, useRequest } from "./request.hook";
 
-export {
-  isProductInCartOrWishlist,
-  getCartItemWithWishlistFlag,
-  getProductsWithWishlistFlag,
-} from "./getProductWithFlag";
+export { isInWishlist, isInCart } from "./getProductWithFlag";
 
 export {
   setupAuthExceptionHandler,

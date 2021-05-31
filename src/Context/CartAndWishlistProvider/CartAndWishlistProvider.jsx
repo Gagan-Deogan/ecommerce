@@ -1,18 +1,9 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
 import { useRequest } from "utils";
 import { useAuth } from "../AuthProvider";
-import { reducer } from "./reducer";
+import { reducer, intialState } from "./reducer";
 
 const CartAndWishlistContext = createContext();
-const intialState = {
-  cartDetails: {
-    cartItems: [],
-    totalEffectivePrice: 0,
-    totalDiscount: 0,
-    totalPrice: 0,
-  },
-  wishlist: [],
-};
 
 export const CartAndWishlistProvider = ({ children }) => {
   const [cartAndWishlist, cartAndWishlistDispatch] = useReducer(
@@ -30,13 +21,12 @@ export const CartAndWishlistProvider = ({ children }) => {
           endpoint: `/carts`,
         });
         if (res && res.success) {
+          const { cartItems, wishlist } = res.data;
           cartAndWishlistDispatch({
             type: "LOAD_CART",
             payload: {
-              cartAndWishlist: {
-                cartDetails: { cartItems: res.data },
-                wishlist: [],
-              },
+              cartItems,
+              wishlist,
             },
           });
         }
@@ -46,17 +36,24 @@ export const CartAndWishlistProvider = ({ children }) => {
         localStorage?.getItem("cartAndWishlist")
       );
       if (loaclCartAndWishlist) {
+        const { cartItems, wishlist } = loaclCartAndWishlist;
         cartAndWishlistDispatch({
           type: "LOAD_CART",
-          payload: { cartAndWishlist: loaclCartAndWishlist },
+          payload: { cartItems, wishlist },
         });
       }
     }
   }, [user, token]);
 
   useEffect(() => {
-    if (!!!user) {
-      localStorage?.setItem("cartAndWishlist", JSON.stringify(cartAndWishlist));
+    if (!user) {
+      localStorage?.setItem(
+        "cartAndWishlist",
+        JSON.stringify({
+          cartItems: cartAndWishlist.cartDetails.cartItems,
+          wishlist: cartAndWishlist.wishlist,
+        })
+      );
     }
   }, [user, cartAndWishlist]);
 

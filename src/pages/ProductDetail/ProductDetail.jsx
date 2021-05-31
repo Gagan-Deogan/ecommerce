@@ -3,18 +3,20 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { useStatus } from "Context/LoaderProvider";
-import { Loader } from "Components/Loader";
-import { Hidden } from "Components/Hidden";
-import { useRequest, isProductInCartOrWishlist } from "utils";
-import { betterHandleWishList, handleAddToCart } from "services";
-import { StarIcon } from "assests/icons";
 import { useSnakbar } from "Context/SnakbarProvider";
 import { useAuth } from "Context/AuthProvider";
+import { Loader } from "Components/Loader";
+import { Hidden } from "Components/Hidden";
+import { Button } from "Components/Button";
+import { useRequest, isInCart, isInWishlist } from "utils";
+import { handleWishList, handleAddToCart } from "services";
+import { StarIcon } from "assests/icons";
+
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCart, productDetail, onClick }) => {
   return (
-    <button
+    <Button
       className={`btn-pry-fil ${
         inCart || !productDetail.avalibility ? "btn-dis" : ""
       } `}
@@ -22,16 +24,16 @@ const CartButton = ({ inCart, productDetail, onClick }) => {
       {inCart && "IN CART"}
       {!inCart && productDetail.avalibility && "ADD TO CART"}
       {!productDetail.avalibility && "OUT OF STOCK"}
-    </button>
+    </Button>
   );
 };
 
 const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
   return (
-    <button className="margin-l-16 btn-pry" onClick={onClick}>
+    <Button className="margin-l-16 btn-pry" onClick={onClick}>
       {inWishlist && "REMOVE FROM WISHLIST"}
       {!inWishlist && "ADD TO WISHLIST"}
-    </button>
+    </Button>
   );
 };
 
@@ -48,11 +50,8 @@ export const ProductDetail = () => {
   const [productDetail, setProductDetail] = useState();
   const { request, getCancelToken } = useRequest();
 
-  const { inCart, inWishlist } = isProductInCartOrWishlist({
-    cartItems,
-    wishlist,
-    product: productDetail,
-  });
+  const inCart = isInCart(cartItems, id);
+  const inWishlist = isInWishlist(wishlist, id);
   useEffect(() => {
     const cancelToken = getCancelToken();
     (async () => {
@@ -135,25 +134,26 @@ export const ProductDetail = () => {
                 <CartButton
                   inCart={inCart}
                   productDetail={productDetail}
-                  onClick={() => {
-                    if (productDetail.avalibility && !inCart)
-                      handleAddToCart({
-                        product: productDetail,
-                        user,
-                        cartAndWishlistDispatch,
-                        snakbarDispatch,
-                        request,
-                      });
-                  }}
+                  onClick={() =>
+                    handleAddToCart({
+                      product: productDetail,
+                      user,
+                      cartAndWishlistDispatch,
+                      snakbarDispatch,
+                      request,
+                    })
+                  }
                 />
                 <WishlistButton
                   inWishlist={inWishlist}
                   productDetail={productDetail}
                   onClick={() =>
-                    betterHandleWishList({
+                    handleWishList({
                       cartAndWishlistDispatch,
                       snakbarDispatch,
                       product: productDetail,
+                      user,
+                      request,
                       sankbarMsg: inWishlist
                         ? "Product Remove Successfully"
                         : "Product Added Successfully",
@@ -168,25 +168,25 @@ export const ProductDetail = () => {
               <CartButton
                 inCart={inCart}
                 productDetail={productDetail}
-                onClick={() => {
-                  if (productDetail.avalibility && !inCart)
-                    handleAddToCart({
-                      product: productDetail,
-                      user,
-                      cartAndWishlistDispatch,
-                      snakbarDispatch,
-                      request,
-                    });
-                }}
+                onClick={() =>
+                  handleAddToCart({
+                    product: productDetail,
+                    user,
+                    cartAndWishlistDispatch,
+                    snakbarDispatch,
+                    request,
+                  })
+                }
               />
               <WishlistButton
                 inWishlist={inWishlist}
                 productDetail={productDetail}
                 onClick={() =>
-                  betterHandleWishList({
+                  handleWishList({
                     cartAndWishlistDispatch,
                     snakbarDispatch,
                     product: productDetail,
+                    request,
                     sankbarMsg: inWishlist
                       ? "Product Remove Successfully"
                       : "Product Added Successfully",

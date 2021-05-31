@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 import { CartCard } from "Components/CartCard";
 import { BillDetail } from "Components/BillDetail";
-import { getCartItemWithWishlistFlag } from "utils";
+// import { getCartItemWithWishlistFlag } from "utils";
 
 export const Cart = () => {
   const {
@@ -11,10 +11,6 @@ export const Cart = () => {
     wishlist,
   } = useCartAndWishlist();
 
-  const productWithWishListFlag = getCartItemWithWishlistFlag(
-    cartItems,
-    wishlist
-  );
   const navigate = useNavigate();
   return (
     <>
@@ -23,17 +19,14 @@ export const Cart = () => {
           <div className="border-bottom w12 padding-16">
             <h4 className="bold">My Cart</h4>
           </div>
-          {!!productWithWishListFlag.length && (
+          {!!cartItems && (
             <ul className="column w12 padding-16 padding-t-8">
-              {productWithWishListFlag.map((item) => (
-                <CartCard
-                  item={item}
-                  inWishlist={item.inWishlist}
-                  key={item._id}></CartCard>
+              {cartItems.map((item) => (
+                <CartCard item={item} key={item._id}></CartCard>
               ))}
             </ul>
           )}
-          {!!!productWithWishListFlag.length && (
+          {!cartItems.length && (
             <div className="column w12 align-center justify-center  padding-64">
               <h4>Your cart is empty!</h4>
               <h6>Add items to it now.</h6>
@@ -45,7 +38,7 @@ export const Cart = () => {
             </div>
           )}
         </div>
-        {!!productWithWishListFlag.length && <BillDetail />}
+        {!!cartItems.length && <BillDetail />}
       </section>
     </>
   );

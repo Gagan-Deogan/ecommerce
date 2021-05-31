@@ -1,11 +1,10 @@
 export {
-  betterHandleWishList,
   handleWishList,
   handleAddToCart,
-  betterHandleQuantityChange,
   handleRemoveFromCart,
+  handleQuantityChange,
   handleSaveForLater,
-} from "./cart.service";
+} from "./cartAndWishlist.service";
 
 export { getUserDetails } from "./auth.services";
 export { loginUserWithEmailAndPassword } from "./login.services";

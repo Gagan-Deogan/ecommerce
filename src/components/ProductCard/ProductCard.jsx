@@ -2,11 +2,15 @@ import { StarIcon, HeartIcon } from "assests/icons";
 import { handleWishList } from "services";
 import { useSnakbar } from "Context/SnakbarProvider";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
+import { useAuth } from "Context/AuthProvider";
 import { Button } from "Components/Button";
+import { useRequest, isInWishlist } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 export const ProductCard = ({ product, handleProductDetail }) => {
-  const { cartAndWishlistDispatch } = useCartAndWishlist();
+  const { user } = useAuth();
+  const { request } = useRequest();
+  const { wishlist, cartAndWishlistDispatch } = useCartAndWishlist();
   const { snakbarDispatch } = useSnakbar();
   const {
     _id,
@@ -18,9 +22,10 @@ export const ProductCard = ({ product, handleProductDetail }) => {
     price,
     rating,
     avalibility,
-    inWishlist,
   } = product;
 
+  const inWishlist = isInWishlist(wishlist, _id);
+  console.log(inWishlist);
   const outofStockStyle = !avalibility && "out-of-stock-filter";
   const sankbarMsg = inWishlist ? "Remove From Wishlist" : "Added to wishlist";
   return (
@@ -32,7 +37,7 @@ export const ProductCard = ({ product, handleProductDetail }) => {
         onClick={() => handleProductDetail(_id)}
       />
       {!avalibility && (
-        <span className="position-absolute out-of-stock-badge padding-4 bor-rad-8">
+        <span className="position-absolute out-of-stock-badge padding-4 bor-rad-4 font-xs">
           Out of Stock
         </span>
       )}
@@ -72,6 +77,8 @@ export const ProductCard = ({ product, handleProductDetail }) => {
               snakbarDispatch,
               product,
               sankbarMsg,
+              user,
+              request,
             })
           }>
           <HeartIcon fill={inWishlist} />

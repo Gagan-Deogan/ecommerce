@@ -20,12 +20,10 @@ import {
   useRequest,
 } from "utils";
 import { FiltersIcons } from "assests/icons";
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
 
 export const Store = () => {
   const navigate = useNavigate();
   const { queryParser, queryEncoder } = useQuery();
-  const { wishlist } = useCartAndWishlist();
   const { request, getCancelToken } = useRequest();
 
   const [products, setProducts] = useState([]);
@@ -52,11 +50,7 @@ export const Store = () => {
   ] = useReducer(reducer, initial);
 
   // sorts the data
-  const productsWithWishlistFlag = getProductsWithWishlistFlag(
-    products,
-    wishlist
-  );
-  const sortedData = getSortedData(productsWithWishlistFlag, sortBy);
+  const sortedData = getSortedData(products, sortBy);
   const filterByRating = getProductByRating(sortedData, showRating);
   const filterByInventory = getFilterbyAvalibility(
     filterByRating,

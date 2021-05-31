@@ -4,10 +4,20 @@ import {
   getTotalPrices,
 } from "utils";
 
+export const intialState = {
+  cartDetails: {
+    cartItems: [],
+    totalEffectivePrice: 0,
+    totalDiscount: 0,
+    totalPrice: 0,
+  },
+  wishlist: [],
+};
 export const reducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_CART":
-      const newCartItems = action.payload.cartAndWishlist.cartDetails.cartItems;
+    case "LOAD_CART": {
+      const newCartItems = action.payload.cartItems;
+      const wishlist = action.payload.wishlist;
       const {
         newTotalPrice,
         newTotalDiscount,
@@ -20,8 +30,9 @@ export const reducer = (state, action) => {
           totalDiscount: newTotalDiscount,
           totalEffectivePrice: newTotalEffectivePrice,
         },
-        wishlist: [],
+        wishlist,
       };
+    }
 
     case "ADD_TO_CART": {
       const { product } = action.payload;

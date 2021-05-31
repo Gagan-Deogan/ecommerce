@@ -1,23 +1,26 @@
 import { AddIcon, SubtractIcon } from "assests/icons";
 import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
+import { useAuth } from "Context/AuthProvider";
+import { useSnakbar } from "Context/SnakbarProvider";
 import {
-  betterHandleQuantityChange,
+  handleQuantityChange,
   handleRemoveFromCart,
   handleSaveForLater,
 } from "services";
-import { useAuth } from "Context/AuthProvider";
-import { useSnakbar } from "Context/SnakbarProvider";
+import { Button } from "Components/Button";
+import { isInWishlist } from "utils";
 import { useRequest } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
-export const CartCard = ({ item, inWishlist = false }) => {
+export const CartCard = ({ item }) => {
   const { request } = useRequest();
   const { snakbarDispatch } = useSnakbar();
-  const { cartAndWishlistDispatch } = useCartAndWishlist();
+  const { wishlist, cartAndWishlistDispatch } = useCartAndWishlist();
   const { user } = useAuth();
   const { _id, name, image, discount, effectivePrice, price } = item.product;
   const { quantity } = item;
+  const inWishlist = isInWishlist(wishlist, _id);
   return (
     <li className="column  margin-t-16 border-bottom padding-b-8">
       <div className="row card card-vertical cart-card w12">
@@ -46,25 +49,26 @@ export const CartCard = ({ item, inWishlist = false }) => {
             )}
           </div>
           <div className="row align-center margin-t-16 margin-b-16">
-            <button
+            <Button
               className="btn-icon margin-r-8"
-              onClick={() => {
-                betterHandleQuantityChange({
+              disabled={quantity === 1}
+              onClick={() =>
+                handleQuantityChange({
                   type: "DECREMENT_QUANTITY",
                   productId: _id,
                   quantity: quantity,
                   request,
                   user,
                   cartAndWishlistDispatch,
-                });
-              }}>
+                })
+              }>
               <SubtractIcon />
-            </button>
+            </Button>
             <h5>Quanitity {quantity}</h5>
-            <button
+            <Button
               className="btn-icon margin-l-8"
               onClick={() =>
-                betterHandleQuantityChange({
+                handleQuantityChange({
                   type: "INCREMENT_QUANTITY",
                   productId: _id,
                   quantity: quantity,
@@ -74,12 +78,12 @@ export const CartCard = ({ item, inWishlist = false }) => {
                 })
               }>
               <AddIcon />
-            </button>
+            </Button>
           </div>
         </div>
       </div>
       <div className="row margin-t-16">
-        <button
+        <Button
           className="btn-link"
           onClick={() =>
             handleRemoveFromCart({
@@ -91,9 +95,9 @@ export const CartCard = ({ item, inWishlist = false }) => {
             })
           }>
           Remove from Cart
-        </button>
+        </Button>
         {!inWishlist && (
-          <button
+          <Button
             className="btn-link margin-l-8"
             onClick={() =>
               handleSaveForLater({
@@ -105,7 +109,7 @@ export const CartCard = ({ item, inWishlist = false }) => {
               })
             }>
             Save for later
-          </button>
+          </Button>
         )}
       </div>
     </li>

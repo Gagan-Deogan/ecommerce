@@ -1,5 +1,5 @@
 import "./login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "Context/AuthProvider";
 import { LogoIcon } from "assests/icons";
@@ -13,12 +13,18 @@ import { Button } from "Components/Button";
 export const Login = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
-  const { setUser, setToken } = useAuth();
+  const { user, setUser, setToken } = useAuth();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loginError, setLoginError] = useState("");
-  const [showSpinner, setShowSpinner] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
+
   return (
     <section className="column justify-center align-center">
       <div className="login-container column sm-w10 md-w5 w6 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
@@ -71,9 +77,9 @@ export const Login = () => {
             Login
           </Button>
         </form>
-        <Link className="font-xs margin-t-16" to="/signup">
+        <Link className="font-xs margin-t-16 bold" to="/signup">
           Don't have an account?
-          <span className="primary-color">Signup now!</span>
+          <span className="primary-color"> Signup now!</span>
         </Link>
       </div>
     </section>

@@ -38,7 +38,7 @@ export const useRequest = () => {
       if (err?.response?.status === 503) {
         setStatus("ERROR");
       }
-      if (err?.response.status === 422) {
+      if (err?.response?.status === 422) {
         const res = err.response.data;
         return res;
       }
