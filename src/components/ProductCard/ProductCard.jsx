@@ -1,9 +1,9 @@
 import { StarIcon, HeartIcon } from "assests/icons";
 import { handleWishList } from "services";
-import { useSnakbar } from "Context/SnakbarProvider";
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
-import { useAuth } from "Context/AuthProvider";
-import { Button } from "Components/Button";
+import { useSnakbar } from "context/SnakbarProvider";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { useAuth } from "context/AuthProvider";
+import { Button } from "components/Button";
 import { useRequest, isInWishlist } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;

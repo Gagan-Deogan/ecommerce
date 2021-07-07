@@ -1,4 +1,4 @@
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
 
 export const BillDetail = () => {
   const {

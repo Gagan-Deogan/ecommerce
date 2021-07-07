@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { VisibleIcon, VisibleOffIcon } from "assests/icons";
-import { Input } from "Components/Input";
+import { Input } from "components/Input";
 export const PasswordInput = ({ name, error, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
 

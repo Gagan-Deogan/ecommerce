@@ -3,7 +3,7 @@ import { useRequest } from "utils";
 import { useAuth } from "../AuthProvider";
 import { reducer, intialState } from "./reducer";
 
-const CartAndWishlistContext = createContext();
+const CartAndWishlistcontext = createContext();
 
 export const CartAndWishlistProvider = ({ children }) => {
   const [cartAndWishlist, cartAndWishlistDispatch] = useReducer(
@@ -58,17 +58,17 @@ export const CartAndWishlistProvider = ({ children }) => {
   }, [user, cartAndWishlist]);
 
   return (
-    <CartAndWishlistContext.Provider
+    <CartAndWishlistcontext.Provider
       value={{
         cartDetails: cartAndWishlist.cartDetails,
         wishlist: cartAndWishlist.wishlist,
         cartAndWishlistDispatch,
       }}>
       {children}
-    </CartAndWishlistContext.Provider>
+    </CartAndWishlistcontext.Provider>
   );
 };
 
 export const useCartAndWishlist = () => {
-  return useContext(CartAndWishlistContext);
+  return useContext(CartAndWishlistcontext);
 };

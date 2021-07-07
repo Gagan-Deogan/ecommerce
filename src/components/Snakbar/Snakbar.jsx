@@ -1,7 +1,7 @@
 import "./snakbar.css";
 import { useEffect } from "react";
 import { CloseIcon, CheckIcon, ErrorIcon } from "assests/icons";
-import { useSnakbar } from "Context/SnakbarProvider";
+import { useSnakbar } from "context/SnakbarProvider";
 
 const checkTypeOfSnakbar = (type) => {
   switch (type) {

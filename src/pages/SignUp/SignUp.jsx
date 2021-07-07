@@ -1,14 +1,14 @@
 import "./signup.css";
 import { useReducer, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { PasswordInput } from "Components/PasswordInput";
+import { PasswordInput } from "components/PasswordInput";
 import { useRequest, isPasswordStrong } from "utils";
 import { signUpAndLoginUser } from "services";
-import { Input } from "Components/Input";
-import { Button } from "Components/Button";
+import { Input } from "components/Input";
+import { Button } from "components/Button";
 import { reducer, initial } from "./reducer";
-import { useSnakbar } from "Context/SnakbarProvider";
-import { useAuth } from "Context/AuthProvider";
+import { useSnakbar } from "context/SnakbarProvider";
+import { useAuth } from "context/AuthProvider";
 export const SignUp = () => {
   const { request } = useRequest();
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { ProfileIcon, OrderIcon, LogoutIcon } from "assests/icons";
-import { useAuth } from "Context/AuthProvider";
+import { useAuth } from "context/AuthProvider";
 export const Sidebar = () => {
   const { handleLogout } = useAuth();
   const loaction = useLocation();

@@ -1,9 +1,9 @@
 import { useReducer } from "react";
-import { PasswordInput } from "Components/PasswordInput";
+import { PasswordInput } from "components/PasswordInput";
 import { isPasswordStrong, useRequest } from "utils";
-import { Spinner } from "Components/Spinner";
+import { Spinner } from "components/Spinner";
 import { updatePassword } from "services";
-import { useSnakbar } from "Context/SnakbarProvider";
+import { useSnakbar } from "context/SnakbarProvider";
 import { reducer, initialState } from "./reducer";
 const isDisabledUpdatePasswordBtn = ({
   oldPassword,

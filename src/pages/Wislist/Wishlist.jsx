@@ -1,8 +1,8 @@
 import "./wishlist.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
-import { ProductCard } from "Components/ProductCard/ProductCard";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { ProductCard } from "components/ProductCard/ProductCard";
 export const Wishlist = () => {
   const { wishlist } = useCartAndWishlist();
   const navigate = useNavigate();

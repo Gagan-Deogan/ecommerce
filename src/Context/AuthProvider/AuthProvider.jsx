@@ -1,14 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUserDetails } from "services/auth.services";
-import { Loader } from "Components/Loader";
+import { Loader } from "components/Loader";
 import {
   useRequest,
   instance,
   setupAuthExceptionHandler,
   setupAuthHeaderForServiceCalls,
 } from "utils";
-const AuthContext = createContext();
+const Authcontext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     return <Loader />;
   }
   return (
-    <AuthContext.Provider
+    <Authcontext.Provider
       value={{
         user,
         token,
@@ -55,10 +55,10 @@ export const AuthProvider = ({ children }) => {
         setToken,
       }}>
       {children}
-    </AuthContext.Provider>
+    </Authcontext.Provider>
   );
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return useContext(Authcontext);
 };

@@ -1,13 +1,13 @@
 import { AddIcon, SubtractIcon } from "assests/icons";
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
-import { useAuth } from "Context/AuthProvider";
-import { useSnakbar } from "Context/SnakbarProvider";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { useAuth } from "context/AuthProvider";
+import { useSnakbar } from "context/SnakbarProvider";
 import {
   handleQuantityChange,
   handleRemoveFromCart,
   handleSaveForLater,
 } from "services";
-import { Button } from "Components/Button";
+import { Button } from "components/Button";
 import { isInWishlist } from "utils";
 import { useRequest } from "utils";
 

@@ -1,8 +1,8 @@
-import { useSnakbar } from "./Context/SnakbarProvider";
-import { NavBar } from "./Components/NavBar";
-import { Snakbar } from "./Components/Snakbar";
-import { Navigation } from "./Components/Navigation/Navigation";
-import { ErrorModel } from "./Components/ErrorModel";
+import { useSnakbar } from "context/SnakbarProvider";
+import { NavBar } from "components/NavBar";
+import { Snakbar } from "components/Snakbar";
+import { Navigation } from "components/Navigation/Navigation";
+import { ErrorModel } from "components/ErrorModel";
 export default function App() {
   const { snakbarStatus } = useSnakbar();
   return (

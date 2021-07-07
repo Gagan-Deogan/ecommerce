@@ -1,6 +1,6 @@
 import { createContext, useReducer, useContext } from "react";
 import { reducer } from "./reducer";
-const SnakbarContext = createContext();
+const Snakbarcontext = createContext();
 
 const intialSnakbar = { isShow: false, alertType: "", msg: "" };
 
@@ -8,15 +8,15 @@ export const SnakbarProvider = ({ children }) => {
   const [snakbarStatus, snakbarDispatch] = useReducer(reducer, intialSnakbar);
 
   return (
-    <SnakbarContext.Provider
+    <Snakbarcontext.Provider
       value={{
         snakbarStatus,
         snakbarDispatch,
       }}>
       {children}
-    </SnakbarContext.Provider>
+    </Snakbarcontext.Provider>
   );
 };
 export const useSnakbar = () => {
-  return useContext(SnakbarContext);
+  return useContext(Snakbarcontext);
 };

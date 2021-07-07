@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "Context/AuthProvider";
-import { Input } from "Components/Input";
-import { EditName } from "Components/EditName";
-import { ChangePassword } from "Components/ChangePassword";
+import { useAuth } from "context/AuthProvider";
+import { Input } from "components/Input";
+import { EditName } from "components/EditName";
+import { ChangePassword } from "components/ChangePassword";
 export const Profile = () => {
   const { user } = useAuth();
   const [showChangePassword, setShowChangePassword] = useState();

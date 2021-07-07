@@ -12,8 +12,8 @@ import {
   OrderIcon,
   LogoutIcon,
 } from "assests/icons";
-import { useAuth } from "Context/AuthProvider";
-import { useCartAndWishlist } from "Context/CartAndWishlistProvider";
+import { useAuth } from "context/AuthProvider";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
 import { Model } from "../Model";
 import { Avatar } from "../Avatar";
 import { Hidden } from "../Hidden";

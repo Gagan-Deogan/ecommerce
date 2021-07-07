@@ -1,14 +1,14 @@
 import "./login.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "Context/AuthProvider";
+import { useAuth } from "context/AuthProvider";
 import { LogoIcon } from "assests/icons";
 import { useRequest } from "utils";
 import { loginUserWithEmailAndPassword } from "services";
 import { Link } from "react-router-dom";
-import { Input } from "Components/Input";
-import { PasswordInput } from "Components/PasswordInput";
-import { Button } from "Components/Button";
+import { Input } from "components/Input";
+import { PasswordInput } from "components/PasswordInput";
+import { Button } from "components/Button";
 export const Login = () => {
   const { request } = useRequest();
   const navigate = useNavigate();
