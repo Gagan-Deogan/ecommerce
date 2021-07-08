@@ -1,1 +1,1 @@
-export { BillDetail } from "./BillDetail";
+export { BillDetail } from "../../pages/Cart/BillDetail";

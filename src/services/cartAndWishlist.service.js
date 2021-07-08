@@ -99,8 +99,6 @@ export const handleRemoveFromCart = async ({
       });
     }
   } else {
-    cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
-    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
   }
   return Promise.resolve();
 };
