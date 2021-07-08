@@ -2,7 +2,7 @@ import { Routes, Navigate, useLocation } from "react-router-dom";
 import { ProtectedRoute } from "common-components/ProtectedRoute";
 import { Profile } from "common-components/Profile";
 import { Hidden } from "common-components/Hidden";
-import { Sidebar } from "common-components/Sidebar";
+import { Sidebar } from "./Sidebar";
 import { Orders } from "common-components/Orders";
 export const My = () => {
   const location = useLocation();

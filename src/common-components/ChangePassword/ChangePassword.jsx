@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { PasswordInput } from "common-components/PasswordInput";
 import { isPasswordStrong, useRequest } from "utils";
 import { Spinner } from "common-components/Spinner";
-import { updatePassword } from "services";
+import { updatePassword } from "services/profile.services";
 import { useSnakbar } from "context/SnakbarProvider";
 import { reducer, initialState } from "./reducer";
 const isDisabledUpdatePasswordBtn = ({

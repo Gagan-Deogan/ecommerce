@@ -2,7 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { ProfileIcon, OrderIcon, LogoutIcon } from "assests/icons";
 import { useAuth } from "context/AuthProvider";
 export const Sidebar = () => {
-  const { handleLogout } = useAuth();
+  const { logoutUser } = useAuth();
   const loaction = useLocation();
   return (
     <>
@@ -31,7 +31,7 @@ export const Sidebar = () => {
         </NavLink>
         <button
           className="btn-link w12 justify-start margin-t-8 bold"
-          onClick={handleLogout}>
+          onClick={logoutUser}>
           <LogoutIcon />
           <span className="margin-l-8 ">Logout</span>
         </button>

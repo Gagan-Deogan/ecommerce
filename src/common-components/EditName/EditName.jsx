@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "context/AuthProvider";
 import { Input } from "common-components/Input";
 import { Spinner } from "common-components/Spinner";
-import { updateUserName } from "services";
+import { updateUserName } from "services/profile.services";
 import { useRequest } from "utils";
 import { useSnakbar } from "context/SnakbarProvider";
 export const EditName = () => {

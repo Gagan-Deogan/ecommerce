@@ -1,11 +1,11 @@
 import "./store.css";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStatus } from "context/LoaderProvider";
 import { ProductCard } from "common-components/ProductCard";
 import { Hidden } from "common-components/Hidden";
 import { Model } from "common-components/Model";
 import { Loader } from "common-components/Loader";
+import { Error } from "common-components/Error";
 import { FiltersMenu } from "common-components/FiltersMenu";
 import { reducer } from "./reducer";
 import {
@@ -16,17 +16,17 @@ import {
   getFilterbyLabel,
   applyFilterToUrl,
   useQuery,
-  useRequest,
+  request,
 } from "utils";
 import { FiltersIcons } from "assests/icons";
 
 export const Store = () => {
   const navigate = useNavigate();
   const { queryParser, queryEncoder } = useQuery();
-  const { request, getCancelToken } = useRequest();
+  // const { request, getCancelToken } = useRequest();
 
   const [products, setProducts] = useState([]);
-  const { status, setStatus } = useStatus();
+  const [status, setStatus] = useState("IDLE");
   const [isOpenModel, setIsOpenModel] = useState(false);
   // close Model
   const handleCloseModel = () => {
@@ -63,23 +63,18 @@ export const Store = () => {
 
   // For calling end points....
   useEffect(() => {
-    const cancelToken = getCancelToken();
-    (async () => {
-      setStatus("PENDING");
-      const res = await request({
-        method: "GET",
-        endpoint: categoryId ? `categories/${categoryId}` : "/products",
-        cancelToken: cancelToken.token,
-      });
-      if (res && res.success) {
-        setStatus("IDLE");
-        setProducts(res.data);
-      }
-    })();
-    return () => {
-      cancelToken.cancel();
-    };
-  }, [categoryId]);
+    if (status === "IDLE") {
+      (async () => {
+        setStatus("PENDING");
+        const endpoint = categoryId ? `categories/${categoryId}` : "/products";
+        const res = await request("get", endpoint);
+        if ("data" in res) {
+          setProducts(res.data);
+          setStatus("FULFILLED");
+        }
+      })();
+    }
+  }, [categoryId, setStatus, status]);
 
   useEffect(() => {
     if (products) {
@@ -108,8 +103,8 @@ export const Store = () => {
 
   return (
     <>
-      {status !== "IDLE" && <Loader />}
-      {status === "IDLE" && (
+      {(status === "IDLE" || status === "PENDING") && <Loader />}
+      {status === "FULFILLED" && (
         <>
           <section className="route-container row sm-column align-start justify-center w12 padding-16 padding-t-32">
             <Hidden hideAt="sm-up">
@@ -163,6 +158,7 @@ export const Store = () => {
           </section>
         </>
       )}
+      {status === "ERROR" && <Error setStatus={setStatus} />}
     </>
   );
 };

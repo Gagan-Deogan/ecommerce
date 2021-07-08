@@ -32,7 +32,7 @@ export const Home = () => {
   return (
     <>
       <div className="column align-center route-cont home-container">
-        {status === "PENDING" && <Loader />}
+        {(status === "IDLE" || status === "PENDING") && <Loader />}
         {status === "FULFILLED" && homeProducts && (
           <>
             <header className="w12">

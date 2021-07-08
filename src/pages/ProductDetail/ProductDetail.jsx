@@ -4,11 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
 import { useSnakbar } from "context/SnakbarProvider";
 import { useAuth } from "context/AuthProvider";
+import { WishlistButton } from "common-components/WishlistButton";
 import { Loader } from "common-components/Loader";
 import { Hidden } from "common-components/Hidden";
 import { Error } from "common-components/Error";
 import { request, isInCart, isInWishlist, debounce } from "utils";
-import { StarIcon, HeartIcon } from "assests/icons";
+import { StarIcon } from "assests/icons";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
@@ -23,16 +24,6 @@ const CartButton = ({ inCart, productDetail, onClick }) => {
       {inCart && "Go To Cart"}
       {!inCart && productDetail.avalibility && "ADD TO CART"}
       {!productDetail.avalibility && "OUT OF STOCK"}
-    </button>
-  );
-};
-
-const WishlistButton = ({ inWishlist, onClick }) => {
-  return (
-    <button
-      className="margin-l-16 btn-link rounded padding-16"
-      onClick={onClick}>
-      <HeartIcon fill={inWishlist} />
     </button>
   );
 };
@@ -84,29 +75,6 @@ export const ProductDetail = () => {
 
   const betterHandleAddToCart = debounce(handleAddToCart, 1000);
 
-  const toogleProductFromWishlist = async () => {
-    const sankbarMsg = isInWishlist
-      ? "Product Remove Successfully"
-      : "Product Added Successfully";
-    cartAndWishlistDispatch({
-      type: "TOOGLE_PRODUCT_FROM_WISHLIST",
-      payload: { product: productDetail },
-    });
-    if (user) {
-      const res = await request("post", `/wishlists/${id}`);
-      if (!("data" in res)) {
-        return cartAndWishlistDispatch({
-          type: "TOOGLE_PRODUCT_FROM_WISHLIST",
-          payload: { product: productDetail },
-        });
-      }
-    }
-    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
-  };
-  const betterToogleProductFromWishlist = debounce(
-    toogleProductFromWishlist,
-    1000
-  );
   return (
     <>
       {(status === "IDLE" || status === "PENDING") && <Loader />}
@@ -171,8 +139,8 @@ export const ProductDetail = () => {
                 />
                 <WishlistButton
                   inWishlist={inWishlist}
-                  productDetail={productDetail}
-                  onClick={betterToogleProductFromWishlist}
+                  product={productDetail}
+                  className="margin-l-16 padding-16"
                 />
               </div>
             </Hidden>
@@ -186,8 +154,8 @@ export const ProductDetail = () => {
               />
               <WishlistButton
                 inWishlist={inWishlist}
-                productDetail={productDetail}
-                onClick={betterToogleProductFromWishlist}
+                product={productDetail}
+                className="margin-l-16 padding-16"
               />
             </div>
           </Hidden>

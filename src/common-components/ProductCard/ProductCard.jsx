@@ -1,17 +1,11 @@
-import { StarIcon, HeartIcon } from "assests/icons";
-import { handleWishList } from "services";
-import { useSnakbar } from "context/SnakbarProvider";
+import { StarIcon } from "assests/icons";
+import { WishlistButton } from "common-components/WishlistButton";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { useAuth } from "context/AuthProvider";
-import { Button } from "common-components/Button";
-import { useRequest, isInWishlist } from "utils";
+import { isInWishlist } from "utils";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 export const ProductCard = ({ product, handleProductDetail }) => {
-  const { user } = useAuth();
-  const { request } = useRequest();
-  const { wishlist, cartAndWishlistDispatch } = useCartAndWishlist();
-  const { snakbarDispatch } = useSnakbar();
+  const { wishlist } = useCartAndWishlist();
   const {
     _id,
     label,
@@ -26,7 +20,6 @@ export const ProductCard = ({ product, handleProductDetail }) => {
 
   const inWishlist = isInWishlist(wishlist, _id);
   const outofStockStyle = !avalibility && "out-of-stock-filter";
-  const sankbarMsg = inWishlist ? "Remove From Wishlist" : "Added to wishlist";
   return (
     <div className={`column card pos-r hov-box-shd bor-rad-8 bor-sol`}>
       <img
@@ -45,7 +38,7 @@ export const ProductCard = ({ product, handleProductDetail }) => {
           <span>{label}</span>
         </div>
       )}
-      <div className="row padding-16 padding-l-8 padding-r-8">
+      <div className="row padding-16 padding-l-8 padding-r-8 align-start">
         <div
           className="w11 cursor-pointer"
           onClick={() => handleProductDetail(_id)}>
@@ -68,20 +61,7 @@ export const ProductCard = ({ product, handleProductDetail }) => {
             )}
           </div>
         </div>
-        <Button
-          className="btn-icon margin-t-8"
-          onClick={() =>
-            handleWishList({
-              cartAndWishlistDispatch,
-              snakbarDispatch,
-              product,
-              sankbarMsg,
-              user,
-              request,
-            })
-          }>
-          <HeartIcon fill={inWishlist} />
-        </Button>
+        <WishlistButton inWishlist={inWishlist} product={product} />
       </div>
       {rating && (
         <div className="card-ratg">

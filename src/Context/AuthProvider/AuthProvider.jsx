@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "common-components/Loader";
 import { setupAxiosDefaultHeaders } from "utils";
-import { getUserDetails } from "./auth.services";
 import { request } from "utils";
 const AuthContext = createContext();
 
