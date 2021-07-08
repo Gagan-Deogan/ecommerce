@@ -161,3 +161,6 @@ label span {
   width: 1.6rem;
   height: 1.6rem;
 }
+.rounded {
+  border-radius: 50px;
+}

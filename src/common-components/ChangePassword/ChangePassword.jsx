@@ -1,7 +1,7 @@
 import { useReducer } from "react";
-import { PasswordInput } from "components/PasswordInput";
+import { PasswordInput } from "common-components/PasswordInput";
 import { isPasswordStrong, useRequest } from "utils";
-import { Spinner } from "components/Spinner";
+import { Spinner } from "common-components/Spinner";
 import { updatePassword } from "services";
 import { useSnakbar } from "context/SnakbarProvider";
 import { reducer, initialState } from "./reducer";

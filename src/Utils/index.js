@@ -4,7 +4,7 @@ export {
   getTotalPrices,
 } from "./pricesCalculators";
 
-export { debouncing } from "./debouncing";
+export { debounce } from "./debounce";
 
 export { useQuery } from "./query.hook";
 
@@ -18,7 +18,7 @@ export {
 } from "./setupRequest";
 
 export { isPasswordStrong } from "./isPasswordStrong";
-
+export { checkPasswordStrength } from "./checkPasswordStrength";
 export {
   getSortedData,
   getProductByRating,
@@ -27,3 +27,5 @@ export {
   getFilterbyLabel,
   applyFilterToUrl,
 } from "./filters";
+
+export { setupAxiosDefaultHeaders, request } from "./axios.utils";

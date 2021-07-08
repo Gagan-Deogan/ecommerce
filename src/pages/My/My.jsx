@@ -1,9 +1,9 @@
 import { Routes, Navigate, useLocation } from "react-router-dom";
-import { ProtectedRoute } from "components/ProtectedRoute";
-import { Profile } from "components/Profile";
-import { Hidden } from "components/Hidden";
-import { Sidebar } from "components/Sidebar";
-import { Orders } from "components/Orders";
+import { ProtectedRoute } from "common-components/ProtectedRoute";
+import { Profile } from "common-components/Profile";
+import { Hidden } from "common-components/Hidden";
+import { Sidebar } from "common-components/Sidebar";
+import { Orders } from "common-components/Orders";
 export const My = () => {
   const location = useLocation();
   const { pathname } = location;

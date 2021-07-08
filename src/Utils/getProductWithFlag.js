@@ -4,6 +4,8 @@ export const isInWishlist = (wishlist, productId) => {
 };
 
 export const isInCart = (cartItems, productId) => {
-  const inCart = cartItems.find((product) => product._id === productId);
-  return !!inCart;
+  const seacrchedProduct = cartItems.find(
+    (item) => item.product._id === productId
+  );
+  return !!seacrchedProduct;
 };

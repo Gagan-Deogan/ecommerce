@@ -1,41 +1,44 @@
 import "./login.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { useAuth } from "context/AuthProvider";
-import { LogoIcon } from "assests/icons";
-import { useRequest } from "utils";
-import { loginUserWithEmailAndPassword } from "services";
 import { Link } from "react-router-dom";
-import { Input } from "components/Input";
-import { PasswordInput } from "components/PasswordInput";
-import { Button } from "components/Button";
+import { useState } from "react";
+import { LogoIcon } from "assests/icons";
+import { PasswordInput } from "common-components/PasswordInput";
+import { Input } from "common-components/Input";
+import { request } from "utils";
+import { useAuth } from "context/AuthProvider";
 export const Login = () => {
-  const { request } = useRequest();
-  const navigate = useNavigate();
-  const { user, setUser, setToken } = useAuth();
-
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [loginError, setLoginError] = useState("");
+  const [status, setStatus] = useState("IDLE");
+  const [error, setError] = useState("");
+  const { loginUser } = useAuth();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (email && password && status === "IDLE") {
+      setStatus("PENDING");
+      const res = await request("post", "/users/login", { email, password });
+      if ("data" in res) {
+        loginUser(res.data);
+      } else {
+        setError(res.error);
+      }
+      setStatus("IDLE");
     }
-  }, [user]);
+  };
 
   return (
     <section className="column justify-center align-center">
-      <div className="login-container column sm-w10 md-w5 w6 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
+      <div className="container column sm-w10 md-w6 w5 align-center margin-t-32 padding-64 padding-t-32 bor-rad-8 box-shd">
         <LogoIcon />
         <h3 className="margin-t-8 margin-b-32 primary-color">
           Login to Greenify
         </h3>
         <form
           className="column w12"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={(e) => handleSubmit(e)}
           action="#">
-          <section className="column margin-b-16">
+          <div className="column margin-b-16">
             <label htmlFor="email" className="margin-b-8">
               Email
             </label>
@@ -45,8 +48,8 @@ export const Login = () => {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-          </section>
-          <section className="column margin-b-16  ">
+          </div>
+          <div className="column margin-b-16  ">
             <label htmlFor="current-password" className="margin-b-8">
               Password
             </label>
@@ -56,30 +59,18 @@ export const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </section>
+          </div>
           <h6 className="font-xs text-center text-error bold margin-b-8">
-            {loginError}
+            {error}
           </h6>
-          <Button
-            className="btn-pry-fil w12"
-            onClick={() =>
-              loginUserWithEmailAndPassword({
-                email,
-                password,
-                setLoginError,
-                setUser,
-                setToken,
-                request,
-                navigate,
-              })
-            }>
+          <button className="btn-pry-fil w12" disabled={status === "PENDING"}>
             Login
-          </Button>
+          </button>
+          <Link to="/signup" className="font-xs text-center margin-t-16 bold">
+            Don't have an account?
+            <span className="text-primary">Signup now!</span>
+          </Link>
         </form>
-        <Link className="font-xs margin-t-16 bold" to="/signup">
-          Don't have an account?
-          <span className="primary-color"> Signup now!</span>
-        </Link>
       </div>
     </section>
   );

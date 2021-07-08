@@ -7,7 +7,7 @@ import { Login } from "pages/Login";
 import { My } from "pages/My";
 import { ProductDetail } from "pages/ProductDetail";
 import { ProtectedRoute } from "../ProtectedRoute";
-import { SignUp } from "pages/SignUp";
+import { Signup } from "pages/Signup";
 import { PageNotFound } from "pages/PageNotFound";
 
 export const Navigation = () => {
@@ -21,7 +21,7 @@ export const Navigation = () => {
       <Route path="/productdetail/:id" element={<ProductDetail />} />
       <ProtectedRoute path="/my/*" element={<My />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );

@@ -1,45 +1,45 @@
 import "./productDetail.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { useStatus } from "context/LoaderProvider";
 import { useSnakbar } from "context/SnakbarProvider";
 import { useAuth } from "context/AuthProvider";
-import { Loader } from "components/Loader";
-import { Hidden } from "components/Hidden";
-import { Button } from "components/Button";
-import { useRequest, isInCart, isInWishlist } from "utils";
-import { handleWishList, handleAddToCart } from "services";
-import { StarIcon } from "assests/icons";
+import { Loader } from "common-components/Loader";
+import { Hidden } from "common-components/Hidden";
+import { Error } from "common-components/Error";
+import { request, isInCart, isInWishlist, debounce } from "utils";
+import { StarIcon, HeartIcon } from "assests/icons";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
 const CartButton = ({ inCart, productDetail, onClick }) => {
+  const navigate = useNavigate();
   return (
-    <Button
-      className={`btn-pry-fil ${
-        inCart || !productDetail.avalibility ? "btn-dis" : ""
+    <button
+      className={`sm-btn-pry-fil padding-16 sm-w8 w12 ${
+        !productDetail.avalibility && "btn-dis"
       } `}
-      onClick={onClick}>
-      {inCart && "IN CART"}
+      onClick={() => (inCart ? navigate("/cart") : onClick())}>
+      {inCart && "Go To Cart"}
       {!inCart && productDetail.avalibility && "ADD TO CART"}
       {!productDetail.avalibility && "OUT OF STOCK"}
-    </Button>
+    </button>
   );
 };
 
-const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
+const WishlistButton = ({ inWishlist, onClick }) => {
   return (
-    <Button className="margin-l-16 btn-pry" onClick={onClick}>
-      {inWishlist && "REMOVE FROM WISHLIST"}
-      {!inWishlist && "ADD TO WISHLIST"}
-    </Button>
+    <button
+      className="margin-l-16 btn-link rounded padding-16"
+      onClick={onClick}>
+      <HeartIcon fill={inWishlist} />
+    </button>
   );
 };
 
 export const ProductDetail = () => {
   const { id } = useParams();
-  const { status, setStatus } = useStatus();
+  const [status, setStatus] = useState("IDLE");
   const { user } = useAuth();
   const {
     cartDetails: { cartItems },
@@ -48,32 +48,69 @@ export const ProductDetail = () => {
   } = useCartAndWishlist();
   const { snakbarDispatch } = useSnakbar();
   const [productDetail, setProductDetail] = useState();
-  const { request, getCancelToken } = useRequest();
 
   const inCart = isInCart(cartItems, id);
   const inWishlist = isInWishlist(wishlist, id);
-  useEffect(() => {
-    const cancelToken = getCancelToken();
-    (async () => {
-      setStatus("PENDING");
-      const { success, data } = await request({
-        endpoint: `products/${id}`,
-        method: "GET",
-      });
-      if (success) {
-        setProductDetail(data);
-        setStatus("IDLE");
-      }
-    })();
-    return () => {
-      cancelToken.cancel();
-    };
-  }, []);
 
+  useEffect(() => {
+    if (status === "IDLE") {
+      (async () => {
+        setStatus("PENDING");
+        const res = await request("get", `products/${id}`);
+        if ("data" in res) {
+          setProductDetail(res.data);
+          setStatus("FULFILLED");
+        }
+      })();
+    }
+  }, [status, setStatus, id]);
+
+  const handleAddToCart = async () => {
+    cartAndWishlistDispatch({
+      type: "ADD_TO_CART",
+      payload: { product: productDetail },
+    });
+    if (user) {
+      const res = await request("post", `/carts/${id}`);
+      if (!("data" in res)) {
+        return cartAndWishlistDispatch({
+          type: "REMOVE_FROM_CART",
+          payload: { product: productDetail },
+        });
+      }
+    }
+    snakbarDispatch({ type: "SUCCESS", payload: "Product Added" });
+  };
+
+  const betterHandleAddToCart = debounce(handleAddToCart, 1000);
+
+  const toogleProductFromWishlist = async () => {
+    const sankbarMsg = isInWishlist
+      ? "Product Remove Successfully"
+      : "Product Added Successfully";
+    cartAndWishlistDispatch({
+      type: "TOOGLE_PRODUCT_FROM_WISHLIST",
+      payload: { product: productDetail },
+    });
+    if (user) {
+      const res = await request("post", `/wishlists/${id}`);
+      if (!("data" in res)) {
+        return cartAndWishlistDispatch({
+          type: "TOOGLE_PRODUCT_FROM_WISHLIST",
+          payload: { product: productDetail },
+        });
+      }
+    }
+    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
+  };
+  const betterToogleProductFromWishlist = debounce(
+    toogleProductFromWishlist,
+    1000
+  );
   return (
     <>
-      {status !== "IDLE" && <Loader />}
-      {status === "IDLE" && productDetail && (
+      {(status === "IDLE" || status === "PENDING") && <Loader />}
+      {status === "FULFILLED" && (
         <section className="row sm-w12 md-w12 w10 sm-warp padding-32 align-start">
           <div className="sm-w12 w6 product-detail-left">
             <img
@@ -87,14 +124,10 @@ export const ProductDetail = () => {
               <h2 className="bold primary-color margin-r-8">
                 {productDetail.name}
               </h2>
-              {productDetail.rating && (
-                <div className="card-ratg">
-                  <span className="bold margin-r-4">
-                    {productDetail.rating}
-                  </span>
-                  <StarIcon />
-                </div>
-              )}
+              <div className="card-ratg">
+                <span className="bold margin-r-4">{productDetail.rating}</span>
+                <StarIcon />
+              </div>
             </div>
             <div className="row margin-b-8 align-center justify-start">
               {productDetail.label && (
@@ -130,73 +163,37 @@ export const ProductDetail = () => {
               )}
             </div>
             <Hidden hideAt="sm-down">
-              <div className="row">
+              <div className="row align-center w12">
                 <CartButton
                   inCart={inCart}
                   productDetail={productDetail}
-                  onClick={() =>
-                    handleAddToCart({
-                      product: productDetail,
-                      user,
-                      cartAndWishlistDispatch,
-                      snakbarDispatch,
-                      request,
-                    })
-                  }
+                  onClick={betterHandleAddToCart}
                 />
                 <WishlistButton
                   inWishlist={inWishlist}
                   productDetail={productDetail}
-                  onClick={() =>
-                    handleWishList({
-                      cartAndWishlistDispatch,
-                      snakbarDispatch,
-                      product: productDetail,
-                      user,
-                      request,
-                      sankbarMsg: inWishlist
-                        ? "Product Remove Successfully"
-                        : "Product Added Successfully",
-                    })
-                  }
+                  onClick={betterToogleProductFromWishlist}
                 />
               </div>
             </Hidden>
           </div>
           <Hidden hideAt="sm-up">
-            <div className="bottom-sheet row justify-evenly padding-8">
+            <div className="bottom-sheet row justify-between padding-16 padding-l-32 padding-r-32 ">
               <CartButton
                 inCart={inCart}
                 productDetail={productDetail}
-                onClick={() =>
-                  handleAddToCart({
-                    product: productDetail,
-                    user,
-                    cartAndWishlistDispatch,
-                    snakbarDispatch,
-                    request,
-                  })
-                }
+                onClick={betterHandleAddToCart}
               />
               <WishlistButton
                 inWishlist={inWishlist}
                 productDetail={productDetail}
-                onClick={() =>
-                  handleWishList({
-                    cartAndWishlistDispatch,
-                    snakbarDispatch,
-                    product: productDetail,
-                    request,
-                    sankbarMsg: inWishlist
-                      ? "Product Remove Successfully"
-                      : "Product Added Successfully",
-                  })
-                }
+                onClick={betterToogleProductFromWishlist}
               />
             </div>
           </Hidden>
         </section>
       )}
+      {status === "ERROR" && <Error setStatus={setStatus} />}
     </>
   );
 };

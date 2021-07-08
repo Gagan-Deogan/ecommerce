@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spinner } from "components/Spinner";
+import { Spinner } from "common-components/Spinner";
 export const Button = ({ className, onClick, children, disabled = false }) => {
   const [loading, setLoading] = useState(false);
 

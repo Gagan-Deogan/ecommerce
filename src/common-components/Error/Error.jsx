@@ -1,16 +1,14 @@
 import { Model } from "../Model";
 import { useStatus } from "context/LoaderProvider";
 import { useNavigate } from "react-router-dom";
-export const ErrorModel = () => {
-  const { status, setStatus } = useStatus();
+export const Error = ({ setStatus }) => {
   const navigate = useNavigate();
   const handleRetry = () => {
     setStatus("IDLE");
-    navigate("/");
   };
   return (
     <Model
-      isOpen={status === "ERROR"}
+      isOpen={true}
       closeModel={handleRetry}
       className="justify-center align-center">
       <div className="model sm-w9 md-w5 w4 bor-rad-4 box-shd">

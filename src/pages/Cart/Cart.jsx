@@ -1,8 +1,8 @@
 import "./cart.css";
 import { useNavigate } from "react-router-dom";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { CartCard } from "components/CartCard";
-import { BillDetail } from "components/BillDetail";
+import { CartCard } from "common-components/CartCard";
+import { BillDetail } from "common-components/BillDetail";
 // import { getCartItemWithWishlistFlag } from "utils";
 
 export const Cart = () => {

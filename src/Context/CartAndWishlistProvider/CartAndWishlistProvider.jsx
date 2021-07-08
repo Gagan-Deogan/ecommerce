@@ -1,8 +1,7 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
-import { useRequest } from "utils";
 import { useAuth } from "../AuthProvider";
 import { reducer, intialState } from "./reducer";
-
+import { request } from "utils";
 const CartAndWishlistcontext = createContext();
 
 export const CartAndWishlistProvider = ({ children }) => {
@@ -11,16 +10,12 @@ export const CartAndWishlistProvider = ({ children }) => {
     intialState
   );
   const { user, token } = useAuth();
-  const { request } = useRequest();
 
   useEffect(() => {
     if (user && token) {
       (async () => {
-        const res = await request({
-          method: "GET",
-          endpoint: `/carts`,
-        });
-        if (res && res.success) {
+        const res = await request("get", "/carts");
+        if ("data" in res) {
           const { cartItems, wishlist } = res.data;
           cartAndWishlistDispatch({
             type: "LOAD_CART",

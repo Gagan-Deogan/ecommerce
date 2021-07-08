@@ -2,11 +2,11 @@ import "./store.css";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStatus } from "context/LoaderProvider";
-import { ProductCard } from "components/ProductCard";
-import { Hidden } from "components/Hidden";
-import { Model } from "components/Model";
-import { Loader } from "components/Loader";
-import { FiltersMenu } from "components/FiltersMenu";
+import { ProductCard } from "common-components/ProductCard";
+import { Hidden } from "common-components/Hidden";
+import { Model } from "common-components/Model";
+import { Loader } from "common-components/Loader";
+import { FiltersMenu } from "common-components/FiltersMenu";
 import { reducer } from "./reducer";
 import {
   getSortedData,

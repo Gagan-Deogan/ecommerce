@@ -7,7 +7,7 @@ import {
   handleRemoveFromCart,
   handleSaveForLater,
 } from "services";
-import { Button } from "components/Button";
+import { Button } from "common-components/Button";
 import { isInWishlist } from "utils";
 import { useRequest } from "utils";
 

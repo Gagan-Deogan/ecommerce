@@ -1,46 +1,39 @@
 import { useEffect, useState } from "react";
 import wapperbackground from "assests/images/wall.png";
 import "./home.css";
-import { ProductCard } from "components/ProductCard";
-import { useRequest } from "utils/request.hook";
-import { useStatus } from "context/LoaderProvider";
+import { ProductCard } from "common-components/ProductCard";
+import { request } from "utils";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader } from "components/Loader";
+import { Loader } from "common-components/Loader";
+import { Error } from "common-components/Error";
 export const Home = () => {
-  const { request, getCancelToken } = useRequest();
   const navigate = useNavigate();
-
   const [homeProducts, setHomeProducts] = useState();
-  const { status, setStatus } = useStatus();
+  const [status, setStatus] = useState("IDLE");
 
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
 
   useEffect(() => {
-    const cancelToken = getCancelToken();
-    (async () => {
-      setStatus("PENDING");
-      const res = await request({
-        method: "GET",
-        endpoint: "/home",
-        cancelToken: cancelToken.token,
-      });
-      if (res && res.success) {
-        setStatus("IDLE");
-        setHomeProducts(res.data);
-      }
-    })();
-    return () => {
-      cancelToken.cancel();
-    };
-  }, []);
-
+    if (status === "IDLE") {
+      (async () => {
+        setStatus("PENDING");
+        const res = await request("get", "/home");
+        if ("data" in res) {
+          setStatus("FULFILLED");
+          setHomeProducts(res.data);
+        } else {
+          setStatus("ERROR");
+        }
+      })();
+    }
+  }, [setStatus, status]);
   return (
     <>
       <div className="column align-center route-cont home-container">
         {status === "PENDING" && <Loader />}
-        {status === "IDLE" && homeProducts && (
+        {status === "FULFILLED" && homeProducts && (
           <>
             <header className="w12">
               <picture>
@@ -148,6 +141,7 @@ export const Home = () => {
             </section>
           </>
         )}
+        {status === "ERROR" && <Error setStatus={setStatus} />}
       </div>
     </>
   );

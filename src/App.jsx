@@ -1,8 +1,7 @@
 import { useSnakbar } from "context/SnakbarProvider";
-import { NavBar } from "components/NavBar";
-import { Snakbar } from "components/Snakbar";
-import { Navigation } from "components/Navigation/Navigation";
-import { ErrorModel } from "components/ErrorModel";
+import { NavBar } from "common-components/NavBar";
+import { Snakbar } from "common-components/Snakbar";
+import { Navigation } from "common-components/Navigation/Navigation";
 export default function App() {
   const { snakbarStatus } = useSnakbar();
   return (
@@ -10,7 +9,6 @@ export default function App() {
       <NavBar />
       <Navigation />
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}
-      <ErrorModel />
     </main>
   );
 }
