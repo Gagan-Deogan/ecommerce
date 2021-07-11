@@ -3,7 +3,7 @@ import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "common-components/ProductCard";
 import { Hidden } from "common-components/Hidden";
-import { Model } from "common-components/Model";
+import { Modal } from "common-components/Modal";
 import { Loader } from "common-components/Loader";
 import { Error } from "common-components/Error";
 import { FiltersMenu } from "common-components/FiltersMenu";
@@ -23,14 +23,13 @@ import { FiltersIcons } from "assests/icons";
 export const Store = () => {
   const navigate = useNavigate();
   const { queryParser, queryEncoder } = useQuery();
-  // const { request, getCancelToken } = useRequest();
 
   const [products, setProducts] = useState([]);
   const [status, setStatus] = useState("IDLE");
-  const [isOpenModel, setIsOpenModel] = useState(false);
-  // close Model
-  const handleCloseModel = () => {
-    setIsOpenModel(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  // close Modal
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
   };
   // url decoding
   const initial = {
@@ -111,11 +110,24 @@ export const Store = () => {
               <div className="bottom-sheet row justify-end">
                 <button
                   className="sm-btn-pry-fil bold margin-t-16 margin-r-16 padding-b-16"
-                  onClick={() => setIsOpenModel(true)}>
+                  onClick={() => setIsOpenModal(true)}>
                   <FiltersIcons />
                   <h3 className="margin-l-8">Filters</h3>
                 </button>
               </div>
+              <Modal isOpen={isOpenModal} closeModal={handleCloseModal}>
+                <div className="bottom-sheet padding-b-16">
+                  <FiltersMenu
+                    sortBy={sortBy}
+                    showRating={showRating}
+                    showInvertory={showInvertory}
+                    showOffer={showOffer}
+                    showNew={showNew}
+                    showBestSeller={showBestSeller}
+                    dispatch={dispatch}
+                  />
+                </div>
+              </Modal>
             </Hidden>
             <Hidden hideAt="sm-down">
               <div className="column filter-container bor-rad-8 margin-r-16 bor-sol">
@@ -129,21 +141,6 @@ export const Store = () => {
                   dispatch={dispatch}
                 />
               </div>
-            </Hidden>
-            <Hidden hideAt="sm-up">
-              <Model isOpen={isOpenModel} closeModel={handleCloseModel}>
-                <div className="bottom-sheet padding-b-16">
-                  <FiltersMenu
-                    sortBy={sortBy}
-                    showRating={showRating}
-                    showInvertory={showInvertory}
-                    showOffer={showOffer}
-                    showNew={showNew}
-                    showBestSeller={showBestSeller}
-                    dispatch={dispatch}
-                  />
-                </div>
-              </Model>
             </Hidden>
             <div className="dis-grid product-container">
               {!!filterData.length &&

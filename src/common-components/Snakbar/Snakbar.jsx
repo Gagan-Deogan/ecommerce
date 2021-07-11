@@ -1,45 +1,40 @@
 import "./snakbar.css";
 import { useEffect } from "react";
-import { CloseIcon, CheckIcon, ErrorIcon } from "assests/icons";
+
+import { ErrorIcon, CheckIcon } from "assests/icons";
 import { useSnakbar } from "context/SnakbarProvider";
 
-const checkTypeOfSnakbar = (type) => {
-  switch (type) {
-    case "ERROR":
-      return "snakbar-err";
-    case "SUCCESS":
-      return "snakbar-suc";
-    case "WARNING":
-      return "snakbar-war";
-    default:
-      return "snakbar";
-  }
+const snakbarVarient = {
+  ERROR: {
+    className: "snakbar-err",
+    icon: <ErrorIcon />,
+  },
+  SUCCESS: {
+    className: "snakbar-suc",
+    icon: <CheckIcon />,
+  },
 };
 
 export const Snakbar = () => {
-  const { snakbarStatus, snakbarDispatch } = useSnakbar();
+  const {
+    snakbarStatus: { type, message },
+    snakbarDispatch,
+  } = useSnakbar();
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      snakbarDispatch({ type: "INITAIL" });
+      snakbarDispatch({ type: "HIDE_SNAKBAR" });
     }, 1000);
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
-
-  const type = snakbarStatus["alertType"];
-
-  const snakbarType = checkTypeOfSnakbar(type);
+  }, [snakbarDispatch]);
 
   return (
-    <div className={snakbarType}>
-      {type === "SUCCESS" && <CheckIcon />}
-      {type === "ERROR" && <ErrorIcon />}
-      <h5>{snakbarStatus["msg"]}</h5>
-      <button className="btn-link">
-        <CloseIcon />
-      </button>
+    <div className={snakbarVarient[type].className}>
+      {snakbarVarient[type].icon}
+      <h5>{message}</h5>
     </div>
   );
 };

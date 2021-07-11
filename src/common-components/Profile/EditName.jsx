@@ -2,41 +2,34 @@ import { useState } from "react";
 import { useAuth } from "context/AuthProvider";
 import { Input } from "common-components/Input";
 import { Spinner } from "common-components/Spinner";
-import { updateUserName } from "services/profile.services";
-import { useRequest } from "utils";
+import { request } from "utils";
 import { useSnakbar } from "context/SnakbarProvider";
 export const EditName = () => {
   const {
-    user: { name },
-    setUser,
+    user: { fullname },
+    updateUserFullname,
   } = useAuth();
-  const { request } = useRequest();
   const { snakbarDispatch } = useSnakbar();
-
   const [enableEdit, setEnableEdit] = useState(false);
-  const [newName, setNewName] = useState("");
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [newFullname, setNewFullname] = useState("");
+  const [status, setStatus] = useState("IDLE");
 
   const toogleEdit = () => {
     setEnableEdit(!enableEdit);
-    setNewName("");
+    setNewFullname("");
   };
 
-  const handleSave = () => {
-    setShowSpinner(true);
-    if (newName) {
-      updateUserName({
-        newName,
-        setShowSpinner,
-        showSpinner,
-        request,
-        snakbarDispatch,
-        setUser,
-        setEnableEdit,
-      });
+  const handleSave = async () => {
+    if (newFullname) {
+      setStatus("PENDING");
+      const res = await request("put", "/users/change_name", { newFullname });
+      if ("data" in res) {
+        updateUserFullname(newFullname);
+        snakbarDispatch({ type: "DEFAULT", payload: res.data });
+        setEnableEdit(false);
+      }
     }
   };
-
   return (
     <>
       <div className="row margin-t-16 margin-b-8 align-center">
@@ -48,27 +41,27 @@ export const EditName = () => {
             Edit
           </button>
         )}
-        {enableEdit && !showSpinner && (
+        {enableEdit && (
           <button
             className="sm-btn-pry margin-l-8 padding-4"
             onClick={toogleEdit}>
             Cancel
           </button>
         )}
-        {enableEdit && newName && (
+        {enableEdit && newFullname && (
           <button
             className="sm-btn-pry-fil margin-l-8 padding-4"
             onClick={handleSave}>
             Save
-            {showSpinner && <Spinner />}
+            {status === "PENDING" && <Spinner />}
           </button>
         )}
       </div>
       <Input
-        value={enableEdit ? newName : name}
+        value={enableEdit ? newFullname : fullname}
         type="text"
-        disabled={showSpinner || !enableEdit}
-        onChange={(e) => setNewName(e.target.value)}></Input>
+        disabled={status === "PENDING" || !enableEdit}
+        onChange={(e) => setNewFullname(e.target.value)}></Input>
     </>
   );
 };

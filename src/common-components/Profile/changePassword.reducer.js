@@ -2,8 +2,8 @@ export const initialState = {
   oldPassword: "",
   newPassword: "",
   confirmNewPassword: "",
-  showSpinner: false,
-  oldPasswordError: "",
+  status: "IDLE",
+  error: "",
 };
 
 export const reducer = (state, action) => {
@@ -17,16 +17,16 @@ export const reducer = (state, action) => {
         ...state,
         confirmNewPassword: action.payload.confirmNewPassword,
       };
-    case "TOOGLE_SPINNER":
+    case "SET_STATUS":
       return {
         ...state,
-        showSpinner: !state.showSpinner,
+        status: action.payload,
       };
-    case "CHANGE_OLD_PASSWORD_ERROR":
+    case "SET_STATUS_ERROR":
       return {
         ...state,
-        oldPassword: "",
-        oldPasswordError: action.payload.error,
+        status: "ERROR",
+        error: action.payload,
       };
     default:
       return state;

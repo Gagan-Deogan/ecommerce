@@ -1,7 +1,7 @@
-export const Model = ({ children, isOpen, closeModel, className }) => {
+export const Modal = ({ children, isOpen, closeModal, className }) => {
   const handleClose = (e) => {
     if (e.target.id === "model-container") {
-      closeModel();
+      closeModal();
     }
   };
   return (

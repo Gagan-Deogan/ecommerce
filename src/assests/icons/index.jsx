@@ -1,4 +1,4 @@
-export const AddIcon = ({ color = "#6b7280" }) => {
+export const AddIcon = () => {
   return (
     <svg
       id="add"
@@ -10,7 +10,7 @@ export const AddIcon = ({ color = "#6b7280" }) => {
         id="Path_11"
         data-name="Path 11"
         d="M19,13H13v6H11V13H5V11h6V5h2v6h6Z"
-        fill={color}
+        fill="currentColor"
       />
     </svg>
   );
@@ -138,7 +138,7 @@ export const CloseIcon = () => {
     </svg>
   );
 };
-export const SubtractIcon = ({ color = "#6b7280" }) => {
+export const SubtractIcon = () => {
   return (
     <svg
       id="remove"
@@ -146,7 +146,12 @@ export const SubtractIcon = ({ color = "#6b7280" }) => {
       style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24">
       <path id="Path_12" data-name="Path 12" d="M0,0H24V24H0Z" fill="none" />
-      <path id="Path_13" data-name="Path 13" d="M19,13H5V11H19Z" fill={color} />
+      <path
+        id="Path_13"
+        data-name="Path 13"
+        d="M19,13H5V11H19Z"
+        fill="currentColor"
+      />
     </svg>
   );
 };
@@ -186,32 +191,32 @@ export const SunIcon = () => {
     </svg>
   );
 };
-export const HomeIcon = ({ color = "#6b7280" }) => {
+export const HomeIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       style={{ height: "auto", width: "24px" }}
-      fill={color}>
+      fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
     </svg>
   );
 };
-export const CartIcon = ({ color = "#6b7280" }) => {
+export const CartIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       style={{ height: "auto", width: "24px" }}
-      fill={color}>
+      fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
     </svg>
   );
 };
 
-export const WishlistIcon = ({ color = "#6b7280" }) => {
+export const WishlistIcon = () => {
   return (
     <svg
       id="favorite_black_24dp"
@@ -223,30 +228,30 @@ export const WishlistIcon = ({ color = "#6b7280" }) => {
         id="Path_9"
         data-name="Path 9"
         d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5A5.447,5.447,0,0,1,7.5,3,5.988,5.988,0,0,1,12,5.09,5.988,5.988,0,0,1,16.5,3,5.447,5.447,0,0,1,22,8.5c0,3.78-3.4,6.86-8.55,11.54Z"
-        fill={color}
+        fill="currentColor"
       />
     </svg>
   );
 };
-export const BagIcon = ({ color = "#6b7280" }) => {
+export const BagIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       style={{ height: "auto", width: "24px" }}
-      fill={color}>
+      fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z" />
     </svg>
   );
 };
-export const UserIcon = ({ color = "#6b7280" }) => {
+export const UserIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       style={{ height: "auto", width: "24px" }}
-      fill={color}>
+      fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
     </svg>
@@ -460,28 +465,28 @@ export const VisibleOffIcon = () => {
     </svg>
   );
 };
-export const ProfileIcon = ({ color = "#6b7280" }) => {
+export const ProfileIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style={{ height: "auto", width: "24px" }}
       viewBox="0 0 24 24"
       width="24px"
-      fill={color}>
+      fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
     </svg>
   );
 };
-export const OrderIcon = ({ color = "#6b7280" }) => {
+export const OrderIcon = () => {
   return (
     <svg style={{ height: "auto", width: "24px" }} viewBox="0 0 24 24">
       <path
         d="M4 20h2V10a1 1 0 0 1 1-1h12V7a1 1 0 0 0-1-1h-3.051c-.252-2.244-2.139-4-4.449-4S6.303 3.756 6.051 6H3a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2zm6.5-16c1.207 0 2.218.86 2.45 2h-4.9c.232-1.14 1.243-2 2.45-2z"
-        fill={color}></path>
+        fill="currentColor"></path>
       <path
         d="M21 11H9a1 1 0 0 0-1 1v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a1 1 0 0 0-1-1zm-6 7c-2.757 0-5-2.243-5-5h2c0 1.654 1.346 3 3 3s3-1.346 3-3h2c0 2.757-2.243 5-5 5z"
-        fill={color}></path>
+        fill="currentColor"></path>
     </svg>
   );
 };

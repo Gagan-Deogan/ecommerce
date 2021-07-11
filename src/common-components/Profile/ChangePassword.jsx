@@ -1,72 +1,49 @@
 import { useReducer } from "react";
 import { PasswordInput } from "common-components/PasswordInput";
-import { isPasswordStrong, useRequest } from "utils";
+import { checkPasswordStrength, request } from "utils";
 import { Spinner } from "common-components/Spinner";
-import { updatePassword } from "services/profile.services";
 import { useSnakbar } from "context/SnakbarProvider";
-import { reducer, initialState } from "./reducer";
-const isDisabledUpdatePasswordBtn = ({
-  oldPassword,
-  newPassword,
-  confirmNewPassword,
-  newPasswordError,
-  confirmNewPasswordError,
-  showSpinner,
-}) => {
-  return (
-    !oldPassword ||
-    !newPassword ||
-    !confirmNewPassword ||
-    newPasswordError ||
-    confirmNewPasswordError ||
-    showSpinner
-  );
-};
-export const ChangePassword = ({ setShowChangePassword }) => {
-  const { request } = useRequest();
-  const { snakbarDispatch } = useSnakbar();
+import { reducer, initialState } from "./changePassword.reducer";
 
+export const ChangePassword = ({ setShowChangePassword }) => {
+  const { snakbarDispatch } = useSnakbar();
   const [
-    {
-      oldPassword,
-      newPassword,
-      confirmNewPassword,
-      oldPasswordError,
-      showSpinner,
-    },
+    { oldPassword, newPassword, confirmNewPassword, status, error },
     dispatch,
   ] = useReducer(reducer, initialState);
 
-  const newPasswordError = newPassword && isPasswordStrong(newPassword);
-  const confirmNewPasswordError =
-    confirmNewPassword &&
-    confirmNewPassword !== newPassword &&
-    "Password not Matching ";
-  const disabled = isDisabledUpdatePasswordBtn({
-    oldPassword,
-    newPassword,
-    newPasswordError,
-    confirmNewPassword,
-    confirmNewPasswordError,
-    showSpinner,
-  });
+  const isPasswordStrong = newPassword && checkPasswordStrength(newPassword);
 
-  const updatePasswordBtnStyle = `sm-btn-pry-fil margin-r-8 ${
-    disabled && "btn-dis"
-  }`;
-  const handleUpdatePassword = () => {
-    if (!disabled) {
-      dispatch({ type: "TOOGLE_SPINNER" });
-      updatePassword({
+  const bothPasswordsMatch =
+    !!newPassword && !!confirmNewPassword && newPassword === confirmNewPassword;
+
+  const isButtonDisabled =
+    status === "PENDING" ||
+    !newPassword ||
+    !confirmNewPassword ||
+    !oldPassword ||
+    !isPasswordStrong ||
+    !bothPasswordsMatch;
+
+  const handleUpdatePassword = async () => {
+    if (!isButtonDisabled) {
+      dispatch({ type: "SET_STATUS", payload: "PENDING" });
+      const res = await request("put", "/users/change_password", {
         oldPassword,
         newPassword,
-        request,
-        dispatch,
-        snakbarDispatch,
-        setShowChangePassword,
       });
+
+      if ("data" in res) {
+        snakbarDispatch({ type: "SUCCESS", payload: res.data });
+        setShowChangePassword(false);
+        return;
+      }
+      if ("error" in res) {
+        dispatch({ type: "SET_STATUS_ERROR", payload: res.error });
+      }
     }
   };
+
   return (
     <>
       <section className="column margin-t-16 margin-b-16">
@@ -83,7 +60,7 @@ export const ChangePassword = ({ setShowChangePassword }) => {
                 payload: { oldPassword: e.target.value },
               });
             }}
-            error={oldPasswordError}
+            error={error}
           />
         </div>
       </section>
@@ -100,7 +77,7 @@ export const ChangePassword = ({ setShowChangePassword }) => {
                 payload: { newPassword: e.target.value },
               });
             }}
-            error={newPasswordError}
+            error={isPasswordStrong ? "" : "New Password is Not Strong"}
           />
         </div>
       </section>
@@ -117,16 +94,19 @@ export const ChangePassword = ({ setShowChangePassword }) => {
                 payload: { confirmNewPassword: e.target.value },
               });
             }}
-            error={confirmNewPasswordError}
+            error={bothPasswordsMatch ? "" : "Confirm Password Doesnot Match"}
           />
         </div>
       </section>
       <div className="row">
         <button
-          className={updatePasswordBtnStyle}
-          onClick={handleUpdatePassword}>
+          className={`sm-btn-pry-fil margin-r-8 ${
+            isButtonDisabled && "btn-dis"
+          }`}
+          onClick={handleUpdatePassword}
+          disabled={status === "PENDING"}>
           Update Password
-          {showSpinner && <Spinner />}
+          {status === "PENDING" && <Spinner />}
         </button>
         <button
           className="sm-btn-pry-fil btn-err "

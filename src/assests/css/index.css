@@ -164,3 +164,6 @@ label span {
 .rounded {
   border-radius: 50px;
 }
+.text-grey-dark {
+  color: var(--grey-dark);
+}

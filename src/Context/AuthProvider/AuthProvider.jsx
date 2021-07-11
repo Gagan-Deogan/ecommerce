@@ -43,6 +43,12 @@ export const AuthProvider = ({ children }) => {
     })();
   }, []);
 
+  const updateUserFullname = (newFullname) => {
+    setUser((prev) => {
+      return { ...prev, fullname: newFullname };
+    });
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -53,6 +59,7 @@ export const AuthProvider = ({ children }) => {
         token,
         logoutUser,
         loginUser,
+        updateUserFullname,
       }}>
       {children}
     </AuthContext.Provider>
