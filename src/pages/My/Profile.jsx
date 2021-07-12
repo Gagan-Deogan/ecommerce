@@ -12,7 +12,7 @@ export const Profile = () => {
         <h2 className="primary-color bold border-bottom w12 padding-l-16">
           Profile Details
         </h2>
-        <div className="sm-w12 md-w8 w5 padding-l-16 ">
+        <div className="sm-w12 md-w8 w5 padding-l-16">
           <EditName />
           <h3 className="margin-t-16 margin-b-8 bold">Email</h3>
           <Input value={user.email} type="text" disabled={true}></Input>

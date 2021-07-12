@@ -86,7 +86,7 @@ export const MobNavOptions = ({ productIncart, productInWishlist }) => {
                       <h4 className="margin-l-8">Logout</h4>
                     </button>
                   </li>
-                  <NavLink to="/my/profile" className="row padding-16">
+                  <NavLink to="/my" className="row padding-16">
                     <Avatar image={user.image} name={user.name} />
                     <div className="column margin-l-8">
                       <h5 className="bold">{user.fullname}</h5>

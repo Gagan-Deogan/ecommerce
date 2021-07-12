@@ -7,6 +7,7 @@ import { Login } from "pages/Login";
 import { My } from "pages/My";
 import { ProductDetail } from "pages/ProductDetail";
 import { ProtectedRoute } from "../ProtectedRoute";
+import { BetterRoute } from "common-components/BetterRoute";
 import { Signup } from "pages/Signup";
 import { PageNotFound } from "pages/PageNotFound";
 
@@ -19,9 +20,9 @@ export const Navigation = () => {
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
-      <ProtectedRoute path="/my/*" element={<My />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <BetterRoute type="PROTECTED" path="/my/*" element={<My />} />
+      <BetterRoute type="PUBLIC-ONLY" path="/login" element={<Login />} />
+      <BetterRoute type="PUBLIC-ONLY" path="/signup" element={<Signup />} />
       <Route path="/*" element={<PageNotFound />} />
     </Routes>
   );

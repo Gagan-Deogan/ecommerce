@@ -167,3 +167,9 @@ label span {
 .text-grey-dark {
   color: var(--grey-dark);
 }
+.btn-link:hover {
+  color: inherit;
+}
+.border {
+  border: 1px solid var(--grey-light);
+}

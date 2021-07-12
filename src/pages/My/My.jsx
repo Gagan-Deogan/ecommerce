@@ -1,13 +1,11 @@
-import { Routes, Navigate, useLocation } from "react-router-dom";
-import { ProtectedRoute } from "common-components/ProtectedRoute";
-import { Profile } from "common-components/Profile";
+import { Routes } from "react-router-dom";
+import { BetterRoute } from "common-components/BetterRoute";
 import { Hidden } from "common-components/Hidden";
+import { Profile } from "./Profile";
 import { Sidebar } from "./Sidebar";
-import { Orders } from "common-components/Orders";
+import { Orders } from "./Orders";
+import { Addresses } from "./Addresses";
 export const My = () => {
-  const location = useLocation();
-  const { pathname } = location;
-
   return (
     <>
       <section className="row sm-column align-start justify-center w12 padding-16 padding-t-32">
@@ -15,11 +13,13 @@ export const My = () => {
           <Sidebar />
         </Hidden>
         <Routes>
-          <ProtectedRoute
-            path="/profile"
-            element={<Profile />}></ProtectedRoute>
-          <ProtectedRoute path="/orders" element={<Orders />}></ProtectedRoute>
-          {pathname === "/my" && <Navigate replace to="/my/profile" />}
+          <BetterRoute type="PROTECTED" path="/" element={<Profile />} />
+          <BetterRoute type="PROTECTED" path="/orders" element={<Orders />} />
+          <BetterRoute
+            type="PROTECTED"
+            path="/addresses"
+            element={<Addresses />}
+          />
         </Routes>
       </section>
     </>

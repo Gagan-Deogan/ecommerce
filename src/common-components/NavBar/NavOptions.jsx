@@ -6,7 +6,6 @@ import { activeStyle, navOptions } from "constants/index";
 export const NavOptions = ({ productIncart, productInWishlist }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
   navOptions.Cart.badge = productIncart;
   navOptions.Wishlist.badge = productInWishlist;
   return (
@@ -29,7 +28,7 @@ export const NavOptions = ({ productIncart, productInWishlist }) => {
       </ul>
       <div className="row w4 justify-end align-center">
         {user && (
-          <NavLink to="/my/profile">
+          <NavLink to="/my">
             <Avatar image={user.image} name={user.name} />
           </NavLink>
         )}

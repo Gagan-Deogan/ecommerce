@@ -1,0 +1,1 @@
+export { BetterRoute } from "./BetterRoute";
