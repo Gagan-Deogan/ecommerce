@@ -1,10 +1,11 @@
-import { Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { BetterRoute } from "common-components/BetterRoute";
 import { Hidden } from "common-components/Hidden";
 import { Profile } from "./Profile";
 import { Sidebar } from "./Sidebar";
 import { Orders } from "./Orders";
 import { Addresses } from "./Addresses";
+import { PageNotFound } from "pages/PageNotFound";
 export const My = () => {
   return (
     <>
@@ -20,6 +21,7 @@ export const My = () => {
             path="/addresses"
             element={<Addresses />}
           />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </section>
     </>

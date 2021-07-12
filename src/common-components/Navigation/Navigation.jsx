@@ -1,14 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { BetterRoute } from "common-components/BetterRoute";
+import { ProductDetail } from "pages/ProductDetail";
+import { Signup } from "pages/Signup";
 import { Home } from "pages/Home";
 import { Store } from "pages/Store";
 import { Wishlist } from "pages/Wislist";
 import { Cart } from "pages/Cart";
 import { Login } from "pages/Login";
 import { My } from "pages/My";
-import { ProductDetail } from "pages/ProductDetail";
-import { ProtectedRoute } from "../ProtectedRoute";
-import { BetterRoute } from "common-components/BetterRoute";
-import { Signup } from "pages/Signup";
 import { PageNotFound } from "pages/PageNotFound";
 
 export const Navigation = () => {
