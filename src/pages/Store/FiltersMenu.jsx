@@ -22,7 +22,7 @@ export const FiltersMenu = ({
   showInvertory,
   sortBy,
   showRating,
-  dispatch,
+  filterDispatch,
   showOffer,
   showNew,
   showBestSeller,
@@ -33,7 +33,7 @@ export const FiltersMenu = ({
         <h3 className="bold">Filters</h3>
         <button
           className="btn-link bold"
-          onClick={() => dispatch({ type: "INITIAL" })}>
+          onClick={() => filterDispatch({ type: "INITIAL" })}>
           Clear All
         </button>
       </div>
@@ -42,12 +42,12 @@ export const FiltersMenu = ({
         <RadioButton
           name="Price Low-High"
           checked={sortBy === "LH" ? true : false}
-          onChange={() => dispatch({ type: "SORT", payload: "LH" })}
+          onChange={() => filterDispatch({ type: "SORT", payload: "LH" })}
         />
         <RadioButton
           name="Price High-Low"
           checked={sortBy === "HL" ? true : false}
-          onChange={() => dispatch({ type: "SORT", payload: "HL" })}
+          onChange={() => filterDispatch({ type: "SORT", payload: "HL" })}
         />
       </fieldset>
       <fieldset className="column padding-16 padding-t-8">
@@ -55,22 +55,30 @@ export const FiltersMenu = ({
         <RadioButton
           name="4★ & above"
           checked={showRating === 4}
-          onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 4 })}
+          onChange={() =>
+            filterDispatch({ type: "FIILTER_BY_RATINGS", payload: 4 })
+          }
         />
         <RadioButton
           name="3★ & above"
           checked={showRating === 3}
-          onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 3 })}
+          onChange={() =>
+            filterDispatch({ type: "FIILTER_BY_RATINGS", payload: 3 })
+          }
         />
         <RadioButton
           name="2★ & above"
           checked={showRating === 2}
-          onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 2 })}
+          onChange={() =>
+            filterDispatch({ type: "FIILTER_BY_RATINGS", payload: 2 })
+          }
         />
         <RadioButton
           name="1★ & above"
           checked={showRating === 1}
-          onChange={() => dispatch({ type: "FIILTER_BY_RATINGS", payload: 1 })}
+          onChange={() =>
+            filterDispatch({ type: "FIILTER_BY_RATINGS", payload: 1 })
+          }
         />
       </fieldset>
       <fieldset className="column padding-16 padding-t-8">
@@ -78,7 +86,7 @@ export const FiltersMenu = ({
         <Checkbox
           name="Include out of Stock"
           checked={showInvertory}
-          onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
+          onChange={() => filterDispatch({ type: "TOGGLE_INVENTORY" })}
         />
       </fieldset>
       <fieldset className="column padding-16 padding-t-8">
@@ -86,7 +94,7 @@ export const FiltersMenu = ({
         <Checkbox
           name="Discounted"
           checked={showOffer}
-          onChange={() => dispatch({ type: "TOGGLE_SHOW_OFFER" })}
+          onChange={() => filterDispatch({ type: "TOGGLE_SHOW_OFFER" })}
         />
       </fieldset>
       <fieldset className="column padding-16 padding-t-8">
@@ -94,12 +102,12 @@ export const FiltersMenu = ({
         <Checkbox
           name="Best Sellers"
           checked={showBestSeller}
-          onChange={() => dispatch({ type: "TOGGLE_SHOW_BESTSELLER" })}
+          onChange={() => filterDispatch({ type: "TOGGLE_SHOW_BESTSELLER" })}
         />
         <Checkbox
           name="New"
           checked={showNew}
-          onChange={() => dispatch({ type: "TOGGLE_SHOW_NEW" })}
+          onChange={() => filterDispatch({ type: "TOGGLE_SHOW_NEW" })}
         />
       </fieldset>
     </>

@@ -1,95 +1,20 @@
 import "./store.css";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "common-components/ProductCard";
 import { Hidden } from "common-components/Hidden";
 import { Modal } from "common-components/Modal";
 import { Loader } from "common-components/Loader";
 import { Error } from "common-components/Error";
-import { FiltersMenu } from "common-components/FiltersMenu";
-import { reducer } from "./reducer";
-import {
-  getSortedData,
-  getProductByRating,
-  getFilterbyAvalibility,
-  getFilterByOffer,
-  getFilterbyLabel,
-  applyFilterToUrl,
-  useQuery,
-  request,
-} from "utils";
+import { FiltersMenu } from "./FiltersMenu";
+import { request } from "utils";
 import { FiltersIcons } from "assests/icons";
-
+import { useFilters } from "./filter.hooks";
+import axios from "axios";
 export const Store = () => {
   const navigate = useNavigate();
-  const { queryParser, queryEncoder } = useQuery();
-
   const [products, setProducts] = useState([]);
-  const [status, setStatus] = useState("IDLE");
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  // close Modal
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
-  // url decoding
-  const initial = {
-    sortBy: queryParser("sortBy") || "",
-    showRating: queryParser("showRating"),
-    showInvertory: queryParser("showInvertory") || true,
-    showOffer: queryParser("showOffer") || false,
-    showNew: queryParser("showNew") || false,
-    showBestSeller: queryParser("showBestSeller") || false,
-  };
-
-  const categoryId = queryParser("category");
-  const [
-    { sortBy, showRating, showInvertory, showOffer, showNew, showBestSeller },
-    dispatch,
-  ] = useReducer(reducer, initial);
-
-  // sorts the data
-  const sortedData = getSortedData(products, sortBy);
-  const filterByRating = getProductByRating(sortedData, showRating);
-  const filterByInventory = getFilterbyAvalibility(
-    filterByRating,
-    showInvertory
-  );
-  const filterbyOffer = getFilterByOffer(filterByInventory, showOffer);
-  const filterData = getFilterbyLabel(filterbyOffer, showBestSeller, showNew);
-  const handleProductDetail = (id) => {
-    navigate(`/productdetail/${id}`);
-  };
-
-  // For calling end points....
-  useEffect(() => {
-    if (status === "IDLE") {
-      (async () => {
-        setStatus("PENDING");
-        const endpoint = categoryId ? `categories/${categoryId}` : "/products";
-        const res = await request("get", endpoint);
-        if ("data" in res) {
-          setProducts(res.data);
-          setStatus("FULFILLED");
-        }
-      })();
-    }
-  }, [categoryId, setStatus, status]);
-
-  useEffect(() => {
-    if (products) {
-      applyFilterToUrl(
-        categoryId,
-        queryEncoder,
-        sortBy,
-        showRating,
-        showInvertory,
-        showOffer,
-        showNew,
-        showBestSeller,
-        navigate
-      );
-    }
-  }, [
+  const {
     categoryId,
     sortBy,
     showRating,
@@ -97,8 +22,41 @@ export const Store = () => {
     showOffer,
     showNew,
     showBestSeller,
-    products,
-  ]);
+    filterDispatch,
+    filteredData,
+  } = useFilters({ products });
+  const [status, setStatus] = useState("IDLE");
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  // close Modal
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleProductDetail = (id) => {
+    navigate(`/productdetail/${id}`);
+  };
+
+  // For calling end points....
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    if (status === "IDLE") {
+      (async () => {
+        setStatus("PENDING");
+        const endpoint = categoryId ? `categories/${categoryId}` : "/products";
+        const res = await request("get", endpoint, undefined, {
+          cancelToken: source.token,
+        });
+        if ("data" in res) {
+          setProducts(res.data);
+          setStatus("FULFILLED");
+        }
+      })();
+    }
+    return () => {
+      source.cancel();
+    };
+  }, [categoryId, setStatus, status]);
 
   return (
     <>
@@ -124,7 +82,7 @@ export const Store = () => {
                     showOffer={showOffer}
                     showNew={showNew}
                     showBestSeller={showBestSeller}
-                    dispatch={dispatch}
+                    filterDispatch={filterDispatch}
                   />
                 </div>
               </Modal>
@@ -138,13 +96,13 @@ export const Store = () => {
                   showOffer={showOffer}
                   showNew={showNew}
                   showBestSeller={showBestSeller}
-                  dispatch={dispatch}
+                  filterDispatch={filterDispatch}
                 />
               </div>
             </Hidden>
             <div className="dis-grid product-container">
-              {!!filterData.length &&
-                filterData.map((product) => (
+              {!!filteredData.length &&
+                filteredData.map((product) => (
                   <ProductCard
                     product={product}
                     key={product._id}

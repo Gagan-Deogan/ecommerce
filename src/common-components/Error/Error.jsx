@@ -1,8 +1,5 @@
 import { Modal } from "../Modal";
-import { useStatus } from "context/LoaderProvider";
-import { useNavigate } from "react-router-dom";
 export const Error = ({ setStatus }) => {
-  const navigate = useNavigate();
   const handleRetry = () => {
     setStatus("IDLE");
   };

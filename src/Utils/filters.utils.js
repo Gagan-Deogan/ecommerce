@@ -48,7 +48,7 @@ export const getFilterbyLabel = (product, showBestSeller, showNew) => {
   return product;
 };
 
-export const applyFilterToUrl = (
+export const getNewUrl = (
   categoryId,
   queryEncoder,
   sortBy,
@@ -56,8 +56,7 @@ export const applyFilterToUrl = (
   showInvertory,
   showOffer,
   showNew,
-  showBestSeller,
-  navigate
+  showBestSeller
 ) => {
   const categoryQuery = categoryId
     ? `category=${queryEncoder(categoryId)}&`
@@ -71,15 +70,43 @@ export const applyFilterToUrl = (
   const discountQuery = `&showOffer=${showOffer}`;
   const newQuery = `&showNew=${showNew}`;
   const BestSellerQuery = `&showBestSeller=${showBestSeller}`;
-  navigate(
-    `/store?${
-      categoryQuery +
-      sortQuery +
-      ratingQuery +
-      inventoryQuery +
-      discountQuery +
-      newQuery +
-      BestSellerQuery
-    }`
+  return `?${
+    categoryQuery +
+    sortQuery +
+    ratingQuery +
+    inventoryQuery +
+    discountQuery +
+    newQuery +
+    BestSellerQuery
+  }`;
+  // navigate(
+  //   `/store?${
+  //     categoryQuery +
+  //     sortQuery +
+  //     ratingQuery +
+  //     inventoryQuery +
+  //     discountQuery +
+  //     newQuery +
+  //     BestSellerQuery
+  //   }`
+  // );
+};
+
+export const getFiltedByAllFilters = ({
+  sortBy,
+  showRating,
+  showInvertory,
+  showOffer,
+  showBestSeller,
+  showNew,
+  products,
+}) => {
+  const sortedData = getSortedData(products, sortBy);
+  const filterByRating = getProductByRating(sortedData, showRating);
+  const filterByInventory = getFilterbyAvalibility(
+    filterByRating,
+    showInvertory
   );
+  const filterbyOffer = getFilterByOffer(filterByInventory, showOffer);
+  return getFilterbyLabel(filterbyOffer, showBestSeller, showNew);
 };

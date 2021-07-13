@@ -8,16 +8,8 @@ export { debounce } from "./debounce";
 
 export { useQuery } from "./query.hook";
 
-export { instance, useRequest } from "./request.hook";
-
 export { isInWishlist, isInCart } from "./getProductWithFlag";
 
-export {
-  setupAuthExceptionHandler,
-  setupAuthHeaderForServiceCalls,
-} from "./setupRequest";
-
-export { isPasswordStrong } from "./isPasswordStrong";
 export { checkPasswordStrength } from "./checkPasswordStrength";
 export {
   getSortedData,
@@ -25,7 +17,8 @@ export {
   getFilterbyAvalibility,
   getFilterByOffer,
   getFilterbyLabel,
-  applyFilterToUrl,
-} from "./filters";
+  getFiltedByAllFilters,
+  getNewUrl,
+} from "./filters.utils";
 
 export { setupAxiosDefaultHeaders, request } from "./axios.utils";

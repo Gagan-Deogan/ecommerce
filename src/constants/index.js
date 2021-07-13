@@ -38,3 +38,30 @@ export const privateOptions = {
   },
   "My Orders": { link: "/my/orders", icon: <OrderIcon /> },
 };
+
+export const homeSectionsData = {
+  bestSellers: {
+    title: "Deal of the Day",
+    subtitle:
+      "All of this is available at a quite reasonable price so that everyone can have their own glorious and lush plants set-up at their loving abode.",
+    link: `/store?&showInvertory=true&showOffer=true&showNew=false&showBestSeller=false`,
+  },
+  bestDeals: {
+    title: "Best Sellers",
+    subtitle:
+      "All of this is available at a quite reasonable price so that everyone can have their own glorious and lush plants set-up at their loving abode.",
+    link: `/store?showInvertory=true&showOffer=false&showNew=false&showBestSeller=true`,
+  },
+  plants: {
+    title: "Plants",
+    subtitle:
+      "All of this is available at a quite reasonable price so that everyone can have their own glorious and lush plants set-up at their loving abode.",
+    link: `/store?category="607d20d2ebcbc4055460af6f"&showInvertory=true&showOffer=false&showNew=false&showBestSeller=false`,
+  },
+  tools: {
+    title: "Tools",
+    subtitle:
+      "All of this is available at a quite reasonable price so that everyone can have their own glorious and lush plants set-up at their loving abode.",
+    link: `/store?category="607d5210ebcbc4055460af75"&showInvertory=true&showOffer=false&showNew=false&showBestSeller=false`,
+  },
+};

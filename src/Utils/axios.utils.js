@@ -18,9 +18,11 @@ export const catchAxiosErr = (err) => {
   return { error: "something went wrong!" };
 };
 
-export const request = async (method, endpoint, body) => {
+export const request = async (method, endpoint, body, cancelToken) => {
   try {
-    const res = await axios[method](endpoint, body);
+    const res = await axios[method](endpoint, body, {
+      cancelToken: cancelToken,
+    });
     return res.data;
   } catch (err) {
     return catchAxiosErr(err);
