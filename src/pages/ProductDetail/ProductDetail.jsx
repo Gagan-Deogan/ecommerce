@@ -2,7 +2,6 @@ import "./productDetail.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { useSnakbar } from "context/SnakbarProvider";
 import { useAuth } from "context/AuthProvider";
 import { WishlistButton } from "common-components/WishlistButton";
 import { Loader } from "common-components/Loader";
@@ -13,7 +12,7 @@ import { StarIcon } from "assests/icons";
 
 const { REACT_APP_IMAGE_URL } = process.env;
 
-const CartButton = ({ inCart, productDetail, onClick }) => {
+const AddToCartButton = ({ inCart, productDetail, onClick }) => {
   const navigate = useNavigate();
   return (
     <button
@@ -37,7 +36,6 @@ export const ProductDetail = () => {
     wishlist,
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
-  const { snakbarDispatch } = useSnakbar();
   const [productDetail, setProductDetail] = useState();
 
   const inCart = isInCart(cartItems, id);
@@ -70,7 +68,6 @@ export const ProductDetail = () => {
         });
       }
     }
-    snakbarDispatch({ type: "SUCCESS", payload: "Product Added" });
   };
 
   const betterHandleAddToCart = debounce(handleAddToCart, 1000);
@@ -132,7 +129,7 @@ export const ProductDetail = () => {
             </div>
             <Hidden hideAt="sm-down">
               <div className="row align-center w12">
-                <CartButton
+                <AddToCartButton
                   inCart={inCart}
                   productDetail={productDetail}
                   onClick={betterHandleAddToCart}
@@ -147,7 +144,7 @@ export const ProductDetail = () => {
           </div>
           <Hidden hideAt="sm-up">
             <div className="bottom-sheet row justify-between padding-16 padding-l-32 padding-r-32 ">
-              <CartButton
+              <AddToCartButton
                 inCart={inCart}
                 productDetail={productDetail}
                 onClick={betterHandleAddToCart}

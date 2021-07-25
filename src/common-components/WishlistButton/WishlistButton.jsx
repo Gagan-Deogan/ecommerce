@@ -1,17 +1,12 @@
 import { HeartIcon } from "assests/icons";
 import { useAuth } from "context/AuthProvider";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { useSnakbar } from "context/SnakbarProvider";
 import { request, debounce } from "utils";
 export const WishlistButton = ({ inWishlist, product, className }) => {
   const { user } = useAuth();
   const { cartAndWishlistDispatch } = useCartAndWishlist();
-  const { snakbarDispatch } = useSnakbar();
 
   const toogleProductFromWishlist = async () => {
-    const sankbarMsg = inWishlist
-      ? "Product Remove Successfully"
-      : "Product Added Successfully";
     cartAndWishlistDispatch({
       type: "TOOGLE_PRODUCT_FROM_WISHLIST",
       payload: { product },
@@ -25,7 +20,6 @@ export const WishlistButton = ({ inWishlist, product, className }) => {
         });
       }
     }
-    snakbarDispatch({ type: "DEFAULT", payload: sankbarMsg });
   };
   const betterToogleProductFromWishlist = debounce(
     toogleProductFromWishlist,

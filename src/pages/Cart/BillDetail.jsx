@@ -1,9 +1,23 @@
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import StripeCheckout from "react-stripe-checkout";
+import { request } from "utils";
+const { REACT_APP_STRIPE_KEY } = process.env;
 
 export const BillDetail = () => {
+  console.log(REACT_APP_STRIPE_KEY);
   const {
     cartDetails: { cartItems, totalPrice, totalDiscount, totalEffectivePrice },
+    cartAndWishlistDispatch,
   } = useCartAndWishlist();
+  const handleToken = async (token) => {
+    const res = await request("post", "/carts/checkout", {
+      token,
+      totalEffectivePrice,
+    });
+    if ("data" in res) {
+      cartAndWishlistDispatch({ type: "CLEAR_CART" });
+    }
+  };
   return (
     <div className="column sm-w12 w3 align-center justify-start bor-sol bor-rad-8 price-container">
       <div className="border-bottom w12 padding-16">
@@ -30,6 +44,19 @@ export const BillDetail = () => {
           You will save ₹{totalDiscount} on this order
         </h6>
       )}
+      <StripeCheckout
+        className="btn-pry-fil"
+        amount={totalEffectivePrice * 100}
+        stripeKey={REACT_APP_STRIPE_KEY}
+        token={handleToken}
+        currency="INR"
+        zipCode={false}
+        children={
+          <button className="btn-pry-fil w12 margin-16">
+            Pay ₹ {totalEffectivePrice}
+          </button>
+        }
+      />
     </div>
   );
 };

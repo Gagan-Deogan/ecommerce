@@ -23,7 +23,7 @@ export const Snakbar = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      snakbarDispatch({ type: "HIDE_SNAKBAR" });
+      snakbarDispatch({ type: "INITAIL" });
     }, 1000);
 
     return () => {

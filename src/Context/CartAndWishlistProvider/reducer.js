@@ -174,6 +174,17 @@ export const reducer = (state, action) => {
         wishlist: newWishlist,
       };
     }
+    case "CLEAR_CART": {
+      return {
+        ...state,
+        cartDetails: {
+          cartItems: [],
+          totalEffectivePrice: 0,
+          totalDiscount: 0,
+          totalPrice: 0,
+        },
+      };
+    }
     default:
       return state;
   }

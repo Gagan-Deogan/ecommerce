@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { CartItem } from "./CartItem";
 import { BillDetail } from "./BillDetail";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
-import { useSnakbar } from "context/SnakbarProvider";
 import { useAuth } from "context/AuthProvider";
 import { debounce, request } from "utils";
 
@@ -12,10 +11,8 @@ export const Cart = () => {
     cartDetails: { cartItems },
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
-  const { snakbarDispatch } = useSnakbar();
   const { user } = useAuth();
   const navigate = useNavigate();
-
   const handleRemoveFromCart = async (product) => {
     cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
     if (user) {
@@ -27,7 +24,6 @@ export const Cart = () => {
         });
       }
     }
-    snakbarDispatch({ type: "ERROR", payload: "Product Remove Succesfully" });
   };
 
   const handleQuantityChange = async (type, productId, quantity) => {

@@ -15,11 +15,14 @@ export const Interceptor = () => {
       (res) => {
         if (res.status === 201) {
           snakbarDispatch({
-            type: "SHOW_SNAKBAR",
-            payload: {
-              type: "SUCCESS",
-              message: res.data.data,
-            },
+            type: "SUCCESS",
+            payload: res.data.data,
+          });
+        }
+        if (res.status === 202) {
+          snakbarDispatch({
+            type: "ERROR",
+            payload: res.data.data,
           });
         }
         return res;
@@ -36,11 +39,8 @@ export const Interceptor = () => {
             return Promise.reject(error);
           }
           snakbarDispatch({
-            type: "SHOW_SNAKBAR",
-            payload: {
-              type: "ERROR",
-              message: "Something went wrong",
-            },
+            type: "ERROR",
+            payload: "Something went wrong",
           });
         }
         return Promise.reject(error);
