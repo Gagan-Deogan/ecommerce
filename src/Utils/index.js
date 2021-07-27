@@ -5,9 +5,6 @@ export {
 } from "./pricesCalculators";
 
 export { debounce } from "./debounce";
-
-export { useQuery } from "./query.hook";
-
 export { isInWishlist, isInCart } from "./getProductWithFlag";
 
 export { checkPasswordStrength } from "./checkPasswordStrength";

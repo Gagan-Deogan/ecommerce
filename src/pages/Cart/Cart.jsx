@@ -1,10 +1,11 @@
 import "./cart.css";
 import { useNavigate } from "react-router-dom";
-import { CartItem } from "./CartItem";
-import { BillDetail } from "./BillDetail";
+import { CartItem } from "./components/CartItem";
+import { BillDetail } from "./components/BillDetail";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
 import { useAuth } from "context/AuthProvider";
 import { debounce, request } from "utils";
+import { EmptyCart } from "./components/EmptyCart";
 
 export const Cart = () => {
   const {
@@ -12,7 +13,6 @@ export const Cart = () => {
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const handleRemoveFromCart = async (product) => {
     cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
     if (user) {
@@ -68,17 +68,7 @@ export const Cart = () => {
               ))}
             </ul>
           )}
-          {!cartItems.length && (
-            <div className="column w12 align-center justify-center  padding-64">
-              <h4>Your cart is empty!</h4>
-              <h6>Add items to it now.</h6>
-              <button
-                className="btn-pry-fil margin-8"
-                onClick={() => navigate("/store")}>
-                Shop Now
-              </button>
-            </div>
-          )}
+          {!cartItems.length && <EmptyCart />}
         </div>
         {!!cartItems.length && <BillDetail />}
       </section>

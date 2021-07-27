@@ -1,6 +1,6 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
 import { useAuth } from "../AuthProvider";
-import { reducer, intialState } from "./reducer";
+import { reducer, intialState } from "./cartAndWishList.reducer";
 import { request } from "utils";
 const CartAndWishlistcontext = createContext();
 
@@ -18,7 +18,7 @@ export const CartAndWishlistProvider = ({ children }) => {
         if ("data" in res) {
           const { cartItems, wishlist } = res.data;
           cartAndWishlistDispatch({
-            type: "LOAD_CART",
+            type: "LOAD_CART_AND_WISHLIST",
             payload: {
               cartItems,
               wishlist,
@@ -33,7 +33,7 @@ export const CartAndWishlistProvider = ({ children }) => {
       if (loaclCartAndWishlist) {
         const { cartItems, wishlist } = loaclCartAndWishlist;
         cartAndWishlistDispatch({
-          type: "LOAD_CART",
+          type: "LOAD_CART_AND_WISHLIST",
           payload: { cartItems, wishlist },
         });
       }

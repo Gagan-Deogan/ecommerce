@@ -48,25 +48,21 @@ export const getFilterbyLabel = (product, showBestSeller, showNew) => {
   return product;
 };
 
-export const getNewUrl = (
+export const getNewUrl = ({
   categoryId,
-  queryEncoder,
+  urlEncoder,
   sortBy,
   showRating,
   showInvertory,
   showOffer,
   showNew,
-  showBestSeller
-) => {
-  const categoryQuery = categoryId
-    ? `category=${queryEncoder(categoryId)}&`
-    : "";
+  showBestSeller,
+}) => {
+  const categoryQuery = categoryId ? `category=${urlEncoder(categoryId)}&` : "";
   const sortQuery =
-    sortBy === "LH" || sortBy === "HL" ? `sortBy=${queryEncoder(sortBy)}` : "";
-  const ratingQuery = showRating
-    ? `&showRating=${queryEncoder(showRating)}`
-    : "";
-  const inventoryQuery = `&showInvertory=${queryEncoder(showInvertory)}`;
+    sortBy === "LH" || sortBy === "HL" ? `sortBy=${urlEncoder(sortBy)}` : "";
+  const ratingQuery = showRating ? `&showRating=${urlEncoder(showRating)}` : "";
+  const inventoryQuery = `&showInvertory=${urlEncoder(showInvertory)}`;
   const discountQuery = `&showOffer=${showOffer}`;
   const newQuery = `&showNew=${showNew}`;
   const BestSellerQuery = `&showBestSeller=${showBestSeller}`;
@@ -79,17 +75,6 @@ export const getNewUrl = (
     newQuery +
     BestSellerQuery
   }`;
-  // navigate(
-  //   `/store?${
-  //     categoryQuery +
-  //     sortQuery +
-  //     ratingQuery +
-  //     inventoryQuery +
-  //     discountQuery +
-  //     newQuery +
-  //     BestSellerQuery
-  //   }`
-  // );
 };
 
 export const getFiltedByAllFilters = ({

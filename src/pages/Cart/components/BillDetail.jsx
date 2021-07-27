@@ -4,7 +4,6 @@ import { request } from "utils";
 const { REACT_APP_STRIPE_KEY } = process.env;
 
 export const BillDetail = () => {
-  console.log(REACT_APP_STRIPE_KEY);
   const {
     cartDetails: { cartItems, totalPrice, totalDiscount, totalEffectivePrice },
     cartAndWishlistDispatch,

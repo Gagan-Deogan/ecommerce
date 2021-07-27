@@ -15,7 +15,7 @@ export const intialState = {
 };
 export const reducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_CART": {
+    case "LOAD_CART_AND_WISHLIST_AND_WISHLIST": {
       const newCartItems = action.payload.cartItems;
       const wishlist = action.payload.wishlist;
       const {
@@ -33,7 +33,6 @@ export const reducer = (state, action) => {
         wishlist,
       };
     }
-
     case "ADD_TO_CART": {
       const { product } = action.payload;
       const newCartItems = state.cartDetails.cartItems.concat([

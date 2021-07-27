@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
 
-export const useQuery = () => {
+export const useURL = () => {
   const query = new URLSearchParams(useLocation().search);
 
-  const queryParser = (key) => {
+  const urlParser = (key) => {
     try {
       const queryString = query.get(key);
       if (queryString) return JSON.parse(queryString);
@@ -13,7 +13,7 @@ export const useQuery = () => {
     }
   };
 
-  const queryEncoder = (query) => {
+  const urlEncoder = (query) => {
     try {
       return JSON.stringify(query);
     } catch (err) {
@@ -21,5 +21,5 @@ export const useQuery = () => {
     }
   };
 
-  return { query, queryParser, queryEncoder };
+  return { query, urlParser, urlEncoder };
 };

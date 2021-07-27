@@ -1,5 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
-import { reducer } from "./reducer";
+import { reducer } from "./sankbar.reducer";
 const Snakbarcontext = createContext();
 
 const intialSnakbar = { isShow: false, type: "", message: "" };
