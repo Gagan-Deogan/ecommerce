@@ -47,6 +47,7 @@ export const Login = () => {
               type="email"
               required
               onChange={(e) => setEmail(e.target.value)}
+              defaultValue="Gagan@gmail.com"
             />
           </div>
           <div className="column margin-b-16  ">
@@ -57,6 +58,7 @@ export const Login = () => {
               <PasswordInput
                 name="current-password"
                 onChange={(e) => setPassword(e.target.value)}
+                defaultValue="Gagan@123"
               />
             </div>
           </div>
@@ -68,7 +70,7 @@ export const Login = () => {
           </button>
           <Link to="/signup" className="font-xs text-center margin-t-16 bold">
             Don't have an account?
-            <span className="text-primary">Signup now!</span>
+            <span className="margin-l-4 primary-color">Signup now!</span>
           </Link>
         </form>
       </div>

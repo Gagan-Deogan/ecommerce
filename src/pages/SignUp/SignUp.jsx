@@ -134,7 +134,7 @@ export const Signup = () => {
           </form>
           <Link to="/login" className="font-xs text-center bold">
             Already have an account?
-            <span className="text-primary">Go to Login</span>
+            <span className="margin-l-4 primary-color">Go to Login</span>
           </Link>
         </div>
       </section>

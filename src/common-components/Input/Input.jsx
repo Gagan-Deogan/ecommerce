@@ -5,6 +5,7 @@ export const Input = ({
   onChange,
   required = false,
   disabled = false,
+  defaultValue,
 }) => {
   return (
     <input
@@ -17,6 +18,7 @@ export const Input = ({
       onChange={onChange}
       required={required}
       disabled={disabled}
+      defaultValue={defaultValue}
     />
   );
 };

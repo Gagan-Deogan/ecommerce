@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { VisibleIcon, VisibleOffIcon } from "assests/icons";
 import { Input } from "common-components/Input";
-export const PasswordInput = ({ name, error, onChange }) => {
+export const PasswordInput = ({ name, error, onChange, defaultValue }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -11,6 +11,7 @@ export const PasswordInput = ({ name, error, onChange }) => {
         type={showPassword ? "text" : "password"}
         onChange={onChange}
         required
+        defaultValue={defaultValue}
       />
       <span
         className="position-absolute right padding-8 cursor-pointer"
