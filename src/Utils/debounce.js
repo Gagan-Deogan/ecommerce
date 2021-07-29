@@ -1,4 +1,4 @@
-export function debounce(func, wait) {
+export function debounce(func, delay = 300) {
   let timerId;
   return function (...rest) {
     if (timerId) {
@@ -6,6 +6,6 @@ export function debounce(func, wait) {
     }
     timerId = setTimeout(() => {
       func(...rest);
-    }, wait);
+    }, delay);
   };
 }

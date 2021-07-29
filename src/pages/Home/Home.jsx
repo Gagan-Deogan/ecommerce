@@ -4,18 +4,19 @@ import { HomeSection } from "./components/HomeSection";
 import { useRequest } from "hooks";
 import { HomeBanner } from "./components/HomeBanner";
 import { GenricSection } from "common-components/GenricSection";
+
 export const Home = () => {
   const navigate = useNavigate();
-  const { data, isLoading, isError, retry } = useRequest("/home");
+  const { isLoading, isSuccess, data } = useRequest("home");
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
+
   return (
     <>
       <GenricSection
         isLoading={isLoading}
-        isError={isError}
-        retry={retry}
+        isSuccess={isSuccess}
         className="column align-center route-cont home-container">
         <HomeBanner />
         {data &&

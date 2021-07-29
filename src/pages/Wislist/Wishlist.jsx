@@ -27,7 +27,8 @@ export const Wishlist = () => {
           {wishlist.map((product) => (
             <ProductCard
               product={product}
-              handleProductDetail={handleProductDetail}></ProductCard>
+              handleProductDetail={handleProductDetail}
+              key={product._id}></ProductCard>
           ))}
         </ul>
       </section>

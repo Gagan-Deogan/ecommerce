@@ -1,20 +1,22 @@
 import "./cart.css";
-import { useNavigate } from "react-router-dom";
 import { CartItem } from "./components/CartItem";
 import { BillDetail } from "./components/BillDetail";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
 import { useAuth } from "context/AuthProvider";
 import { debounce, request } from "utils";
 import { EmptyCart } from "./components/EmptyCart";
+import { useSnakbar } from "context/SnakbarProvider";
 
 export const Cart = () => {
   const {
     cartDetails: { cartItems },
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
+  const { snakbarDispatch } = useSnakbar();
   const { user } = useAuth();
   const handleRemoveFromCart = async (product) => {
     cartAndWishlistDispatch({ type: "REMOVE_FROM_CART", payload: { product } });
+    snakbarDispatch({ type: "ERROR", payload: "Product Removed" });
     if (user) {
       const res = await request("delete", `/carts/${product._id}`);
       if (!("data" in res)) {

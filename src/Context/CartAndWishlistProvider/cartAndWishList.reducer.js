@@ -15,7 +15,7 @@ export const intialState = {
 };
 export const reducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_CART_AND_WISHLIST_AND_WISHLIST": {
+    case "LOAD_CART_AND_WISHLIST": {
       const newCartItems = action.payload.cartItems;
       const wishlist = action.payload.wishlist;
       const {

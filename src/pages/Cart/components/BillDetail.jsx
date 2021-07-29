@@ -1,4 +1,6 @@
+import { useAuth } from "context/AuthProvider";
 import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { useNavigate } from "react-router";
 import StripeCheckout from "react-stripe-checkout";
 import { request } from "utils";
 const { REACT_APP_STRIPE_KEY } = process.env;
@@ -8,6 +10,8 @@ export const BillDetail = () => {
     cartDetails: { cartItems, totalPrice, totalDiscount, totalEffectivePrice },
     cartAndWishlistDispatch,
   } = useCartAndWishlist();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const handleToken = async (token) => {
     const res = await request("post", "/carts/checkout", {
       token,
@@ -39,23 +43,31 @@ export const BillDetail = () => {
         <h4 className="bold">{totalEffectivePrice}</h4>
       </div>
       {!!totalDiscount && (
-        <h6 className="primary-color bold margin-b-8">
+        <h6 className="primary-color bold margin-b-8 text-center">
           You will save ₹{totalDiscount} on this order
         </h6>
       )}
-      <StripeCheckout
-        className="btn-pry-fil"
-        amount={totalEffectivePrice * 100}
-        stripeKey={REACT_APP_STRIPE_KEY}
-        token={handleToken}
-        currency="INR"
-        zipCode={false}
-        children={
-          <button className="btn-pry-fil w12 margin-16">
-            Pay ₹ {totalEffectivePrice}
-          </button>
-        }
-      />
+      {user && (
+        <StripeCheckout
+          amount={totalEffectivePrice * 100}
+          stripeKey={REACT_APP_STRIPE_KEY}
+          token={handleToken}
+          currency="INR"
+          zipCode={false}
+          children={
+            <button className="btn-pry-fil margin-b-16">
+              Pay ₹ {totalEffectivePrice}
+            </button>
+          }
+        />
+      )}
+      {!user && (
+        <button
+          className="btn-pry-fil margin-b-16"
+          onClick={() => navigate("/login")}>
+          Please Login
+        </button>
+      )}
     </div>
   );
 };

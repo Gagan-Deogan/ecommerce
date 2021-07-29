@@ -11,7 +11,7 @@ export const Store = () => {
   const categoryId = urlParser("category");
 
   const endpoint = categoryId ? `categories/${categoryId}` : "/products";
-  const { data, isLoading, isError, retry } = useRequest(endpoint);
+  const { isLoading, isSuccess, data } = useRequest(endpoint);
 
   const { filters, filterDispatch, filteredData } = useFilters(
     data ? data : []
@@ -25,21 +25,29 @@ export const Store = () => {
     <>
       <GenricSection
         isLoading={isLoading}
-        isError={isError}
-        retry={retry}
+        isSuccess={isSuccess}
         className="route-container row sm-column align-start justify-center w12 padding-16 padding-t-32">
         <FilterMenu filters={filters} filterDispatch={filterDispatch} />
-        <div className="dis-grid w12 product-container">
-          {!!filteredData.length &&
-            filteredData.map((product) => (
-              <ProductCard
-                product={product}
-                key={product._id}
-                handleProductDetail={handleProductDetail}
-              />
-            ))}
-        </div>
+        <ProductsList
+          product={filteredData}
+          handleProductDetail={handleProductDetail}
+        />
       </GenricSection>
     </>
   );
 };
+
+function ProductsList({ product, handleProductDetail }) {
+  return (
+    <div className="dis-grid w12 product-container">
+      {!!product.length &&
+        product.map((product) => (
+          <ProductCard
+            product={product}
+            key={product._id}
+            handleProductDetail={handleProductDetail}
+          />
+        ))}
+    </div>
+  );
+}

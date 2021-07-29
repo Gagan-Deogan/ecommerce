@@ -20,6 +20,19 @@ export const FilterMenu = ({ filters, filterDispatch }) => {
 
   return (
     <>
+      <Hidden hideAt="sm-down">
+        <div className="column filter-container bor-rad-8 margin-r-16 bor-sol">
+          <FilterOptions
+            sortBy={sortBy}
+            showRating={showRating}
+            showInvertory={showInvertory}
+            showOffer={showOffer}
+            showNew={showNew}
+            showBestSeller={showBestSeller}
+            filterDispatch={filterDispatch}
+          />
+        </div>
+      </Hidden>
       <Hidden hideAt="sm-up">
         <div className="bottom-sheet row justify-end">
           <button
@@ -42,19 +55,6 @@ export const FilterMenu = ({ filters, filterDispatch }) => {
             />
           </div>
         </Modal>
-      </Hidden>
-      <Hidden hideAt="sm-down">
-        <div className="column filter-container bor-rad-8 margin-r-16 bor-sol">
-          <FilterOptions
-            sortBy={sortBy}
-            showRating={showRating}
-            showInvertory={showInvertory}
-            showOffer={showOffer}
-            showNew={showNew}
-            showBestSeller={showBestSeller}
-            filterDispatch={filterDispatch}
-          />
-        </div>
       </Hidden>
     </>
   );

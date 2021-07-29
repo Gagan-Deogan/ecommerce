@@ -3,16 +3,15 @@ import { Error } from "common-components/Error";
 
 export const GenricSection = ({
   isLoading,
-  isError,
-  retry,
+  isSuccess,
   children,
   className,
 }) => {
   if (isLoading) {
     return <Loader />;
   }
-  if (isError) {
-    return <Error retry={retry} />;
+  if (!isSuccess) {
+    return <Error />;
   }
   return <section className={className}>{children}</section>;
 };

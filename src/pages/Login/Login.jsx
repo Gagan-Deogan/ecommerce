@@ -7,8 +7,8 @@ import { Input } from "common-components/Input";
 import { request } from "utils";
 import { useAuth } from "context/AuthProvider";
 export const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("Gagan@gmail.com");
+  const [password, setPassword] = useState("Gagan@123");
   const [status, setStatus] = useState("IDLE");
   const [error, setError] = useState("");
   const { loginUser } = useAuth();
@@ -47,7 +47,7 @@ export const Login = () => {
               type="email"
               required
               onChange={(e) => setEmail(e.target.value)}
-              defaultValue="Gagan@gmail.com"
+              value={email}
             />
           </div>
           <div className="column margin-b-16  ">
@@ -58,7 +58,7 @@ export const Login = () => {
               <PasswordInput
                 name="current-password"
                 onChange={(e) => setPassword(e.target.value)}
-                defaultValue="Gagan@123"
+                value={password}
               />
             </div>
           </div>
