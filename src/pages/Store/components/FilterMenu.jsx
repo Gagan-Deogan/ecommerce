@@ -3,6 +3,14 @@ import { Hidden } from "common-components/Hidden";
 import { Modal } from "common-components/Modal";
 import { FilterOptions } from "./FilterOptions";
 import { FiltersIcons } from "assests/icons";
+import { motion } from "framer-motion";
+const filterAnimation = {
+  hidden: { opacity: 1, y: 80 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 export const FilterMenu = ({ filters, filterDispatch }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -43,7 +51,11 @@ export const FilterMenu = ({ filters, filterDispatch }) => {
           </button>
         </div>
         <Modal isOpen={isOpenModal} closeModal={handleCloseModal}>
-          <div className="bottom-sheet padding-b-16">
+          <motion.div
+            variants={filterAnimation}
+            initial="hidden"
+            animate="visible"
+            className="bottom-sheet padding-b-16">
             <FilterOptions
               sortBy={sortBy}
               showRating={showRating}
@@ -53,7 +65,7 @@ export const FilterMenu = ({ filters, filterDispatch }) => {
               showBestSeller={showBestSeller}
               filterDispatch={filterDispatch}
             />
-          </div>
+          </motion.div>
         </Modal>
       </Hidden>
     </>

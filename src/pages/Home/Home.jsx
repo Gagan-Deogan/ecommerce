@@ -4,7 +4,6 @@ import { HomeSection } from "./components/HomeSection";
 import { useRequest } from "hooks";
 import { HomeBanner } from "./components/HomeBanner";
 import { GenricSection } from "common-components/GenricSection";
-
 export const Home = () => {
   const navigate = useNavigate();
   const { isLoading, isSuccess, data } = useRequest("home");

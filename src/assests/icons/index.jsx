@@ -1,9 +1,11 @@
+const style = { height: "auto", width: "24px" };
+const smStyle = { height: "auto", width: "16px" };
 export const AddIcon = () => {
   return (
     <svg
       id="add"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_10" data-name="Path 10" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -19,7 +21,7 @@ export const AlertCircleIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#ffffff"
@@ -37,7 +39,7 @@ export const AlertTriangleIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#fff"
@@ -56,7 +58,7 @@ export const BubbleChartIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="#FFFFFF">
       <path d="M0 0h24v24H0V0z" fill="none" />
       <path d="M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H5.03c-1.13 0-2.07.94-2 2.07.53 8.54 7.36 15.36 15.89 15.89 1.13.07 2.07-.87 2.07-2v-1.73c.01-1.01-.75-1.86-1.76-1.98z" />
@@ -67,7 +69,7 @@ export const CheckIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#fff"
@@ -85,7 +87,7 @@ export const MoonIcon = () => {
     <svg
       id="moon"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <rect
         id="Rectangle_1"
@@ -125,7 +127,7 @@ export const CloseIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24"
       fill="none"
       stroke="#fff"
@@ -143,7 +145,7 @@ export const SubtractIcon = () => {
     <svg
       id="remove"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_12" data-name="Path 12" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -159,7 +161,7 @@ export const StarIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "16px" }}
+      style={smStyle}
       viewBox="0 0 18 17.216">
       <path
         id="star"
@@ -179,7 +181,7 @@ export const SunIcon = () => {
     <svg
       id="wb_sunny_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_2" data-name="Path 2" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -196,7 +198,7 @@ export const HomeIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -208,7 +210,7 @@ export const CartIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
@@ -221,7 +223,7 @@ export const WishlistIcon = () => {
     <svg
       id="favorite_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_8" data-name="Path 8" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -238,7 +240,7 @@ export const BagIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z" />
@@ -250,7 +252,7 @@ export const UserIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
@@ -443,7 +445,7 @@ export const VisibleIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="#6b7280">
       <path d="M0 0h24v24H0V0z" fill="none" />
       <path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z" />
@@ -455,7 +457,7 @@ export const VisibleOffIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="#6b7280">
       <path
         d="M0 0h24v24H0V0zm0 0h24v24H0V0zm0 0h24v24H0V0zm0 0h24v24H0V0z"
@@ -469,7 +471,7 @@ export const ProfileIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24"
       width="24px"
       fill="currentColor">
@@ -480,7 +482,7 @@ export const ProfileIcon = () => {
 };
 export const OrderIcon = () => {
   return (
-    <svg style={{ height: "auto", width: "24px" }} viewBox="0 0 24 24">
+    <svg style={style} viewBox="0 0 24 24">
       <path
         d="M4 20h2V10a1 1 0 0 1 1-1h12V7a1 1 0 0 0-1-1h-3.051c-.252-2.244-2.139-4-4.449-4S6.303 3.756 6.051 6H3a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2zm6.5-16c1.207 0 2.218.86 2.45 2h-4.9c.232-1.14 1.243-2 2.45-2z"
         fill="currentColor"></path>
@@ -492,7 +494,7 @@ export const OrderIcon = () => {
 };
 export const LogoutIcon = () => {
   return (
-    <svg style={{ height: "auto", width: "24px" }} viewBox="0 0 24 24">
+    <svg style={style} viewBox="0 0 24 24">
       <path
         d="M12 21c4.411 0 8-3.589 8-8c0-3.35-2.072-6.221-5-7.411v2.223A6 6 0 0 1 18 13c0 3.309-2.691 6-6 6s-6-2.691-6-6a5.999 5.999 0 0 1 3-5.188V5.589C6.072 6.779 4 9.65 4 13c0 4.411 3.589 8 8 8z"
         fill="#6b7280"></path>
@@ -505,7 +507,7 @@ export const ErrorIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="#FFFFFF">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
     </svg>
@@ -624,7 +626,7 @@ export const ThreeDotsIcon = () => {
     <svg
       id="more_vert_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_26" data-name="Path 26" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -641,7 +643,7 @@ export const EditIcon = () => {
     <svg
       id="edit_black_24dp"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       viewBox="0 0 24 24">
       <path id="Path_28" data-name="Path 28" d="M0,0H24V24H0Z" fill="none" />
       <path
@@ -658,7 +660,7 @@ export const DeleteIcon = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      style={{ height: "auto", width: "24px" }}
+      style={style}
       fill="currentColor">
       <path d="M0 0h24v24H0z" fill="none" />
       <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />

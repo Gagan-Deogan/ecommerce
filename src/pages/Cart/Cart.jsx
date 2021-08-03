@@ -48,7 +48,6 @@ export const Cart = () => {
       }
     }
   };
-
   const betterHandleQuantityChange = debounce(handleQuantityChange, 1000);
   const betterHandleRemoveFromCart = debounce(handleRemoveFromCart, 1000);
   return (
@@ -63,7 +62,7 @@ export const Cart = () => {
               {cartItems.map((item) => (
                 <CartItem
                   item={item}
-                  key={item._id}
+                  key={item.product._id}
                   handleRemoveFromCart={betterHandleRemoveFromCart}
                   handleQuantityChange={betterHandleQuantityChange}
                 />
