@@ -1,33 +1,9 @@
 import "./store.css";
 import { useNavigate } from "react-router-dom";
-import { ProductCard } from "common-components/ProductCard";
 import { GenricSection } from "common-components/GenricSection";
 import { FilterMenu } from "./components/FilterMenu";
 import { useFilters, useRequest, useURL } from "hooks";
-import { motion } from "framer-motion";
-const container = {
-  hidden: { opacity: 0.2, y: 20 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
-const ProductsList = ({ product, handleProductDetail }) => {
-  return (
-    <motion.div variants={container} initial="hidden" animate="visible">
-      <div className="dis-grid w12 product-container">
-        {!!product.length &&
-          product.map((product) => (
-            <ProductCard
-              product={product}
-              key={product._id}
-              handleProductDetail={handleProductDetail}
-            />
-          ))}
-      </div>
-    </motion.div>
-  );
-};
+import { ProductsList } from "./components/ProductsList";
 
 export const Store = () => {
   const navigate = useNavigate();
