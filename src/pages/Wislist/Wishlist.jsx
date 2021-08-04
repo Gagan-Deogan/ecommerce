@@ -1,10 +1,10 @@
 import "./wishlist.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useCartContext } from "../../Context/CartContext";
-import { ProductCard } from "../../Components/ProductCard/ProductCard";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { ProductCard } from "common-components/ProductCard/ProductCard";
 export const Wishlist = () => {
-  const { wishlist } = useCartContext();
+  const { wishlist } = useCartAndWishlist();
   const navigate = useNavigate();
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
@@ -26,8 +26,9 @@ export const Wishlist = () => {
         <ul className="dis-grid product-container wishlist-item margin-t-16 ">
           {wishlist.map((product) => (
             <ProductCard
-              details={product.details}
-              handleProductDetail={handleProductDetail}></ProductCard>
+              product={product}
+              handleProductDetail={handleProductDetail}
+              key={product._id}></ProductCard>
           ))}
         </ul>
       </section>

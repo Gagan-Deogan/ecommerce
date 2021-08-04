@@ -7,6 +7,9 @@
   margin-left: 0.75rem;
   min-width: 15rem;
 }
+.price-container span {
+  text-align: center;
+}
 .items-list {
   background: var(--inner-background);
 }

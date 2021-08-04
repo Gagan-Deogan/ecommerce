@@ -1,12 +1,13 @@
-import { useSnakbarContext } from "./Context/SnakbarContext";
-import { NavBar } from "./Components/NavBar";
-import { Snakbar } from "./Components/Snakbar";
-import { Navigation } from "./Components/Navigation/Navigation";
-
+import { useSnakbar } from "context/SnakbarProvider";
+import { NavBar } from "common-components/NavBar";
+import { Snakbar } from "common-components/Snakbar";
+import { Navigation } from "common-components/Navigation";
+import { Interceptor } from "common-components/Interceptor/Interceptor";
 export default function App() {
-  const { snakbarStatus } = useSnakbarContext();
+  const { snakbarStatus } = useSnakbar();
   return (
     <main>
+      <Interceptor />
       <NavBar />
       <Navigation />
       {snakbarStatus["isShow"] === true && <Snakbar></Snakbar>}

@@ -1,175 +1,150 @@
 import "./productDetail.css";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useCartContext } from "../../Context/CartContext";
-import { useStatus } from "../../Context/LoaderContext";
-import { Loader } from "../../Components/Loader";
-import { Hidden } from "../../Components/Hidden";
-import { useRequest, getProductWithFlags } from "../../utils";
-import { StarIcon } from "../../assests/icons";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCartAndWishlist } from "context/CartAndWishlistProvider";
+import { useAuth } from "context/AuthProvider";
+import { useSnakbar } from "context/SnakbarProvider";
+import { WishlistButton } from "common-components/WishlistButton";
+import { Hidden } from "common-components/Hidden";
+import { request, isInCart, isInWishlist, debounce } from "utils";
+import { StarIcon } from "assests/icons";
+import { useProduct } from "./useProductDetails";
+import { GenricSection } from "common-components/GenricSection";
+
 const { REACT_APP_IMAGE_URL } = process.env;
 
-const CartButton = ({ inCartlist, productDetail, onClick }) => {
+const AddToCartButton = ({ inCart, productDetail, onClick }) => {
+  const navigate = useNavigate();
   return (
     <button
-      className={`btn-pry-fil ${
-        inCartlist || !productDetail.avalibility ? "btn-dis" : ""
+      className={`sm-btn-pry-fil padding-16 sm-w8 w12 ${
+        !productDetail.avalibility && "btn-dis"
       } `}
-      onClick={onClick}>
-      {inCartlist && "IN CART"}
-      {!inCartlist && productDetail.avalibility && "ADD TO CART"}
+      onClick={() => (inCart ? navigate("/cart") : onClick())}>
+      {inCart && "Go To Cart"}
+      {!inCart && productDetail.avalibility && "ADD TO CART"}
       {!productDetail.avalibility && "OUT OF STOCK"}
-    </button>
-  );
-};
-
-const WishlistButton = ({ inWishlist, productDetail, onClick }) => {
-  return (
-    <button className="margin-l-16 btn-pry" onClick={onClick}>
-      {inWishlist && "REMOVE FROM WISHLIST"}
-      {!inWishlist && "ADD TO WISHLIST"}
     </button>
   );
 };
 
 export const ProductDetail = () => {
   const { id } = useParams();
-  const { status, setStatus } = useStatus();
+  const { user } = useAuth();
   const {
-    handleAddToCart,
-    betterHandleWishList,
-    cartlist,
+    cartDetails: { cartItems },
     wishlist,
-  } = useCartContext();
-  const [productDetail, setProductDetail] = useState();
-  const { request, getCancelToken } = useRequest();
+    cartAndWishlistDispatch,
+  } = useCartAndWishlist();
+  const { snakbarDispatch } = useSnakbar();
 
-  const { inCartlist, inWishlist } = getProductWithFlags({
-    cartlist,
-    wishlist,
-    product: productDetail,
-  });
-  useEffect(() => {
-    const cancelToken = getCancelToken();
-    (async () => {
-      setStatus("PENDING");
-      const { success, data } = await request({
-        endpoint: `products/${id}`,
-        method: "GET",
-      });
-      if (success) {
-        setProductDetail(data);
-        setStatus("IDLE");
+  const { isSuccess, isLoading, data } = useProduct(id);
+  const inCart = isInCart(cartItems, id);
+  const inWishlist = isInWishlist(wishlist, id);
+
+  const handleAddToCart = async () => {
+    cartAndWishlistDispatch({
+      type: "ADD_TO_CART",
+      payload: { product: data },
+    });
+    snakbarDispatch({ type: "SUCCESS", payload: "Product Added" });
+    if (user) {
+      const res = await request("post", `/carts/${id}`);
+      if (!("data" in res)) {
+        return cartAndWishlistDispatch({
+          type: "REMOVE_FROM_CART",
+          payload: { product: data },
+        });
       }
-    })();
-    return () => {
-      cancelToken.cancel();
-    };
-  }, []);
+    }
+  };
 
+  const betterHandleAddToCart = debounce(handleAddToCart, 1000);
   return (
     <>
-      {status !== "IDLE" && <Loader />}
-      {status === "IDLE" && productDetail && (
-        <section className="row sm-w12 md-w12 w10 sm-warp padding-32 align-start">
-          <div className="sm-w12 w6 product-detail-left">
-            <img
-              src={REACT_APP_IMAGE_URL + productDetail.image}
-              alt=""
-              className="bor-rad-8 w12"
-            />
-          </div>
-          <div className="sm-w12 w6 column align-start margin-l-32 product-detail-rigth">
-            <div className="row align-center justify-start">
-              <h2 className="bold primary-color margin-r-8">
-                {productDetail.name}
-              </h2>
-              {productDetail.rating && (
+      <GenricSection
+        className="row sm-w12 md-w12 w10 sm-warp padding-32 align-start"
+        isLoading={isLoading}
+        isSuccess={isSuccess}>
+        {data && (
+          <>
+            <div className="sm-w12 w6 product-detail-left">
+              <img
+                src={REACT_APP_IMAGE_URL + data.image}
+                alt=""
+                className="bor-rad-8 w12"
+              />
+            </div>
+            <div className="sm-w12 w6 column align-start margin-l-32 product-detail-rigth">
+              <div className="row align-center justify-start">
+                <h2 className="bold primary-color margin-r-8">{data.name}</h2>
                 <div className="card-ratg">
-                  <span className="bold margin-r-4">
-                    {productDetail.rating}
-                  </span>
+                  <span className="bold margin-r-4">{data.rating}</span>
                   <StarIcon />
                 </div>
-              )}
-            </div>
-            <div className="row margin-b-8 align-center justify-start">
-              {productDetail.label && (
-                <div class="card-badge">
-                  <span>{productDetail.label}</span>
-                </div>
-              )}
-              {productDetail.fastDelivery && (
-                <p className="bold margin-l-8">Fast Delivery Available</p>
-              )}
-            </div>
-            <p className="margin-b-16 grey-color">
-              {productDetail.description}
-            </p>
-            <div className="row align-center margin-b-32">
-              {productDetail.discount ? (
-                <>
+              </div>
+              <div className="row margin-b-8 align-center justify-start">
+                {data.label && (
+                  <div className="card-badge">
+                    <span>{data.label}</span>
+                  </div>
+                )}
+                {data.fastDelivery && (
+                  <p className="bold margin-l-8">Fast Delivery Available</p>
+                )}
+              </div>
+              <p className="margin-b-16 grey-color">{data.description}</p>
+              <div className="row align-center margin-b-32">
+                {data.discount ? (
+                  <>
+                    <h2 className="bold margin-r-4 ">
+                      {"Rs. " + data.effectivePrice}
+                    </h2>
+                    <h5 className="grey-color text-line-thro margin-l-8">
+                      {"Rs. " + data.price}
+                    </h5>
+                    <h5 className="primary-color bold margin-l-8 ">
+                      {" "}
+                      {data.discount + " %Off"}
+                    </h5>
+                  </>
+                ) : (
                   <h2 className="bold margin-r-4 ">
-                    {"Rs. " + productDetail.effectivePrice}
+                    {"Rs. " + data.effectivePrice}
                   </h2>
-                  <h5 className="grey-color text-line-thro margin-l-8">
-                    {"Rs. " + productDetail.price}
-                  </h5>
-                  <h5 className="primary-color bold margin-l-8 ">
-                    {" "}
-                    {productDetail.discount + " %Off"}
-                  </h5>
-                </>
-              ) : (
-                <h2 className="bold margin-r-4 ">
-                  {"Rs. " + productDetail.effectivePrice}
-                </h2>
-              )}
+                )}
+              </div>
+              <Hidden hideAt="sm-down">
+                <div className="row align-center w12">
+                  <AddToCartButton
+                    inCart={inCart}
+                    productDetail={data}
+                    onClick={betterHandleAddToCart}
+                  />
+                  <WishlistButton
+                    inWishlist={inWishlist}
+                    product={data}
+                    className="margin-l-16 padding-16"
+                  />
+                </div>
+              </Hidden>
             </div>
-            <Hidden hideAt="sm-down">
-              <div className="row">
-                <CartButton
-                  inCartlist={inCartlist}
-                  productDetail={productDetail}
-                  onClick={() => {
-                    if (productDetail.avalibility && !inCartlist)
-                      handleAddToCart({ product: productDetail });
-                  }}
+            <Hidden hideAt="sm-up">
+              <div className="bottom-sheet row justify-between padding-16 padding-l-32 padding-r-32 ">
+                <AddToCartButton
+                  inCart={inCart}
+                  productDetail={data}
+                  onClick={betterHandleAddToCart}
                 />
                 <WishlistButton
                   inWishlist={inWishlist}
-                  productDetail={productDetail}
-                  onClick={() =>
-                    betterHandleWishList({
-                      product: productDetail,
-                      inWishlist: inWishlist,
-                    })
-                  }
+                  product={data}
+                  className="margin-l-16 padding-16"
                 />
               </div>
             </Hidden>
-          </div>
-          <Hidden hideAt="sm-up">
-            <div className="bottom-sheet row justify-evenly padding-8">
-              <CartButton
-                inCartlist={inCartlist}
-                productDetail={productDetail}
-                onClick={() => {
-                  if (productDetail.avalibility && !inCartlist)
-                    handleAddToCart({ product: productDetail });
-                }}
-              />
-              <WishlistButton
-                inWishlist={inWishlist}
-                productDetail={productDetail}
-                onClick={() =>
-                  betterHandleWishList({ productDetail, inWishlist })
-                }
-              />
-            </div>
-          </Hidden>
-        </section>
-      )}
+          </>
+        )}
+      </GenricSection>
     </>
   );
 };

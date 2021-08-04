@@ -1,3 +1,4 @@
 .login-container {
-  max-width: 360px;
+  min-width: 20rem;
+  max-width: 24rem;
 }
