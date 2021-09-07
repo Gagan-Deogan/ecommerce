@@ -3,8 +3,7 @@ import { BetterRoute } from "common-components/BetterRoute";
 import { Hidden } from "common-components/Hidden";
 import { Profile } from "./Profile";
 import { Sidebar } from "./components/Sidebar";
-import { Orders } from "./Orders";
-import { Addresses } from "./components/Addresses";
+import { Addresses } from "./Addresses";
 import { PageNotFound } from "pages/PageNotFound";
 export const My = () => {
   return (
@@ -15,7 +14,6 @@ export const My = () => {
         </Hidden>
         <Routes>
           <BetterRoute type="PROTECTED" path="/" element={<Profile />} />
-          <BetterRoute type="PROTECTED" path="/orders" element={<Orders />} />
           <BetterRoute
             type="PROTECTED"
             path="/addresses"

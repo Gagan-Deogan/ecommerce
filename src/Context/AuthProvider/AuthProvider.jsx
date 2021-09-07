@@ -55,6 +55,24 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const addNewAddress = (address) => {
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        addresses: [].concat(prevUser.addresses, [address]),
+      };
+    });
+  };
+
+  const removeAddress = (addressId) => {
+    setUser((prevUser) => {
+      const updatedAddress = prevUser.addresses.filter(
+        (address) => address._id !== addressId
+      );
+      return { ...prevUser, addresses: updatedAddress };
+    });
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -66,6 +84,8 @@ export const AuthProvider = ({ children }) => {
         logoutUser,
         loginUser,
         updateUserFullname,
+        addNewAddress,
+        removeAddress,
       }}>
       {children}
     </AuthContext.Provider>

@@ -1,36 +1,24 @@
 import { useState } from "react";
-import { AddIcon, DeleteIcon, EditIcon } from "assests/icons";
+import { AddIcon } from "assests/icons";
 import { useAuth } from "context/AuthProvider";
-import { AddAddress } from "./AddAddress";
+import { AddAddress } from "./components/AddAddress";
+import { Address } from "./components/Address";
+import { request } from "utils";
 
-const Address = ({ data }) => {
-  const { name, pincode, mobileNumber, state, address, city } = data;
-  return (
-    <div className="w12 border padding-16 bor-rad-4 position-relative margin-t-16">
-      <div className="position-absolute right margin-t-8 margin-r-8 row">
-        <button className="btn-link margin-r-8">
-          <EditIcon />
-        </button>
-        <button className="btn-link">
-          <DeleteIcon />
-        </button>
-      </div>
-      <h5 className="bold">
-        {name} <span className="margin-l-8">{mobileNumber}</span>
-      </h5>
-      <h5 className="margin-t-16">
-        {address}, {city}, {state}
-        {"-"}
-        <span className="bold">{pincode}</span>
-      </h5>
-    </div>
-  );
-};
 export const Addresses = () => {
   const [showAddAddress, setShowAddAddress] = useState(false);
   const {
     user: { addresses },
+    removeAddress,
   } = useAuth();
+
+  const handleDelete = async (addressId) => {
+    const res = await request("delete", `/addresses/${addressId}`);
+    if ("data" in res) {
+      removeAddress(addressId);
+    }
+  };
+
   return (
     <>
       <section className="column sm-w12 md-w8 w10 padding-t-32 align-start">
@@ -39,7 +27,11 @@ export const Addresses = () => {
         </h2>
         <div className="column w12 align-start justify-center padding-16">
           {addresses.map((address) => (
-            <Address data={address} key={address._id} />
+            <Address
+              data={address}
+              key={address._id}
+              handleDelete={handleDelete}
+            />
           ))}
           <div className="margin-t-32 w12">
             {!showAddAddress && (

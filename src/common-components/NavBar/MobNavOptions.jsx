@@ -47,7 +47,9 @@ export const MobNavOptions = ({ productIncart, productInWishlist }) => {
           <div className=" row w12 justify-start align-start padding-16 padding-l-32">
             <Logo />
           </div>
-          <ul className="column align-strech">
+          <ul
+            className="column align-strech"
+            onClick={() => setIsOpenModal(false)}>
             {!user &&
               Object.entries(publicOptions).map(([key, value]) => (
                 <li key={key} className="margin-16 margin-t-8 margin-b-8">

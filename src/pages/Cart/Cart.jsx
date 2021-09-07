@@ -54,7 +54,7 @@ export const Cart = () => {
     <>
       <section className="row md-w12 w10 justify-center align-start sm-warp margin-t-16 padding-8  ">
         <div className="column sm-w12 w9 align-start justify-start bor-sol bor-rad-8">
-          <div className="border-bottom w12 padding-16">
+          <div className="border-bottom w12 padding-16 row justify-between">
             <h4 className="bold">My Cart</h4>
           </div>
           {!!cartItems.length && (

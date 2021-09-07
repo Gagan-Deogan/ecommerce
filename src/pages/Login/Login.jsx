@@ -57,8 +57,8 @@ export const Login = () => {
             <div className="position-relative">
               <PasswordInput
                 name="current-password"
-                onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
