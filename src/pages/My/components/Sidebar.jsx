@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { ProfileIcon, OrderIcon, LogoutIcon } from "assests/icons";
+import { ProfileIcon, OrderIcon, LogoutIcon, AddressIcon } from "assests/icons";
 import { useAuth } from "context/AuthProvider";
 import { activeStyle } from "constants/index";
 export const Sidebar = () => {
@@ -17,18 +17,10 @@ export const Sidebar = () => {
         </NavLink>
         <NavLink
           className="btn-link justify-start margin-t-8 bold "
-          to="orders"
-          end="orders"
-          activeStyle={activeStyle}>
-          <OrderIcon />
-          <span className="margin-l-8">My Orders</span>
-        </NavLink>
-        <NavLink
-          className="btn-link justify-start margin-t-8 bold "
           to="addresses"
           end="addresses"
           activeStyle={activeStyle}>
-          <OrderIcon />
+          <AddressIcon />
           <span className="margin-l-8">Addresses</span>
         </NavLink>
         <button

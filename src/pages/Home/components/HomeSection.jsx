@@ -27,6 +27,7 @@ export const HomeSection = ({ name, products, handleProductDetail }) => {
         <div className="dis-grid catagories-container--card margin-t-16">
           {products.map((product) => (
             <ProductCard
+              key={product._id}
               product={product}
               handleProductDetail={handleProductDetail}></ProductCard>
           ))}

@@ -3,8 +3,8 @@ import {
   CartIcon,
   BagIcon,
   WishlistIcon,
-  OrderIcon,
   UserIcon,
+  AddressIcon,
 } from "assests/icons";
 
 export const activeStyle = {
@@ -36,7 +36,7 @@ export const privateOptions = {
       "/store?&showInvertory=true&showOffer=false&showNew=false&showNew=false",
     icon: <BagIcon />,
   },
-  "My Orders": { link: "/my/orders", icon: <OrderIcon /> },
+  "My Addresses": { link: "/my/addresses", icon: <AddressIcon /> },
 };
 
 export const homeSectionsData = {

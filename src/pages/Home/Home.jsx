@@ -10,7 +10,6 @@ export const Home = () => {
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
-
   return (
     <>
       <GenricSection
