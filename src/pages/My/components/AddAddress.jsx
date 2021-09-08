@@ -30,6 +30,7 @@ const BetterInput = ({ title, name, type, pattern, required, errorText }) => {
         onChange={(e) => setValue(e.target.value)}
         onBlur={() => setTouched(true)}
         required={required}
+        pattern={pattern}
       />
       {displayErrorMessage && (
         <span className="text-error">{errorMessage}</span>
@@ -66,13 +67,7 @@ export const AddAddress = ({ setShowAddAddress }) => {
         action="#"
         className="sm-w12 md-w8 w5 column algin-start"
         onSubmit={handelSubmit}>
-        <BetterInput
-          title="Name"
-          name="name"
-          type="text"
-          pattern=""
-          required={true}
-        />
+        <BetterInput title="Name" name="name" type="text" required={true} />
         <BetterInput
           title="Mobile Number(10 Digits)"
           name="mobileNumber"
