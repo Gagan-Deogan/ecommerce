@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { ProfileIcon, OrderIcon, LogoutIcon, AddressIcon } from "assests/icons";
+import { ProfileIcon, LogoutIcon, AddressIcon } from "assests/icons";
 import { useAuth } from "context/AuthProvider";
 import { activeStyle } from "constants/index";
 export const Sidebar = () => {

@@ -27,7 +27,7 @@ export const Store = () => {
       <GenricSection
         isLoading={isLoading}
         isSuccess={isSuccess}
-        className="route-container row sm-column justify-center align-start w12 padding-16 padding-t-32">
+        className="route-container row sm-column sm-justify-center md-justify-center justify-start align-start w12 padding-16 padding-t-32">
         <FilterMenu filters={filters} filterDispatch={filterDispatch} />
         <ProductsList
           product={filteredData}
