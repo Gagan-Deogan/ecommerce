@@ -6,7 +6,7 @@ import { HomeBanner } from "./components/HomeBanner";
 import { GenricSection } from "common-components/GenricSection";
 export const Home = () => {
   const navigate = useNavigate();
-  const { isLoading, isSuccess, data } = useRequest("home");
+  const { isLoading, isSuccess, data } = useRequest("/home");
   const handleProductDetail = (id) => {
     navigate(`/productdetail/${id}`);
   };
@@ -15,7 +15,8 @@ export const Home = () => {
       <GenricSection
         isLoading={isLoading}
         isSuccess={isSuccess}
-        className="column align-center route-cont home-container">
+        className="column align-center route-cont home-container"
+      >
         <HomeBanner />
         {data &&
           Object.entries(data).map(([key, products]) => (

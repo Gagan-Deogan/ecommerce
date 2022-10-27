@@ -86,7 +86,8 @@ export const AuthProvider = ({ children }) => {
         updateUserFullname,
         addNewAddress,
         removeAddress,
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
