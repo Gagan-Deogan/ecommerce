@@ -8,7 +8,7 @@ import { request } from "utils";
 import { useAuth } from "context/AuthProvider";
 export const Login = () => {
   const [email, setEmail] = useState("Gagan@gmail.com");
-  const [password, setPassword] = useState("Gagan@123");
+  const [password, setPassword] = useState("Gagan@0215");
   const [status, setStatus] = useState("IDLE");
   const [error, setError] = useState("");
   const { loginUser } = useAuth();
@@ -37,7 +37,8 @@ export const Login = () => {
         <form
           className="column w12"
           onSubmit={(e) => handleSubmit(e)}
-          action="#">
+          action="#"
+        >
           <div className="column margin-b-16">
             <label htmlFor="email" className="margin-b-8">
               Email
